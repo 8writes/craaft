@@ -29,7 +29,7 @@ const HorizontalNav = () => {
             width={17}
             height={17}
           />
-          <input type='text' className='outline-none' placeholder='Search...' />
+          <input type='text' className='outline-none text-base md:text-sm' placeholder='Search...' />
         </div>
       </section>
 
@@ -50,8 +50,8 @@ const HorizontalNav = () => {
       </section>
 
       <section className='Navigation-Links hidden lg:flex gap-10 items-center'>
-        <p className='text-base cursor-pointer'>Support</p>
-        <p className='text-base cursor-pointer'>FAQ</p>
+        <p className='text-sm cursor-pointer'>Support</p>
+        <p className='text-sm cursor-pointer'>FAQ</p>
         <div className='Notification relative flex w-fit cursor-pointer'>
           <span className='bg-blue-700 absolute -top-1 right-0 text-white px-1  rounded-full text-xs'>
             8
@@ -59,8 +59,8 @@ const HorizontalNav = () => {
           <Image
             src={notificationBell}
             alt='Notification bell'
-            width={25}
-            height={25}
+            width={24}
+            height={24}
           />
         </div>
         <div className='User flex gap-4'>
