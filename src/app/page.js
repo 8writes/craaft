@@ -1,7 +1,16 @@
+/** @format */
+
+import Stats from '@/views/Overview/stats'
+import Graph from '@/views/Overview/graph'
+import Table from '@/views/Overview/table'
+import UserLayout from '../layout/UserLayout'
 
 export default function Home() {
   return (
-    <main className="">
-    </main>
+    <UserLayout>
+      <Stats />
+      <Graph />
+      <Table />
+    </UserLayout>
   )
 }
