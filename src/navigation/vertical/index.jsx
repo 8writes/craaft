@@ -74,7 +74,7 @@ const VerticalNav = () => {
   return (
     <section className='bg-white lg:grid py-12  text-gray-500 hidden'>
       <>
-        <button className='bg-green-600 px-8 mx-10 py-3 cursor-pointer rounded-full text-xs font-semibold uppercase text-white'>
+        <button className='bg-green-600 px-8 w-fit mx-10 py-3 cursor-pointer rounded-full text-xs font-semibold uppercase text-white'>
           Generate Invoice
         </button>
       </>

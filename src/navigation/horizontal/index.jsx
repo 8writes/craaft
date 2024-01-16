@@ -10,7 +10,7 @@ import Link from 'next/link'
 const HorizontalNav = () => {
   return (
     <section className='bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-4 md:px-10 py-3 items-center gap-5'>
-      <section className='flex items-center gap-4 md:gap-10 xl:gap-20'>
+      <section className='flex items-center gap-4 md:gap-10 xl:gap-32'>
         <Link href='/'>
           <Image
             src={logo}
