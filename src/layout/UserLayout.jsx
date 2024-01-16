@@ -1,4 +1,5 @@
 /** @format */
+'use client'
 
 import HorizontalNav from '@/navigation/horizontal'
 import VerticalNav from '@/navigation/vertical'

@@ -21,7 +21,7 @@ const VerticalNav = () => {
     {
       title: 'Overview',
       icon: x33,
-      path: '#',
+      path: '/',
     },
     {
       sectionTitle: 'Payments',
@@ -72,23 +72,30 @@ const VerticalNav = () => {
   ]
 
   return (
-    <section className='bg-white lg:grid py-12 px-10 text-gray-500 hidden'>
-      <div>
-        <button className='bg-green-600 px-8 py-3 cursor-pointer rounded-full text-xs font-semibold uppercase text-white'>
+    <section className='bg-white lg:grid py-12  text-gray-500 hidden'>
+      <>
+        <button className='bg-green-600 px-8 mx-10 py-3 cursor-pointer rounded-full text-xs font-semibold uppercase text-white'>
           Generate Invoice
         </button>
-      </div>
-      <nav className='px-2'>
+      </>
+      <nav>
         {navigationItems.map((item, index) => (
           <div key={index}>
             {item.sectionTitle ? (
-              <div className='section-title mt-7 mb-3'>{item.sectionTitle}</div>
+              <div className='section-title px-10 mt-7 mb-3'>
+                {item.sectionTitle}
+              </div>
             ) : (
               <Link href={item.path}>
                 <div
-                  className={`nav-item text-sm flex gap-4 my-3 ${
-                    index === navigationItems.length - 1 ? 'mt-7' : ''
-                  }`}>
+                  className={`nav-item text-sm px-10 py-2 flex gap-4 my-1
+                    ${
+                      item.path === '/'
+                        ? 'bg-blue-100 border-l-4 border-blue-600'
+                        : 'border-l-4 border-transparent'
+                    } 
+                    ${index === navigationItems.length - 1 ? 'mt-7' : ''}
+                  `}>
                   <Image src={item.icon} alt='' width={20} height={20} />
                   <span>{item.title}</span>
                 </div>
