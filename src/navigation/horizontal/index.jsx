@@ -9,8 +9,8 @@ import Link from 'next/link'
 
 const HorizontalNav = () => {
   return (
-    <section className='bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-4 md:px-10 py-3 items-center gap-5'>
-      <section className='flex items-center gap-4 md:gap-10 xl:gap-32'>
+    <section className='bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-7 2xl:px-10 py-3 items-center gap-5'>
+      <section className='flex items-center gap-24'>
         <Link href='/'>
           <Image
             src={logo}
@@ -70,12 +70,12 @@ const HorizontalNav = () => {
         <div className='User flex gap-4'>
           <span className='text-end hidden lg:block'>
             <p className='text-sm'>Hello</p>
-            <p className='text-lg'>Oluwaleke Ojo</p>
+            <p className='text-base'>Oluwaleke Ojo</p>
           </span>
           <Image
             src={userImage}
             alt='User Profile Image'
-            width={50}
+            width={45}
             height={40}
             className='rounded-full cursor-pointer'
           />

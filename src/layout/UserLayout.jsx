@@ -8,7 +8,7 @@ export default function OverviewLayout({ children }) {
   return (
     <section className='grid'>
       <HorizontalNav />
-      <div className='flex'>
+      <div className='flex bg-gray-100'>
         <VerticalNav />
         {children}
       </div>
