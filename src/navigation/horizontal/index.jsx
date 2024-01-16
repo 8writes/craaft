@@ -9,7 +9,7 @@ import Link from 'next/link'
 
 const HorizontalNav = () => {
   return (
-    <section className='flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-4 md:px-14 py-3 items-center gap-5'>
+    <section className='bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-4 md:px-10 py-3 items-center gap-5'>
       <section className='flex items-center gap-4 md:gap-10 xl:gap-20'>
         <Link href='/'>
           <Image
@@ -29,7 +29,11 @@ const HorizontalNav = () => {
             width={17}
             height={17}
           />
-          <input type='text' className='outline-none text-base md:text-sm' placeholder='Search...' />
+          <input
+            type='text'
+            className='outline-none text-base md:text-sm'
+            placeholder='Search...'
+          />
         </div>
       </section>
 
@@ -73,7 +77,7 @@ const HorizontalNav = () => {
             alt='User Profile Image'
             width={50}
             height={40}
-            className='rounded-full'
+            className='rounded-full cursor-pointer'
           />
         </div>
       </section>
