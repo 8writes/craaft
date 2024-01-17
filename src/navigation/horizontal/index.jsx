@@ -17,7 +17,7 @@ const HorizontalNav = () => {
             className='Logo h-fit'
             alt='TransMonitor Logo'
             width={160}
-            height={10}
+            height={45}
             loading='lazy'
           />
         </Link>
@@ -77,7 +77,7 @@ const HorizontalNav = () => {
             src={userImage}
             alt='User Profile Image'
             width={45}
-            height={10}
+            height={35}
             loading='lazy'
             className='rounded-full cursor-pointer'
           />
