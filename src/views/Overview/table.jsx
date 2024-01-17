@@ -3,10 +3,20 @@
 import Image from 'next/image'
 import searchIcon from '../../../public/searchIcon.svg'
 import { useState } from 'react'
+import avatar from '../../../public/avatar.svg'
 
-
+const columns = [
+  { id: 'item', label: 'Item Type' },
+  { id: 'price', label: 'Price' },
+  { id: 'transaction', label: 'Transaction No' },
+  { id: 'time', label: 'Time' },
+  { id: 'status', label: 'Status' },
+]
 
 const Table = () => {
+  const [page, setPage] = useState(0)
+  const [rowsPerPage ] = useState(10)
+
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false)
   const [selectedValue, setSelectedValue] = useState('All')
 
@@ -16,8 +26,41 @@ const Table = () => {
 
   const value2 = ['All', 'Reconciled', 'Un Reconciled', 'Settled', 'Unsettled']
 
+  const generateDummyData = () => {
+    const dummyData = []
+
+      for (let i = 1; i <= 20; i++) {
+         const status = i % 2 === 0 ? 'Pending' : i % 3 === 0 ? 'Un-reconciled' : 'Reconciled';
+
+      const row = {
+        id: i,
+        item: 'Apple Mac Book 15” 250 SSD 12GB',
+        price: '$73430',
+        transaction: '1234567890',
+        time: '12:30',
+        status
+      }
+
+      dummyData.push(row)
+    }
+
+    return dummyData
+  }
+
+  const data = generateDummyData()
+
+  const handlePrevPage = () => {
+    setPage((prevPage) => Math.max(prevPage - 1, 0))
+  }
+
+  const handleNextPage = () => {
+    setPage((prevPage) =>
+      Math.min(prevPage + 1, Math.ceil(data.length / rowsPerPage) - 1)
+    )
+  }
+
   return (
-    <section>
+    <section className='font-noto'>
       <div className='Table-Header my-5 px-1'>
         <p className='text-3xl'>Payments</p>
         <div className='flex my-5 justify-between items-center'>
@@ -59,15 +102,15 @@ const Table = () => {
             <p className='text-sm'>show</p>
             <span
               onClick={toggleDropdown2}
-              className='flex relative items-center border p-2 gap-20 cursor-pointer rounded-sm border-gray-200'>
+              className='flex relative items-center border w-32 p-2 justify-between cursor-pointer rounded-sm border-gray-200'>
               <p className='text-xs text-gray-500'>{selectedValue}</p>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
-                stroke='#2b57a3'
-                className='w-3 h-3'>
+                stroke='#1251bf'
+                className='w-3 h-4'>
                 <path
                   strokeLinecap='round'
                   strokeLinejoin='round'
@@ -92,7 +135,72 @@ const Table = () => {
           </div>
         </div>
       </div>
-      <div className='Table-Body'></div>
+      <div className='Table-Body overflow-y-auto'>
+        {data && data.length > 0 ? (
+          <div>
+            <table className='your-table-styles w-full'>
+              <thead className='bg-gray-200 p-4'>
+                <tr>
+                  {columns.map((column) => (
+                    <th key={column.id} className='text-start text-base font-normal p-4 text-gray-500'>
+                      {column.label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className='bg-white'>
+                {data
+                  .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+                  .map((row) => (
+                    <tr key={row.id} className='border-b-2'>
+                      <td className='flex items-center text-sm'>
+                        <Image
+                          src={avatar}
+                          alt='Image'
+                          width={35}
+                          height={35}
+                          className='m-4'
+                        />
+                        {row.item}
+                      </td>
+                      {columns.slice(1).map((column) => (
+                        <td key={column.id} className='text-start text-sm p-4 text-gray-600'>
+                          {column.format && typeof row[column.id] === 'number'
+                            ? column.format(row[column.id])
+                            : row[column.id]}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            <div className='pagination flex justify-end my-4'>
+              <span className=' flex items-center border-2 text-sm px-1'>
+                <button
+                  className=' border-r-2 p-1'
+                  onClick={handlePrevPage}
+                  disabled={page === 0}>
+                  Previous
+                </button>
+                <span className='py-1 px-3 bg-blue-600 text-white'>
+                  {page + 1}
+                </span>
+                <span className='py-1 px-3'>
+                  {Math.ceil(data.length / rowsPerPage)}
+                </span>
+                <button
+                  className=' border-l-2 p-1'
+                  onClick={handleNextPage}
+                  disabled={page === Math.ceil(data.length / rowsPerPage) - 1}>
+                  Next
+                </button>
+              </span>
+            </div>
+          </div>
+        ) : (
+          <p>No data available</p>
+        )}
+      </div>
     </section>
   )
 }

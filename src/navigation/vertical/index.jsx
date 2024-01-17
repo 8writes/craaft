@@ -72,8 +72,8 @@ const VerticalNav = () => {
   ]
 
   return (
-    <section className='bg-white lg:grid py-12  text-gray-500 hidden '>
-      <div className='mx-auto'>
+    <section className='bg-white lg:block py-12  text-gray-500 hidden '>
+      <div className='flex justify-center'>
         <button className='bg-green-600 px-8 py-3 cursor-pointer rounded-full text-xs font-semibold uppercase text-white'>
           Generate Invoice
         </button>
@@ -82,13 +82,13 @@ const VerticalNav = () => {
         {navigationItems.map((item, index) => (
           <div key={index}>
             {item.sectionTitle ? (
-              <div className='section-title px-10 mt-7 mb-3'>
+              <div className='section-title px-6 mt-7 mb-3'>
                 {item.sectionTitle}
               </div>
             ) : (
               <Link href={item.path}>
                 <div
-                  className={`nav-item text-sm px-7 py-2 flex gap-4 my-1
+                  className={`nav-item text-sm px-5 py-2 flex gap-4 my-1
                     ${
                       item.path === '/'
                         ? 'bg-blue-100 border-l-4 border-blue-600'
