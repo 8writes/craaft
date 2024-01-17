@@ -72,7 +72,7 @@ const VerticalNav = () => {
   ]
 
   return (
-    <section className='bg-white lg:grid py-12  text-gray-500 hidden max-h-screen overflow-y-auto'>
+    <section className='bg-white lg:grid py-12  text-gray-500 hidden '>
       <div className='mx-auto'>
         <button className='bg-green-600 px-8 py-3 cursor-pointer rounded-full text-xs font-semibold uppercase text-white'>
           Generate Invoice

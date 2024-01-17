@@ -28,18 +28,18 @@ const Stats = () => {
   ]
 
   return (
-    <section className='mx-auto my-10 px-5 md:flex flex-wrap h-fit hidden'>
+    <section className='mx-auto my-10 font-noto md:flex flex-wrap h-fit hidden'>
       {statsItems.map((item, index) => (
-        <div key={index}>
+        <div key={index} className='px-1'>
           <div
-            className={`stats-item bg-white text-sm px-2 2xl:mx-3 py-3 gap-4 flex mx-1 my-2`}>
+            className={`stats-item bg-white w-full text-sm px-2 py-3 xl:gap-4 flex my-2`}>
             <div className='grid'>
               <p className='text-xs'>{item.title}</p>
               <p className='font-semibold text-gray-700'>{item.value}</p>
             </div>
             <Image src={item.icon} alt='' width={60} height={60} />
           </div>
-        </div>
+        </div> 
       ))}
     </section>
   )
