@@ -18,6 +18,7 @@ const HorizontalNav = () => {
             alt='TransMonitor Logo'
             width={160}
             height={160}
+            loading='lazy'
           />
         </Link>
 
@@ -77,6 +78,7 @@ const HorizontalNav = () => {
             alt='User Profile Image'
             width={45}
             height={40}
+            loading='lazy'
             className='rounded-full cursor-pointer'
           />
         </div>
