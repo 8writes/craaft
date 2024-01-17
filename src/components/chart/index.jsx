@@ -32,19 +32,31 @@ export const options = {
       position: 'top',
     },
   },
+  scales: {
+    x: {
+      display: true,
+      title: {
+        display: true,
+          },
+      position: 'top',
+    },
+    y: {
+      display: false,
+    },
+  },
 }
 
-const ChartComponent = () => {
+const ChartComponent = () => {   
 
     const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
     const chartData = {
-     labels,
+      labels,
       datasets: [
         {
           fill: true,
           label: 'Dataset 2',
-          data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+          data: labels.map(() => faker.datatype.number({ min: 40, max: 80 })),
           borderColor: 'rgb(53, 162, 235)',
           backgroundColor: 'rgba(53, 162, 235, 0.5)',
         },
