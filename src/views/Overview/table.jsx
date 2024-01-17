@@ -175,7 +175,7 @@ const Table = () => {
                             : row[column.id]}
                         </td>
                       ))}
-                      <td className='flex items-center justify-between py-4 text-sm '>
+                      <td className='flex items-center justify-between py-4 text-xs '>
                         <div
                           className={`flex flex-1 items-center gap-2 border-2 rounded-full py-2 px-4 ${
                             row.status === 'Pending'
