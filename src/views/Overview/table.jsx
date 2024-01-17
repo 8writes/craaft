@@ -10,12 +10,12 @@ const columns = [
   { id: 'price', label: 'Price' },
   { id: 'transaction', label: 'Transaction No' },
   { id: 'time', label: 'Time' },
-  { id: 'status', label: 'Status' },
+  { id: 'status', label: '' },
 ]
 
 const Table = () => {
   const [page, setPage] = useState(0)
-  const [rowsPerPage ] = useState(10)
+  const [rowsPerPage] = useState(10)
 
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false)
   const [selectedValue, setSelectedValue] = useState('All')
@@ -29,8 +29,9 @@ const Table = () => {
   const generateDummyData = () => {
     const dummyData = []
 
-      for (let i = 1; i <= 20; i++) {
-         const status = i % 2 === 0 ? 'Pending' : i % 3 === 0 ? 'Un-reconciled' : 'Reconciled';
+    for (let i = 1; i <= 20; i++) {
+      const status =
+        i % 2 === 0 ? 'Pending' : i % 3 === 0 ? 'Un-reconciled' : 'Reconciled'
 
       const row = {
         id: i,
@@ -38,7 +39,7 @@ const Table = () => {
         price: '$73430',
         transaction: '1234567890',
         time: '12:30',
-        status
+        status,
       }
 
       dummyData.push(row)
@@ -142,7 +143,9 @@ const Table = () => {
               <thead className='bg-gray-200 p-4'>
                 <tr>
                   {columns.map((column) => (
-                    <th key={column.id} className='text-start text-base font-normal p-4 text-gray-500'>
+                    <th
+                      key={column.id}
+                      className='text-start text-base font-normal p-4 text-gray-500'>
                       {column.label}
                     </th>
                   ))}
@@ -153,28 +156,58 @@ const Table = () => {
                   .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                   .map((row) => (
                     <tr key={row.id} className='border-b-2'>
-                      <td className='flex items-center text-sm'>
+                      <td className='inline-flex items-center text-sm '>
                         <Image
                           src={avatar}
                           alt='Image'
                           width={35}
                           height={35}
-                          className='m-4'
+                          className='mx-4'
                         />
                         {row.item}
                       </td>
-                      {columns.slice(1).map((column) => (
-                        <td key={column.id} className='text-start text-sm p-4 text-gray-600'>
+                      {columns.slice(1, -1).map((column) => (
+                        <td
+                          key={column.id}
+                          className='text-start text-sm p-4 text-gray-600'>
                           {column.format && typeof row[column.id] === 'number'
                             ? column.format(row[column.id])
                             : row[column.id]}
                         </td>
                       ))}
+                      <td className='flex items-center justify-between p-4 text-sm'>
+                        <div
+                          className={`flex items-center gap-2 border-2 rounded-full py-2 px-4 ${
+                            row.status === 'Pending'
+                              ? 'text-yellow-500'
+                              : row.status === 'Reconciled'
+                              ? 'text-green-500'
+                              : 'text-gray-400'
+                          }`}>
+                          <span className=' w-3 h-3 inline-block bg-current rounded-full'></span>{' '}
+                          {row.status}
+                        </div>
+
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          strokeWidth={1.5}
+                          stroke='#b2b1b1'
+                          className='w-6 h-5 cursor-pointer'>
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            d='m19.5 8.25-7.5 7.5-7.5-7.5'
+                          />
+                        </svg>
+                      </td>
                     </tr>
                   ))}
               </tbody>
             </table>
-            <div className='pagination flex justify-end my-4'>
+            <div className='pagination flex justify-between my-5'>
+              <span className='text-sm'>showing 1 to 10 of 500 entries</span>
               <span className=' flex items-center border-2 text-sm px-1'>
                 <button
                   className=' border-r-2 p-1'
