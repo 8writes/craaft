@@ -14,10 +14,10 @@ const HorizontalNav = () => {
         <Link href='/'>
           <Image
             src={logo}
-            className='Logo'
+            className='Logo h-fit'
             alt='TransMonitor Logo'
             width={160}
-            height={160}
+            height={10}
             loading='lazy'
           />
         </Link>
@@ -77,7 +77,7 @@ const HorizontalNav = () => {
             src={userImage}
             alt='User Profile Image'
             width={45}
-            height={40}
+            height={10}
             loading='lazy'
             className='rounded-full cursor-pointer'
           />
