@@ -30,7 +30,7 @@ const Stats = () => {
   ]
 
   return (
-    <section className='my-10 gap-5 2xl:gap-10 mx-auto w-full  justify-between font-noto md:flex h-fit hidden'>
+    <section className='my-9 gap-5 2xl:gap-10 mx-auto w-full  justify-between font-noto md:flex h-fit hidden'>
       <div className='flex gap-2'>
         {statsItems1.map((item, index) => (
           <div key={index}>
