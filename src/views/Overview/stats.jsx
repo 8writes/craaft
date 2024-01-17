@@ -40,7 +40,13 @@ const Stats = () => {
                 <p className='text-xs text-gray-500'>{item.title}</p>
                 <p className='font-semibold text-gray-700'>{item.value}</p>
               </div>
-              <Image src={item.icon} alt='' width={70} height={70} />
+              <Image
+                src={item.icon}
+                alt=''
+                width={70}
+                height={70}
+                loading='lazy'
+              />
             </div>
           </div>
         ))}
@@ -54,7 +60,13 @@ const Stats = () => {
                 <p className='text-xs text-gray-500'>{item.title}</p>
                 <p className='font-semibold text-gray-700'>{item.value}</p>
               </div>
-              <Image src={item.icon} alt='' width={70} height={70} />
+              <Image
+                src={item.icon}
+                alt=''
+                width={70}
+                height={70}
+                loading='lazy'
+              />
             </div>
           </div>
         ))}

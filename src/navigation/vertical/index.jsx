@@ -96,7 +96,13 @@ const VerticalNav = () => {
                     } 
                     ${index === navigationItems.length - 1 ? 'mt-7' : ''}
                   `}>
-                  <Image src={item.icon} alt='' width={20} height={20} />
+                  <Image
+                    src={item.icon}
+                    alt=''
+                    width={20}
+                    height={20}
+                    loading='lazy'
+                  />
                   <span>{item.title}</span>
                 </div>
               </Link>
