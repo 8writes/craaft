@@ -72,7 +72,7 @@ const Chart = () => {
         <ChartComponent />
       </section>
       <section className='grid gap-1 w-1/3'>
-        <div className='bg-white p-5'>
+        <div className='grid bg-white p-5'>
           <p className='font-semibold'>Orders</p>
           <span style={barStyle()}></span>
           <p className='text-sm'>
@@ -88,7 +88,7 @@ const Chart = () => {
             <span className='text-blue-700 font-semibold'>100</span>
           </p>
         </div>
-        <div className='bg-white p-5'>
+        <div className='grid bg-white p-5'>
           <p className='font-semibold'>Payments</p>
           <span style={barStyle()}></span>
           <p className='text-sm'>

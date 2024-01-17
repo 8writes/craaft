@@ -175,9 +175,9 @@ const Table = () => {
                             : row[column.id]}
                         </td>
                       ))}
-                      <td className='flex items-center justify-between p-4 text-sm'>
+                      <td className='flex items-center justify-between py-4 text-sm '>
                         <div
-                          className={`flex items-center gap-2 border-2 rounded-full py-2 px-4 ${
+                          className={`flex flex-1 items-center gap-2 border-2 rounded-full py-2 px-4 ${
                             row.status === 'Pending'
                               ? 'text-yellow-500'
                               : row.status === 'Reconciled'
@@ -194,7 +194,7 @@ const Table = () => {
                           viewBox='0 0 24 24'
                           strokeWidth={1.5}
                           stroke='#b2b1b1'
-                          className='w-6 h-5 cursor-pointer'>
+                          className='w-6 h-5 cursor-pointer flex-1'>
                           <path
                             strokeLinecap='round'
                             strokeLinejoin='round'
@@ -208,7 +208,7 @@ const Table = () => {
             </table>
             <div className='pagination flex justify-between my-5'>
               <span className='text-sm'>showing 1 to 10 of 500 entries</span>
-              <span className=' flex items-center border-2 text-sm px-1'>
+              <span className=' flex items-center border-2 rounded-sm text-sm px-1'>
                 <button
                   className=' border-r-2 p-1'
                   onClick={handlePrevPage}

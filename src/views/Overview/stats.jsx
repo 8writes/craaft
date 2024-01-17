@@ -4,7 +4,7 @@ import Image from 'next/image'
 import graph from '../../../public/graph.svg'
 
 const Stats = () => {
-  const statsItems = [
+  const statsItems1 = [
     {
       title: 'Daily Transaction Volume',
       icon: graph,
@@ -15,6 +15,8 @@ const Stats = () => {
       icon: graph,
       value: '4,000,000',
     },
+  ]
+  const statsItems2 = [
     {
       title: 'Total Transaction Volume',
       icon: graph,
@@ -28,19 +30,35 @@ const Stats = () => {
   ]
 
   return (
-    <section className='mx-auto my-10 font-noto md:flex flex-wrap h-fit hidden'>
-      {statsItems.map((item, index) => (
-        <div key={index} className='px-1'>
-          <div
-            className={`stats-item bg-white w-full text-sm px-2 py-3 xl:gap-4 flex my-2`}>
-            <div className='grid'>
-              <p className='text-xs'>{item.title}</p>
-              <p className='font-semibold text-gray-700'>{item.value}</p>
+    <section className='my-10 gap-5 2xl:gap-10 mx-auto w-full  justify-between font-noto md:flex h-fit hidden'>
+      <div className='flex gap-2'>
+        {statsItems1.map((item, index) => (
+          <div key={index}>
+            <div
+              className={`stats-item bg-white w-full text-sm px-4 py-5 gap-4 flex my-2`}>
+              <div className='grid'>
+                <p className='text-xs text-gray-500'>{item.title}</p>
+                <p className='font-semibold text-gray-700'>{item.value}</p>
+              </div>
+              <Image src={item.icon} alt='' width={70} height={70} />
             </div>
-            <Image src={item.icon} alt='' width={60} height={60} />
           </div>
-        </div> 
-      ))}
+        ))}
+      </div>
+      <div className='flex gap-2'>
+        {statsItems2.map((item, index) => (
+          <div key={index}>
+            <div
+              className={`stats-item bg-white w-full text-sm px-4 py-5 gap-4 flex my-2`}>
+              <div className='grid'>
+                <p className='text-xs text-gray-500'>{item.title}</p>
+                <p className='font-semibold text-gray-700'>{item.value}</p>
+              </div>
+              <Image src={item.icon} alt='' width={70} height={70} />
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   )
 }
