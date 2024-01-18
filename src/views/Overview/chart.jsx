@@ -14,7 +14,7 @@ const Chart = () => {
   return (
     <section className='flex font-noto gap-1 px-1'>
       <section className='bg-white grid w-2/3'>
-        <div className='flex justify-between items-center px-10 py-5'>
+        <div className='flex justify-between items-center px-10 pt-5'>
           <div>
             <p className='text-base font-semibold text-gray-600'>
               Today: {new Date().toDateString()}
