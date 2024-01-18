@@ -27,6 +27,7 @@ ChartJS.register(
 
 export const options = {
   responsive: true,
+  aspectRatio: 1/0,
   plugins: {
     legend: {
       position: 'top',
@@ -44,7 +45,8 @@ export const options = {
       display: false,
     },
   },
-}
+  
+};
 
 const ChartComponent = () => {   
 
