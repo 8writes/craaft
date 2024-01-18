@@ -24,7 +24,7 @@ const Table = () => {
     setIsDropdownOpen2((prevState) => !prevState)
   }
 
-  const value2 = ['All', 'Reconciled', 'Un Reconciled', 'Settled', 'Unsettled']
+  const value2 = ['All', 'Reconciled', 'Un-Reconciled', 'Settled', 'Unsettled']
 
   const generateDummyData = () => {
     const dummyData = []
@@ -50,13 +50,21 @@ const Table = () => {
 
   const data = generateDummyData()
 
+  const filteredData = data.filter((row) => {
+    if (selectedValue === 'All') {
+      return true
+    } else {
+      return row.status.toLowerCase() === selectedValue.toLowerCase()
+    }
+  })
+
   const handlePrevPage = () => {
     setPage((prevPage) => Math.max(prevPage - 1, 0))
   }
 
   const handleNextPage = () => {
     setPage((prevPage) =>
-      Math.min(prevPage + 1, Math.ceil(data.length / rowsPerPage) - 1)
+      Math.min(prevPage + 1, Math.ceil(filteredData.length / rowsPerPage) - 1)
     )
   }
 
@@ -137,7 +145,7 @@ const Table = () => {
         </div>
       </div>
       <div className='Table-Body overflow-y-auto'>
-        {data && data.length > 0 ? (
+        {filteredData && filteredData.length > 0 ? (
           <div>
             <table className='your-table-styles w-full'>
               <thead className='bg-gray-200 p-4'>
@@ -152,7 +160,7 @@ const Table = () => {
                 </tr>
               </thead>
               <tbody className='bg-white'>
-                {data
+                {filteredData
                   .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                   .map((row) => (
                     <tr key={row.id} className='border-b-2'>
@@ -207,7 +215,9 @@ const Table = () => {
               </tbody>
             </table>
             <div className='pagination flex justify-between my-5'>
-              <span className='text-sm'>showing 1 to 10 of 500 entries</span>
+              <span className='text-sm'>
+                showing 1 to 10 of {filteredData.length} entries
+              </span>
               <span className=' flex items-center border-2 rounded-sm text-sm px-1'>
                 <button
                   className=' border-r-2 p-1'
@@ -219,19 +229,21 @@ const Table = () => {
                   {page + 1}
                 </span>
                 <span className='py-1 px-3'>
-                  {Math.ceil(data.length / rowsPerPage)}
+                  {Math.ceil(filteredData.length / rowsPerPage)}
                 </span>
                 <button
                   className=' border-l-2 p-1'
                   onClick={handleNextPage}
-                  disabled={page === Math.ceil(data.length / rowsPerPage) - 1}>
+                  disabled={
+                    page === Math.ceil(filteredData.length / rowsPerPage) - 1
+                  }>
                   Next
                 </button>
               </span>
             </div>
           </div>
         ) : (
-          <p>No data available</p>
+          <p className='text-center'>No data available</p>
         )}
       </div>
     </section>
