@@ -69,7 +69,9 @@ const Chart = () => {
             </button>
           </div>
         </div>
+
       <ChartComponent />
+
       </section>
       <section className='grid gap-1 w-1/3'>
         <div className='grid bg-white p-5'>
