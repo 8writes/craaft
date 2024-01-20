@@ -6,12 +6,17 @@ import VerticalNav from '@/navigation/vertical'
 
 export default function OverviewLayout({ children }) {
   return (
-    <section className='grid '>
-      <HorizontalNav />
-      <div className='flex bg-gray-100'>
-        <VerticalNav />
-        {children}
+    <>
+      <div className='lg:hidden flex justify-center my-20'>
+        <p className='text-2xl'>Only available on laptop view 1024px upwards</p>
       </div>
-    </section>
+      <section className='lg:grid hidden'>
+        <HorizontalNav />
+        <div className='flex bg-gray-100'>
+          <VerticalNav />
+          {children}
+        </div>
+      </section>
+    </>
   )
 }
