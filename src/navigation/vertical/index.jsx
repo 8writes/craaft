@@ -110,7 +110,7 @@ const VerticalNav = ({ isActive }) => {
                     ${
                       pathname === item.path
                         ? 'bg-indigo-100 border-l-4 border-indigo-600'
-                        : 'border-l-4 border-transparent hover:border-indigo-600 hover:bg-indigo-100'
+                        : 'border-l-4 border-transparent md:hover:border-indigo-600 md:hover:bg-indigo-100'
                     } 
                   `}>
                       {item.icon}
