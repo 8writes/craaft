@@ -33,12 +33,11 @@ const HorizontalNav = () => {
             />
           </svg>
           <div className='relative'>
-            <span className='absolute -left-5'>
-              <VerticalNav isActive={isActive} />
-            </span>
+            <div className={`absolute -left-5 transition-all ${isActive ? '' : ' -left-96'}`}>
+              <VerticalNav />
+            </div>
           </div>
         </span>
-
         <section className=' justify-between items-center gap-24 hidden md:inline-block'>
           <Link href='/'>
             <Image

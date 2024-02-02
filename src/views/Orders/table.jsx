@@ -121,7 +121,7 @@ const Table = () => {
                 />
               </svg>
               {isDropdownOpen2 && (
-                <div className='absolute z-50 left-0 right-0 top-8 rounded-b-md w-full shadow-md bg-white'>
+                <div className='absolute z-20 left-0 right-0 top-8 rounded-b-md w-full shadow-md bg-white'>
                   {value2.map((value, index) => (
                     <p
                       role='button'
