@@ -11,7 +11,7 @@ const columns = [
   { id: 'image', label: 'Preview' },
   { id: 'item', label: 'Product' },
   { id: 'email', label: 'Email' },
-  { id: 'reference_id', label: 'Reference Id' },
+  { id: 'reference_id', label: 'Reference-Id' },
   { id: 'date', label: 'Date' },
   {
     id: 'price',
@@ -142,7 +142,7 @@ const Table = () => {
       <div className='Table-Body'>
         {filteredData && filteredData.length > 0 ? (
           <div>
-            <div className='overflow-x-auto'>
+            <div className='overflow-x-auto rounded-md'>
               <table className='your-table-styles table-auto w-full'>
                 <thead className='bg-indigo-500 p-4'>
                   <tr>

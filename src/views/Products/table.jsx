@@ -62,7 +62,9 @@ const Table = () => {
   return (
     <section className='font-noto'>
       <div className='Table-Header px-1'>
-        <p className=' text-2xl md:text-3xl font-semibold text-gray-600'>Products</p>
+        <p className=' text-2xl md:text-3xl font-semibold text-gray-600'>
+          Products
+        </p>
         <div className='flex my-5 gap-2 justify-between items-center'>
           <span className='flex w-full md:w-1/3 gap-2 border-b border-gray-500 '>
             <input
@@ -88,7 +90,7 @@ const Table = () => {
       <div className='Table-Body'>
         {data && data.length > 0 ? (
           <>
-            <div className='overflow-x-auto'>
+            <div className='overflow-x-auto rounded-md'>
               <table className='your-table-styles table-auto w-full'>
                 <thead className='bg-indigo-500 p-4'>
                   <tr>
@@ -164,9 +166,7 @@ const Table = () => {
               </table>
             </div>
             <div className='pagination flex items-center justify-between my-5'>
-              <span className='text-sm px-2'>
-                10 of {data.length} entries
-              </span>
+              <span className='text-sm px-2'>10 of {data.length} entries</span>
               <span className=' flex items-center border-2 rounded-sm text-sm px-1'>
                 <button
                   className=' border-r-2 p-1'
