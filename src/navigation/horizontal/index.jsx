@@ -19,23 +19,23 @@ const HorizontalNav = () => {
     body.classList.toggle('no-scroll')
   }
 
-   useEffect(() => {
-     const closeNavOnClickOutside = (event) => {
-       if (
-         isActive &&
-         navigationRef.current &&
-         !navigationRef.current.contains(event.target)
-       ) {
-         setIsActive(false)
-       }
-     }
+  useEffect(() => {
+    const closeNavOnClickOutside = (event) => {
+      if (
+        isActive &&
+        navigationRef.current &&
+        !navigationRef.current.contains(event.target)
+      ) {
+        setIsActive(false)
+      }
+    }
 
-     document.addEventListener('click', closeNavOnClickOutside)
+    document.addEventListener('click', closeNavOnClickOutside)
 
-     return () => {
-       document.removeEventListener('click', closeNavOnClickOutside)
-     }
-   }, [isActive])
+    return () => {
+      document.removeEventListener('click', closeNavOnClickOutside)
+    }
+  }, [isActive])
 
   return (
     <section className='fixed bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-5 2xl:px-10 py-3 items-center gap-5'>
@@ -56,7 +56,7 @@ const HorizontalNav = () => {
           </svg>
           <div className='relative'>
             <div
-              className={`absolute -left-5 transition-all ease-in-out ${
+              className={`absolute -left-5 w-screen transition-all ease-in-out ${
                 isActive ? '' : ' -left-96'
               }`}>
               <VerticalNav />
@@ -65,7 +65,7 @@ const HorizontalNav = () => {
         </span>
         <section
           ref={navigationRef}
-           className=' justify-between items-center gap-24 hidden md:inline-block'>
+          className=' justify-between items-center gap-24 hidden md:inline-block'>
           <Link href='/'>
             <Image
               src={logo}
