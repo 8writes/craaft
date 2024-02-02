@@ -14,9 +14,6 @@ const HorizontalNav = () => {
 
   const handleActive = () => {
     setIsActive((prevState) => !prevState)
-
-    const body = document.body
-    body.classList.toggle('no-scroll')
   }
 
   useEffect(() => {
@@ -38,7 +35,9 @@ const HorizontalNav = () => {
   }, [isActive])
 
   return (
-    <section className='fixed bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-5 2xl:px-10 py-3 items-center gap-5'>
+    <section
+      ref={navigationRef}
+      className='fixed bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-5 2xl:px-10 py-3 items-center gap-5'>
       <div className='flex items-center gap-5'>
         <span className='Mobile Navigation lg:hidden' onClick={handleActive}>
           <svg
@@ -63,9 +62,7 @@ const HorizontalNav = () => {
             </div>
           </div>
         </span>
-        <section
-          ref={navigationRef}
-          className=' justify-between items-center gap-24 hidden md:inline-block'>
+        <section className=' justify-between items-center gap-24 hidden md:inline-block'>
           <Link href='/'>
             <Image
               src={logo}

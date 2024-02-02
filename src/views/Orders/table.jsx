@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import searchIcon from '../../../public/searchIcon.svg'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import avatar from '../../../public/avatar.svg'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 
@@ -32,7 +32,7 @@ const Table = () => {
   const toggleDropdown2 = () => {
     setIsDropdownOpen2((prevState) => !prevState)
   }
-
+  
   const value2 = ['All', 'Delivered', 'Pending', 'Refunded' ]
 
   const generateDummyData = () => {
