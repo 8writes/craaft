@@ -156,7 +156,7 @@ const Table = () => {
                             <span className=' w-3 h-3 inline-block bg-current rounded-full'></span>{' '}
                             {row.inventory}
                           </div>
-                          <MoreVertIcon className='flex-1 text-gray-600 cursor-pointer' />
+                          <MoreVertIcon className='text-gray-600 cursor-pointer' />
                         </td>
                       </tr>
                     ))}
