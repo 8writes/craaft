@@ -4,10 +4,11 @@ import React, { useState } from 'react'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 
 const UserProfileForm = () => {
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [subscriptionType, setSubscriptionType] = useState('')
+  const [fullName, setFullName] = useState('emmanuel chisom')
+  const [email, setEmail] = useState('mailemmanuel00@gmail.com')
+  const [phoneNumber, setPhoneNumber] = useState('0807462838')
+  const [subscriptionType, setSubscriptionType] = useState('Free')
+  const [active, setActive] = useState('1/11/2018')
   const [isEditing, setEditing] = useState(false)
 
   const handleEditClick = () => {
@@ -92,7 +93,9 @@ const UserProfileForm = () => {
             <p className='md:flex-1 text-base'>Active Since</p>
             <input
               type='text'
+              value={active}
               className='md:flex-1 text-base bg-gray-100'
+              onChange={(e) => setActive(e.target.value)}
               disabled={true}
               placeholder='1/11/2018'
             />
