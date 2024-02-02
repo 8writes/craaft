@@ -99,9 +99,6 @@ const Table = () => {
             />
           </span>
           <div className='flex gap-2 items-center'>
-            <p className='text-sm text-gray-700 text-end justify-end w-1/2 md:w-1/3 '>
-              Filter by
-            </p>
             <span
               role='button'
               onClick={toggleDropdown2}
