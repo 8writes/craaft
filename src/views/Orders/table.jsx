@@ -83,7 +83,7 @@ const Table = () => {
         <p className='text-2xl md:text-3xl font-semibold text-gray-600'>
           Orders
         </p>
-        <div className='flex my-5 gap-2 justify-between items-center'>
+        <div className='flex my-5 gap-5 justify-between items-center'>
           <span className='flex justify-end w-full md:w-1/3 gap-2 border-b border-gray-500 '>
             <input
               type='text'
@@ -99,10 +99,13 @@ const Table = () => {
             />
           </span>
           <div className='flex gap-2 items-center'>
+            <p className='text-sm hidden md:inline-block text-gray-700 text-end justify-end w-1/2 md:w-1/3 '>
+              Filter by
+            </p>
             <span
               role='button'
               onClick={toggleDropdown2}
-              className='flex relative items-center border w-44 md:w-32 p-2 justify-between cursor-pointer rounded-sm border-gray-200'>
+              className='flex relative items-center border w-32 p-2 justify-between cursor-pointer rounded-sm border-gray-200'>
               <p className='text-xs text-gray-500'>{selectedValue}</p>
               <svg
                 xmlns='http://www.w3.org/2000/svg'

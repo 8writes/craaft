@@ -65,7 +65,7 @@ const Table = () => {
         <p className=' text-2xl md:text-3xl font-semibold text-gray-600'>
           Products
         </p>
-        <div className='flex my-5 gap-2 justify-between items-center'>
+        <div className='flex my-5 gap-1 justify-between items-center'>
           <span className='flex w-full md:w-1/3 gap-2 border-b border-gray-500 '>
             <input
               type='text'
