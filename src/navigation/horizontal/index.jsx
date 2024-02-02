@@ -14,6 +14,9 @@ const HorizontalNav = () => {
 
   const handleActive = () => {
     setIsActive((prevState) => !prevState)
+
+    const body = document.body
+    body.classList.toggle('no-scroll')
   }
 
   useEffect(() => {
