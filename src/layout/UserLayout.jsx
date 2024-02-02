@@ -3,20 +3,22 @@
 
 import HorizontalNav from '@/navigation/horizontal'
 import VerticalNav from '@/navigation/vertical'
+import PropTypes from 'prop-types'
 
 export default function OverviewLayout({ children }) {
   return (
     <>
-      <div className='lg:hidden flex justify-center my-20'>
-        <p className='text-2xl'>Only available on laptop view 1024px upwards</p>
-      </div>
-      <section className='lg:grid hidden'>
-        <HorizontalNav />
-        <div className='flex bg-gray-100'>
-          <VerticalNav />
+      <HorizontalNav />
+      <div className='flex bg-gray-100'>
+        <VerticalNav />
+        <div className='pt-24 pb-10 px-2 md:px-10 mx-auto h-screen overflow-y-auto w-full'>
           {children}
         </div>
-      </section>
+      </div>
     </>
   )
+}
+
+OverviewLayout.propTypes = {
+  children: PropTypes.node.isRequired,
 }
