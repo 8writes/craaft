@@ -11,7 +11,7 @@ const columns = [
   { id: 'image', label: 'Preview' },
   { id: 'item', label: 'Product' },
   { id: 'email', label: 'Email' },
-  { id: 'reference_id', label: 'Reference-Id' },
+  { id: 'reference_id', label: 'ReferenceId' },
   { id: 'date', label: 'Date' },
   {
     id: 'price',
