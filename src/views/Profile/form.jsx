@@ -35,7 +35,7 @@ const UserProfileForm = () => {
             <input
               type='text'
               value={fullName}
-              className='md:flex-1 bg-gray-100'
+              className='md:flex-1 bg-gray-100 text-gray-700'
               onChange={(e) => setFullName(e.target.value)}
               disabled={true}
               placeholder='emmanuel chisom'
@@ -47,7 +47,7 @@ const UserProfileForm = () => {
             <input
               type='email'
               value={email}
-              className='md:flex-1'
+              className='md:flex-1 text-gray-700'
               onChange={(e) => setEmail(e.target.value)}
               disabled={!isEditing}
               placeholder='mailemmanuel00@gmail.com'
@@ -58,7 +58,7 @@ const UserProfileForm = () => {
             <input
               type='number'
               value={phoneNumber}
-              className='md:flex-1 text-gray-600'
+              className='md:flex-1 text-gray-700'
               onChange={(e) => setPhoneNumber(e.target.value)}
               disabled={!isEditing}
               placeholder='0807462838'
@@ -83,7 +83,7 @@ const UserProfileForm = () => {
             <input
               type='text'
               value={subscriptionType}
-              className='md:flex-1 text-xl bg-gray-100'
+              className='md:flex-1 text-xl text-gray-700 bg-gray-100'
               onChange={(e) => setSubscriptionType(e.target.value)}
               disabled={true}
               placeholder='Trial 14 days'
@@ -94,7 +94,7 @@ const UserProfileForm = () => {
             <input
               type='text'
               value={active}
-              className='md:flex-1 text-base bg-gray-100'
+              className='md:flex-1 text-base text-gray-700 bg-gray-100'
               onChange={(e) => setActive(e.target.value)}
               disabled={true}
               placeholder='1/11/2018'
