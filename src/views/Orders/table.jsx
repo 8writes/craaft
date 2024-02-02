@@ -78,7 +78,7 @@ const Table = () => {
   }
 
   return (
-    <section className='font-noto'>
+    <section className='font-noto z-10'>
       <div className='Table-Header px-1'>
         <p className='text-2xl md:text-3xl font-semibold text-gray-600'>
           Orders

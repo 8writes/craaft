@@ -38,9 +38,7 @@ const HorizontalNav = () => {
    }, [isActive])
 
   return (
-    <section
-      ref={navigationRef}
-      className='fixed bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-5 2xl:px-10 py-3 items-center gap-5'>
+    <section className='fixed bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-5 2xl:px-10 py-3 items-center gap-5'>
       <div className='flex items-center gap-5'>
         <span className='Mobile Navigation lg:hidden' onClick={handleActive}>
           <svg
@@ -58,14 +56,16 @@ const HorizontalNav = () => {
           </svg>
           <div className='relative'>
             <div
-              className={`absolute -left-5 transition-all ${
+              className={`absolute -left-5 transition-all ease-in-out ${
                 isActive ? '' : ' -left-96'
               }`}>
               <VerticalNav />
             </div>
           </div>
         </span>
-        <section className=' justify-between items-center gap-24 hidden md:inline-block'>
+        <section
+          ref={navigationRef}
+           className=' justify-between items-center gap-24 hidden md:inline-block'>
           <Link href='/'>
             <Image
               src={logo}
