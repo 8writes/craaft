@@ -82,7 +82,7 @@ const VerticalNav = ({ isActive }) => {
   ]
 
   return (
-    <div className='w-screen z-20 bg-transparent'>
+    <div className='w-screen md:w-fit z-20 bg-transparent'>
       <section
         className={`mt-6 lg:mt-16 md:pt-10 z-20 pb-24 bg-white transition-all ease-in-out lg:block text-gray-500 h-screen overflow-y-auto w-56`}>
         <nav>
