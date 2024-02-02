@@ -32,14 +32,9 @@ const UserProfileForm = () => {
           className='grid gap-5 text-base w-full md:text-xl md:w-2/4 font-semibold text-gray-600'>
           <label className='grid md:flex'>
             <p className='md:flex-1'>Name</p>
-            <input
-              type='text'
-              value={fullName}
-              className='md:flex-1 bg-gray-100 text-gray-700'
-              onChange={(e) => setFullName(e.target.value)}
-              disabled={true}
-              placeholder='emmanuel chisom'
-            />
+            <p className='md:flex-1 bg-gray-100 text-gray-700'>
+              emmanuel chisom
+            </p>
           </label>
 
           <label className='grid md:flex'>
@@ -80,25 +75,11 @@ const UserProfileForm = () => {
           </div>
           <label className='grid md:flex'>
             <p className='md:flex-1 text-xl'>Subscription</p>
-            <input
-              type='text'
-              value={subscriptionType}
-              className='md:flex-1 text-xl text-gray-700 bg-gray-100'
-              onChange={(e) => setSubscriptionType(e.target.value)}
-              disabled={true}
-              placeholder='Trial 14 days'
-            />
+            <p className='md:flex-1 bg-gray-100 text-gray-700'>Trial 14 days</p>
           </label>
           <label className='grid md:flex'>
             <p className='md:flex-1 text-base'>Active Since</p>
-            <input
-              type='text'
-              value={active}
-              className='md:flex-1 text-base text-gray-700 bg-gray-100'
-              onChange={(e) => setActive(e.target.value)}
-              disabled={true}
-              placeholder='1/11/2018'
-            />
+            <p className='md:flex-1 text-base bg-gray-100 text-gray-700'>1/11/2018</p>
           </label>
         </form>
         <div>
