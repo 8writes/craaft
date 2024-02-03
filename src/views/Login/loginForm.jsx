@@ -7,8 +7,9 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import { ToastContainer, toast, Bounce } from 'react-toastify'
+import { toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
 const LoginForm = () => {
   const router = useRouter()
