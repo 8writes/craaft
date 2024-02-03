@@ -1,16 +1,17 @@
 /** @format */
+
 'use client'
 
 import OverviewLayout from '@/layout/UserLayout'
-import Table from '@/views/Orders/table'
+import PasswordForm from '@/views/Settings/passwordForm'
 
-export default function Orders() {
+export default function Settings() {
   return (
     <OverviewLayout>
       <p className='text-2xl uppercase md:text-3xl font-semibold text-gray-600'>
-        Orders
+       Settings
       </p>
-      <Table />
+      <PasswordForm />
     </OverviewLayout>
   )
 }

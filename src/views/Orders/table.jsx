@@ -80,14 +80,11 @@ const Table = () => {
   return (
     <section className='font-noto z-10'>
       <div className='Table-Header px-1'>
-        <p className='text-2xl md:text-3xl font-semibold text-gray-600'>
-          Orders
-        </p>
         <div className='flex my-5 gap-5 justify-between items-center'>
           <span className='flex justify-end w-full md:w-1/3 gap-2 border-b border-gray-500 '>
             <input
               type='text'
-              className='outline-none bg-transparent w-full text-base md:text-sm'
+              className='outline-none font-semibold bg-transparent w-full text-base md:text-sm'
               placeholder='Search reference id'
             />{' '}
             <Image
@@ -99,14 +96,16 @@ const Table = () => {
             />
           </span>
           <div className='flex gap-2 items-center'>
-            <p className='text-sm hidden md:inline-block text-gray-700 text-end justify-end w-1/2 md:w-1/3 '>
+            <p className='text-sm hidden font-semibold md:inline-block text-gray-700 text-end justify-end w-1/2 md:w-1/3 '>
               Filter by
             </p>
             <span
               role='button'
               onClick={toggleDropdown2}
               className='flex relative items-center border w-32 p-2 justify-between cursor-pointer rounded-sm border-gray-200'>
-              <p className='text-xs text-gray-500'>{selectedValue}</p>
+              <p className='text-xs text-gray-500 font-semibold'>
+                {selectedValue}
+              </p>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
@@ -142,20 +141,20 @@ const Table = () => {
       <div className='Table-Body'>
         {filteredData && filteredData.length > 0 ? (
           <div>
-            <div className='overflow-x-auto rounded-md'>
+            <div className='overflow-x-auto rounded-md shadow-md'>
               <table className='your-table-styles table-auto w-full'>
-                <thead className='bg-indigo-500 p-4'>
+                <thead className='bg-indigo-500 p-4 '>
                   <tr>
                     {columns.map((column) => (
                       <th
                         key={column.id}
-                        className='text-start text-base font-normal p-4 text-white'>
+                        className='text-start font-semibold text-sm p-4 text-white'>
                         {column.label}
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className='bg-gray-100'>
+                <tbody className='bg-gray-100 font-semibold'>
                   {filteredData
                     .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                     .map((row) => (
@@ -217,7 +216,7 @@ const Table = () => {
                 </tbody>
               </table>
             </div>
-            <div className='pagination flex items-center justify-between my-5'>
+            <div className='pagination flex items-center text-gray-600 font-semibold justify-between my-5'>
               <span className='text-sm px-2'>
                 10 of {filteredData.length} entries
               </span>
@@ -228,9 +227,7 @@ const Table = () => {
                   disabled={page === 0}>
                   Previous
                 </button>
-                <span className='py-1 px-3 bg-blue-600 text-white'>
-                  {page + 1}
-                </span>
+                <span className='py-1 px-3  bg-indigo-300'>{page + 1}</span>
                 <span className='py-1 px-3'>
                   {Math.ceil(filteredData.length / rowsPerPage)}
                 </span>

@@ -22,10 +22,7 @@ const UserProfileForm = () => {
   }
 
   return (
-    <div className='px-4'>
-      <p className='text-2xl md:text-3xl font-semibold text-gray-600'>
-        Personal Info
-      </p>
+    <div>
       <div className='grid gap-20 py-10'>
         <form
           onSubmit={handleSubmit}
@@ -62,13 +59,13 @@ const UserProfileForm = () => {
           <div className='flex gap-2 justify-end '>
             {isEditing && (
               <button
-                className='border-2 py-1 px-6 text-gray-600 text-xs rounded-sm'
+                className='border-2 py-1 px-6 text-gray-600 uppercase text-xs rounded-md'
                 onClick={handleEditClick}>
                 Save
               </button>
             )}
             <button
-              className='border-2 py-1 px-6 text-xs uppercase text-gray-600 rounded-sm'
+              className='border-2 py-1 px-2 text-xs uppercase text-gray-600 rounded-md'
               onClick={handleEditClick}>
               {isEditing ? 'Cancel' : 'Update Info'}
             </button>
@@ -79,11 +76,13 @@ const UserProfileForm = () => {
           </label>
           <label className='grid md:flex'>
             <p className='md:flex-1 text-base'>Active Since</p>
-            <p className='md:flex-1 text-base bg-gray-100 text-gray-700'>1/11/2018</p>
+            <p className='md:flex-1 text-base bg-gray-100 text-gray-700'>
+              1/11/2018
+            </p>
           </label>
         </form>
         <div>
-          <button className='border-2 py-1 px-6 border-red-500 uppercase text-base text-red-600 rounded-sm'>
+          <button className='border-2 py-1 px-6 border-red-500 uppercase text-base text-red-600 rounded-md'>
             <DeleteOutlineIcon /> Delete Account
           </button>
         </div>

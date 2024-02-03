@@ -13,7 +13,7 @@ export default function OverviewLayout({ children }) {
         <div className='hidden lg:block'>
           <VerticalNav />
         </div>
-        <div className='pt-24 pb-10 px-2 md:px-10 mx-auto h-screen overflow-y-auto w-full'>
+        <div className='pt-24 pb-10 px-5 md:px-10 mx-auto h-screen overflow-y-auto w-full'>
           {children}
         </div>
       </div>

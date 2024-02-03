@@ -2,40 +2,47 @@
 
 import Image from 'next/image'
 import notificationBell from '../../../public/bell.svg'
-import userImage from '../../../public/user.svg'
+import userImage from '../../../public/basic-info.png'
 import logo from '../../../public/logo.svg'
 import Link from 'next/link'
 import VerticalNav from '../vertical'
 import { useState, useEffect, useRef } from 'react'
 
 const HorizontalNav = () => {
-  const [isActive, setIsActive] = useState(false)
-  const navigationRef = useRef(null)
+ const [isActive, setIsActive] = useState(false)
+ const navigationRef = useRef(null)
+ const [showDropdown, setShowDropdown] = useState(false)
 
-  const handleActive = () => {
-    setIsActive((prevState) => !prevState)
+ const handleActive = () => {
+   setIsActive((prevState) => !prevState)
+   setShowDropdown(false)
 
-    const body = document.body
-    body.classList.toggle('no-scroll')
-  }
+   const body = document.body
+   body.classList.toggle('no-scroll')
+ }
 
-  useEffect(() => {
-    const closeNavOnClickOutside = (event) => {
-      if (
-        isActive &&
-        navigationRef.current &&
-        !navigationRef.current.contains(event.target)
-      ) {
-        setIsActive(false)
-      }
-    }
+ const handleDropdown = () => {
+   setShowDropdown((prev) => !prev)
+ }
 
-    document.addEventListener('click', closeNavOnClickOutside)
+ useEffect(() => {
+   const closeNavOnClickOutside = (event) => {
+     if (
+       (isActive || showDropdown) &&
+       navigationRef.current &&
+       !navigationRef.current.contains(event.target)
+     ) {
+       setIsActive(false)
+       setShowDropdown(false)
+     }
+   }
 
-    return () => {
-      document.removeEventListener('click', closeNavOnClickOutside)
-    }
-  }, [isActive])
+   document.addEventListener('click', closeNavOnClickOutside)
+
+   return () => {
+     document.removeEventListener('click', closeNavOnClickOutside)
+   }
+ }, [isActive, showDropdown])
 
   return (
     <section
@@ -81,7 +88,7 @@ const HorizontalNav = () => {
       <section className='Navigation-Links flex justify-between gap-10 items-center'>
         <div className='User flex items-center gap-5'>
           <div className='Notification relative flex cursor-pointer'>
-            <span className='bg-blue-700 absolute -top-1 right-0 text-white px-1 rounded-full text-xs'>
+            <span className='bg-indigo-600 absolute -top-1 right-0 text-white px-1 rounded-full text-xs'>
               0
             </span>
             <Image
@@ -92,16 +99,28 @@ const HorizontalNav = () => {
             />
           </div>
           <span className='text-end hidden md:inline-block'>
-            <p className='text-base'>Ozoemena E.</p>
+            <p className='text-base font-semibold'>Ozoemena E.</p>
           </span>
-          <Image
-            src={userImage}
-            alt='User Profile Image'
-            width={45}
-            height={35}
-            loading='lazy'
-            className='rounded-full cursor-pointer'
-          />
+          <div className='relative'>
+            <Image
+              src={userImage}
+              alt='User Profile Image'
+              width={45}
+              height={35}
+              loading='lazy'
+              className='rounded-full cursor-pointer bg-indigo-500'
+              onClick={handleDropdown}
+            />
+            {showDropdown && (
+              <div className='Dropdown absolute top-full right-0 bg-white border border-gray-200 rounded-b-md mt-3 shadow-sm'>
+                <ul className='py-2 text-gray-500 font-semibold'>
+                  <li className='px-4 py-2 cursor-pointer  md:hover:text-indigo-600'>
+                    Logout
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </section>
     </section>

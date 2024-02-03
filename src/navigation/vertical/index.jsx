@@ -23,7 +23,7 @@ const VerticalNav = ({ isActive }) => {
     {
       title: 'Overview',
       icon: <RoofingRoundedIcon />,
-      path: '/',
+      path: '/overview',
     },
     {
       sectionTitle: 'Store',
@@ -54,12 +54,12 @@ const VerticalNav = ({ isActive }) => {
     {
       title: 'Settings',
       icon: <SettingsRoundedIcon />,
-      path: '/account-settings',
+      path: '/settings',
     },
     {
       title: 'Subscription',
       icon: <AddBusinessRoundedIcon />,
-      path: '/account-settings',
+      path: '#',
     },
     {
       sectionTitle: 'Customer Care',
@@ -84,10 +84,10 @@ const VerticalNav = ({ isActive }) => {
   return (
     <div className='w-screen md:w-fit z-20 bg-transparent'>
       <section
-        className={`mt-6 lg:mt-16 md:pt-10 z-20 pb-32 md:pb-11 bg-white transition-all ease-in-out lg:block text-gray-500 h-screen overflow-y-auto w-56`}>
+        className={`mt-6 lg:mt-16 md:pt-10 z-20 pb-32 md:pb-1 bg-white transition-all ease-in-out lg:block text-gray-500 h-screen overflow-y-auto w-56`}>
         <nav>
           <section className='flex pt-7 pb-10 px-6 md:hidden'>
-            <Link href='/'>
+            <Link href='overview'>
               <Image
                 src={logo}
                 className='Logo h-fit'

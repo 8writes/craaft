@@ -62,14 +62,11 @@ const Table = () => {
   return (
     <section className='font-noto'>
       <div className='Table-Header px-1'>
-        <p className=' text-2xl md:text-3xl font-semibold text-gray-600'>
-          Products
-        </p>
         <div className='flex my-5 gap-1 justify-between items-center'>
           <span className='flex w-full md:w-1/3 gap-2 border-b border-gray-500 '>
             <input
               type='text'
-              className='outline-none bg-transparent w-full text-base md:text-sm'
+              className='outline-none bg-transparent font-semibold w-full text-base md:text-sm'
               placeholder='Search products'
             />{' '}
             <Image
@@ -81,7 +78,7 @@ const Table = () => {
             />
           </span>
           <div className='flex justify-end w-full md:w-1/3 gap-2 items-center'>
-            <button className='text-gray-700 text-sm md:text-base'>
+            <button className='text-gray-600 font-semibold text-sm md:text-base'>
               <AddRoundedIcon /> Add product
             </button>
           </div>
@@ -90,20 +87,20 @@ const Table = () => {
       <div className='Table-Body'>
         {data && data.length > 0 ? (
           <>
-            <div className='overflow-x-auto rounded-md'>
+            <div className='overflow-x-auto rounded-md shadow-md'>
               <table className='your-table-styles table-auto w-full'>
-                <thead className='bg-indigo-500 p-4'>
+                <thead className='bg-indigo-500 p-4 '>
                   <tr>
                     {columns.map((column) => (
                       <th
                         key={column.id}
-                        className='text-start text-base font-normal p-4 text-white'>
+                        className='text-start text-sm font-semibold p-4 text-white'>
                         {column.label}
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className='bg-gray-100'>
+                <tbody className='bg-gray-100 font-semibold'>
                   {data
                     .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                     .map((row) => (
@@ -165,7 +162,7 @@ const Table = () => {
                 </tbody>
               </table>
             </div>
-            <div className='pagination flex items-center justify-between my-5'>
+            <div className='pagination flex items-center justify-between text-gray-600 font-semibold  my-5'>
               <span className='text-sm px-2'>10 of {data.length} entries</span>
               <span className=' flex items-center border-2 rounded-sm text-sm px-1'>
                 <button
@@ -174,7 +171,7 @@ const Table = () => {
                   disabled={page === 0}>
                   Previous
                 </button>
-                <span className='py-1 px-3 bg-blue-600 text-white'>
+                <span className='py-1 px-3 bg-indigo-300'>
                   {page + 1}
                 </span>
                 <span className='py-1 px-3'>
