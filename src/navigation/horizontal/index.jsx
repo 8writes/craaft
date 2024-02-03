@@ -122,7 +122,7 @@ const HorizontalNav = () => {
               <div className='Dropdown mt-3 right-0 absolute w-48 bg-white border border-gray-200 rounded-b-md shadow-md'>
                 <ul className='py-2 text-gray-500 font-semibold'>
                   <Link href='login'>
-                    <li className='px-4 py-2 cursor-pointer md:hover:bg-indigo-500 hover:text-white'>
+                    <li className='px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
                       Logout
                     </li>
                   </Link>
