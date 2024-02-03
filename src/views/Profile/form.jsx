@@ -26,7 +26,7 @@ const UserProfileForm = () => {
       <div className='grid gap-20 py-10'>
         <form
           onSubmit={handleSubmit}
-          className='grid gap-5 text-base w-full md:text-xl md:w-2/4 font-semibold text-gray-600'>
+          className='grid gap-5 w-full md:text-xl md:w-2/4 font-semibold text-gray-600'>
           <label className='grid md:flex'>
             <p className='md:flex-1'>Name</p>
             <p className='md:flex-1 bg-gray-100 text-gray-700'>

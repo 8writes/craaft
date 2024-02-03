@@ -94,7 +94,7 @@ const HorizontalNav = () => {
         <div className='User flex items-center gap-5 relative'>
           <div
             className='Notification relative flex cursor-pointer'
-            onClick={handleDropdown}>
+           >
             <span className='bg-indigo-600 absolute -top-1 right-0 text-white px-1 rounded-full text-xs'>
               0
             </span>
