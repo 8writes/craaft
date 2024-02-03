@@ -24,7 +24,7 @@ const LoginForm = () => {
           </div>
           <span className='text-base flex flex-wrap items-center justify-center gap-2 text-gray-600 font-semibold  mb-4'>
             Don't have an account?{' '}
-            <Link href='#'>
+            <Link href='register'>
               <p className='text-sm text-indigo-600'>Create Account</p>
             </Link>
           </span>
