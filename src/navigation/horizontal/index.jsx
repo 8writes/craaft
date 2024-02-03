@@ -67,7 +67,7 @@ const HorizontalNav = () => {
 
             <div className='relative'>
               <div
-                className={`absolute -left-5 transition-all duration-300 delay-200 ease-linear 
+                className={`absolute -left-5 transition-all duration-300 delay-100 ease-linear 
                 `}
                 style={{
                   left: isActive ? '' : '-500px',
