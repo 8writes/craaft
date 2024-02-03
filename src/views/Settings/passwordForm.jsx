@@ -29,7 +29,7 @@ const PasswordForm = () => {
   }
 
   return (
-    <div className='max-w-md my-8 shadow-md p-6 bg-white rounded-md'>
+    <div className='max-w-md my-8 shadow-sm p-6 bg-white rounded-md'>
       <p className='text-xl font-semibold text-gray-500  pb-7'>
         Change Password
       </p>

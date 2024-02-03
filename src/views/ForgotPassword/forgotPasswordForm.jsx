@@ -4,7 +4,7 @@ import Image from 'next/image'
 import logo from '../../../public/logo.svg'
 import Link from 'next/link'
 
-const LoginForm = () => {
+const ForgotPasswordForm = () => {
   return (
     <div className='flex h-screen'>
       <div className='hidden md:block flex-1 bg-indigo-500'></div>
@@ -20,13 +20,13 @@ const LoginForm = () => {
               loading='lazy'
             />
             <p className='text-2xl text-center text-indigo-500 font-semibold mb-4'>
-              Login to your account
+              Forgot Password
             </p>
           </div>
           <span className='text-base flex flex-wrap items-center justify-center gap-2 text-gray-600 font-semibold  mb-4'>
-            Don't have an account?{' '}
-            <Link href='register'>
-              <p className='text-sm text-indigo-600'>Create Account</p>
+            Remembered password?{' '}
+            <Link href='login'>
+              <p className='text-sm text-indigo-600'>Login here</p>
             </Link>
           </span>
 
@@ -40,24 +40,9 @@ const LoginForm = () => {
               placeholder='Enter your email'
             />
           </div>
-          <div className='mb-4'>
-            <label className='block text-base py-2  font-semibold text-gray-600'>
-              Password
-            </label>
-            <input
-              type='password'
-              className='w-full px-4 py-2 border rounded focus:outline-none focus:border-indigo-500'
-              placeholder='Enter your password'
-            />
-          </div>
-          <Link href='forgot-password'>
-            <button className='text-base font-semibold text-indigo-600 py-4'>
-              Forgot Password?
-            </button>{' '}
-          </Link>
-          <Link href='overview'>
+          <Link href='login'>
             <button className='w-full bg-indigo-500 text-white mt-4 py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600'>
-              Login
+              Request password change
             </button>{' '}
           </Link>
         </form>
@@ -66,4 +51,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default ForgotPasswordForm

@@ -7,6 +7,7 @@ import Link from 'next/link'
 const RegisterForm = () => {
   return (
     <div className='flex'>
+      <div className='hidden md:block flex-1 bg-indigo-500'></div>
       <div className='flex-1 flex items-center justify-center bg-gray-100 px-5'>
         <form className='bg-white p-8 rounded w-full my-20 md:w-2/3 border-2 border-gray-200'>
           <div className='grid gap-5 justify-center'>
@@ -89,14 +90,12 @@ const RegisterForm = () => {
             />
           </div>
           <Link href='login'>
-            <button className='w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600'>
+            <button className='w-full bg-indigo-500 text-white mt-4 py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600'>
               Create account
             </button>{' '}
           </Link>
         </form>
       </div>
-
-      <div className='hidden md:block flex-1 bg-indigo-500'></div>
     </div>
   )
 }
