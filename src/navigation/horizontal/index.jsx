@@ -65,7 +65,7 @@ const HorizontalNav = () => {
           </svg>
           <div className='relative'>
             <div
-              className={`absolute -left-5 transition-all ease-in-out ${
+              className={`absolute -left-5 h transition-all ease-in-out ${
                 isActive ? '' : ' -left-96'
               }`}>
               <VerticalNav />
