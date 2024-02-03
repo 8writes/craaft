@@ -49,29 +49,34 @@ const HorizontalNav = () => {
       ref={navigationRef}
       className='fixed bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-5 2xl:px-10 py-3 items-center gap-5'>
       <div className='flex items-center gap-5'>
-        <span className='Mobile Navigation lg:hidden' onClick={handleActive}>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth='1.5'
-            stroke='currentColor'
-            className='w-6 h-6'>
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
-            />
-          </svg>
-          <div className='relative'>
-            <div
-              className={`absolute -left-5 h transition-all ease-in-out ${
-                isActive ? '' : ' -left-96'
-              }`}>
-              <VerticalNav />
+        <div className='Mobile Navigation lg:hidden'>
+          <span onClick={handleActive}>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth='1.5'
+              stroke='currentColor'
+              className='w-6 h-6'>
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+              />
+            </svg>
+
+            <div className='relative'>
+              <div
+                className={`absolute -left-5 transition-all duration-300 delay-200 ease-linear 
+                `}
+                style={{
+                  left: isActive ? '' : '-500px',
+                }}>
+                <VerticalNav />
+              </div>
             </div>
-          </div>
-        </span>
+          </span>
+        </div>
         <section className=' justify-between items-center gap-24 hidden md:inline-block'>
           <Link href='overview'>
             <Image
@@ -86,8 +91,10 @@ const HorizontalNav = () => {
         </section>
       </div>
       <section className='Navigation-Links flex justify-between gap-10 items-center'>
-        <div className='User flex items-center gap-5'>
-          <div className='Notification relative flex cursor-pointer'>
+        <div className='User flex items-center gap-5 relative'>
+          <div
+            className='Notification relative flex cursor-pointer'
+            onClick={handleDropdown}>
             <span className='bg-indigo-600 absolute -top-1 right-0 text-white px-1 rounded-full text-xs'>
               0
             </span>
@@ -112,10 +119,10 @@ const HorizontalNav = () => {
               onClick={handleDropdown}
             />
             {showDropdown && (
-              <div className='Dropdown absolute top-full right-0 bg-white border border-gray-200 rounded-b-md mt-3 shadow-sm'>
+              <div className='Dropdown mt-3 right-0 absolute w-48 bg-white border border-gray-200 rounded-b-md shadow-md'>
                 <ul className='py-2 text-gray-500 font-semibold'>
                   <Link href='login'>
-                    <li className='px-4 py-2 cursor-pointer md:hover:text-indigo-600'>
+                    <li className='px-4 py-2 cursor-pointer md:hover:bg-indigo-500 hover:text-white'>
                       Logout
                     </li>
                   </Link>
