@@ -96,7 +96,7 @@ const Table = () => {
             />
           </span>
           <div className='flex gap-2 items-center'>
-            <p className='text-sm hidden font-semibold md:inline-block text-gray-700 text-end justify-end w-1/2 md:w-1/3 '>
+            <p className='text-sm hidden font-semibold md:inline-block text-gray-600 text-end justify-end w-1/2 md:w-1/3 '>
               Filter by
             </p>
             <span
