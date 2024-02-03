@@ -9,40 +9,40 @@ import VerticalNav from '../vertical'
 import { useState, useEffect, useRef } from 'react'
 
 const HorizontalNav = () => {
- const [isActive, setIsActive] = useState(false)
- const navigationRef = useRef(null)
- const [showDropdown, setShowDropdown] = useState(false)
+  const [isActive, setIsActive] = useState(false)
+  const navigationRef = useRef(null)
+  const [showDropdown, setShowDropdown] = useState(false)
 
- const handleActive = () => {
-   setIsActive((prevState) => !prevState)
-   setShowDropdown(false)
+  const handleActive = () => {
+    setIsActive((prevState) => !prevState)
+    setShowDropdown(false)
 
-   const body = document.body
-   body.classList.toggle('no-scroll')
- }
+    const body = document.body
+    body.classList.toggle('no-scroll')
+  }
 
- const handleDropdown = () => {
-   setShowDropdown((prev) => !prev)
- }
+  const handleDropdown = () => {
+    setShowDropdown((prev) => !prev)
+  }
 
- useEffect(() => {
-   const closeNavOnClickOutside = (event) => {
-     if (
-       (isActive || showDropdown) &&
-       navigationRef.current &&
-       !navigationRef.current.contains(event.target)
-     ) {
-       setIsActive(false)
-       setShowDropdown(false)
-     }
-   }
+  useEffect(() => {
+    const closeNavOnClickOutside = (event) => {
+      if (
+        (isActive || showDropdown) &&
+        navigationRef.current &&
+        !navigationRef.current.contains(event.target)
+      ) {
+        setIsActive(false)
+        setShowDropdown(false)
+      }
+    }
 
-   document.addEventListener('click', closeNavOnClickOutside)
+    document.addEventListener('click', closeNavOnClickOutside)
 
-   return () => {
-     document.removeEventListener('click', closeNavOnClickOutside)
-   }
- }, [isActive, showDropdown])
+    return () => {
+      document.removeEventListener('click', closeNavOnClickOutside)
+    }
+  }, [isActive, showDropdown])
 
   return (
     <section
@@ -73,7 +73,7 @@ const HorizontalNav = () => {
           </div>
         </span>
         <section className=' justify-between items-center gap-24 hidden md:inline-block'>
-          <Link href='/'>
+          <Link href='overview'>
             <Image
               src={logo}
               className='Logo h-fit'
@@ -114,9 +114,11 @@ const HorizontalNav = () => {
             {showDropdown && (
               <div className='Dropdown absolute top-full right-0 bg-white border border-gray-200 rounded-b-md mt-3 shadow-sm'>
                 <ul className='py-2 text-gray-500 font-semibold'>
-                  <li className='px-4 py-2 cursor-pointer  md:hover:text-indigo-600'>
-                    Logout
-                  </li>
+                  <Link href='login'>
+                    <li className='px-4 py-2 cursor-pointer md:hover:text-indigo-600'>
+                      Logout
+                    </li>
+                  </Link>
                 </ul>
               </div>
             )}
