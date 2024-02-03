@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from 'react'
 import { toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
+import LogoutIcon from '@mui/icons-material/Logout'
 
 const HorizontalNav = () => {
   const [isActive, setIsActive] = useState(false)
@@ -70,7 +71,6 @@ const HorizontalNav = () => {
           transition: Bounce,
         })
       } else {
-
         toast.success('Logged out!', {
           position: 'top-right',
           autoClose: 5000,
@@ -174,8 +174,8 @@ const HorizontalNav = () => {
               <div className='Dropdown mt-3 right-0 absolute w-48 bg-white border border-gray-200 rounded-b-md shadow-md'>
                 <ul className='py-2 text-gray-500 font-semibold'>
                   <Link href='login' onClick={handleLogout}>
-                    <li className='px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
-                      Logout
+                    <li className='flex items-center px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
+                      <LogoutIcon /> Logout
                     </li>
                   </Link>
                 </ul>
