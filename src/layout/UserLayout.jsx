@@ -1,11 +1,28 @@
 /** @format */
 'use client'
 
+import { useDataContext } from '@/context/dataContext'
 import HorizontalNav from '@/navigation/horizontal'
 import VerticalNav from '@/navigation/vertical'
+import { redirect } from 'next/navigation'
 import PropTypes from 'prop-types'
+import { useEffect } from 'react'
 
 export default function OverviewLayout({ children }) {
+  const session = useDataContext()
+
+  useEffect(() => {
+    const session = localStorage.getItem('auth-token')
+
+    if (!session) {
+      redirect('/login')
+    }
+
+  }, [session])
+
+ // if (!session) {
+ //   return null
+ // }
   return (
     <>
       <HorizontalNav />

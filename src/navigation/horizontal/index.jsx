@@ -7,6 +7,8 @@ import logo from '../../../public/logo.svg'
 import Link from 'next/link'
 import VerticalNav from '../vertical'
 import { useState, useEffect, useRef } from 'react'
+import { ToastContainer, toast, Bounce } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const HorizontalNav = () => {
   const [isActive, setIsActive] = useState(false)
@@ -43,6 +45,44 @@ const HorizontalNav = () => {
       document.removeEventListener('click', closeNavOnClickOutside)
     }
   }, [isActive, showDropdown])
+
+  const handleLogout = async () => {
+    try {
+      localStorage.removeItem('auth-token')
+
+      const response = await axios.post(
+        ' https://craftserver.onrender.com/v1/api/signout'
+      )
+
+      const { error } = response.data
+
+      if (error) {
+        toast.error(error.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
+      }
+    } catch (error) {
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }
 
   return (
     <section
@@ -92,9 +132,7 @@ const HorizontalNav = () => {
       </div>
       <section className='Navigation-Links flex justify-between gap-10 items-center'>
         <div className='User flex items-center gap-5 relative'>
-          <div
-            className='Notification relative flex cursor-pointer'
-           >
+          <div className='Notification relative flex cursor-pointer'>
             <span className='bg-indigo-600 absolute -top-1 right-0 text-white px-1 rounded-full text-xs'>
               0
             </span>
@@ -121,7 +159,7 @@ const HorizontalNav = () => {
             {showDropdown && (
               <div className='Dropdown mt-3 right-0 absolute w-48 bg-white border border-gray-200 rounded-b-md shadow-md'>
                 <ul className='py-2 text-gray-500 font-semibold'>
-                  <Link href='login'>
+                  <Link href='login' onClick={handleLogout}>
                     <li className='px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
                       Logout
                     </li>
