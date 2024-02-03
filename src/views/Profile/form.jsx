@@ -28,14 +28,14 @@ const UserProfileForm = () => {
           onSubmit={handleSubmit}
           className='grid gap-5 w-full md:text-xl md:w-2/4 font-semibold text-gray-600'>
           <label className='grid md:flex'>
-            <p className='md:flex-1'>Name</p>
+            <p className='md:flex-1 text-xl'>Name</p>
             <p className='md:flex-1 bg-gray-100 text-gray-700'>
               emmanuel chisom
             </p>
           </label>
 
           <label className='grid md:flex'>
-            <p className='md:flex-1'>Primary Email</p>
+            <p className='md:flex-1 text-xl'>Primary Email</p>
             <input
               type='email'
               value={email}
@@ -46,7 +46,7 @@ const UserProfileForm = () => {
             />
           </label>
           <label className='grid md:flex'>
-            <p className='md:flex-1'>Phone Number</p>
+            <p className='md:flex-1 text-xl'>Phone Number</p>
             <input
               type='number'
               value={phoneNumber}
