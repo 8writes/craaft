@@ -29,7 +29,7 @@ const Intro = () => {
   return (
     <section className='grid gap-10'>
       <div>
-        <p className='text-xl md:text-3xl font-semibold text-slate-600'>
+        <p className='text-3xl font-semibold text-slate-600'>
           Welcome, Emmanuel
         </p>
         <p className='text-base font-semibold text-indigo-700'>
