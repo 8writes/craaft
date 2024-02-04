@@ -53,7 +53,7 @@ const HorizontalNav = () => {
       localStorage.removeItem('auth-token')
 
       const response = await axios.post(
-        ' https://craftserver.onrender.com/v1/api/signout'
+        'https://craaft.onrender.com/v1/api/signout'
       )
 
       const { error } = response.data
