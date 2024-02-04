@@ -19,9 +19,6 @@ export default function OverviewLayout({ children }) {
     }
   }, [session])
 
-  // if (!session) {
-  //   return null
-  // }
   return (
     <UserProvider>
       <HorizontalNav />

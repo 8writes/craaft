@@ -28,6 +28,7 @@ const LoginForm = () => {
       const response = await axios.post(
         'https://craaft.onrender.com/v1/api/login',
         {
+          withCredentials: true,
           email: email,
           password: password,
         }

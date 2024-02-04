@@ -47,13 +47,14 @@ const RegisterForm = () => {
       const response = await axios.post(
         'https://craaft.onrender.com/v1/api/signup',
         {
+          withCredentials: true,
           email,
           password,
           firstName,
           lastName,
           storeName,
           tel,
-        },
+        }
       )
 
       const { error } = response.data

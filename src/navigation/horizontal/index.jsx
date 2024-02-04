@@ -20,8 +20,9 @@ const HorizontalNav = () => {
   const [showDropdown, setShowDropdown] = useState(false)
 
   const lastName = session?.last_name
+  const firstName = session?.first_name
 
-  const firstLetterOfFirstName = lastName ? lastName.slice(0, 1) : ''
+  const firstLetterOfFirstName = firstName ? firstName.slice(0, 1) : ''
 
   const handleActive = () => {
     setIsActive((prevState) => !prevState)
@@ -59,7 +60,10 @@ const HorizontalNav = () => {
       localStorage.removeItem('auth-token')
 
       const response = await axios.post(
-        'https://craaft.onrender.com/v1/api/signout'
+        'https://craaft.onrender.com/v1/api/signout',
+        {
+          withCredentials: true,
+        }
       )
 
       const { error } = response.data
