@@ -13,11 +13,9 @@ const Intro = () => {
   const session = useDataContext()
   const [isCopied, setIsCopied] = useState(false)
 
-  console.log(session)
-
   const handleCopyLink = () => {
     const textField = document.createElement('textarea')
-    textField.innerText = `mystore.craaft.shop`
+    textField.innerText = `https://${storeName}`
     document.body.appendChild(textField)
     textField.select()
     document.execCommand('copy')
@@ -31,7 +29,7 @@ const Intro = () => {
   }
 
   const firstName = session?.first_name
-  const storeName = session?.store_name
+  const storeName = session?.store_url
 
   return (
     <section className='grid gap-10'>

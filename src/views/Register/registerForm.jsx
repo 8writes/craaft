@@ -53,7 +53,7 @@ const RegisterForm = () => {
           lastName,
           storeName,
           tel,
-        }
+        },
       )
 
       const { error } = response.data

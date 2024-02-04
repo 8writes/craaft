@@ -22,8 +22,14 @@ export const UserProvider = ({ children }) => {
         const sessionData = JSON.parse(session)
         const userSessionData = sessionData || null
 
+          const id = userSessionData.id
+          
         const response = await axios.get(
-          `https://craft.onrender.com/v1/api/fetchuser?id=${userSessionData.id}`
+          `https://craft.onrender.com/v1/api/fetchuser`,
+          {
+            id,
+            withCredentials: true,
+          }
         )
 
         const { error, data } = response.data

@@ -11,11 +11,17 @@ import { toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
 import LogoutIcon from '@mui/icons-material/Logout'
+import { useDataContext } from '@/context/dataContext'
 
 const HorizontalNav = () => {
+  const session = useDataContext()
   const [isActive, setIsActive] = useState(false)
   const navigationRef = useRef(null)
   const [showDropdown, setShowDropdown] = useState(false)
+
+  const lastName = session?.last_name
+
+  const firstLetterOfFirstName = lastName ? lastName.slice(0, 1) : ''
 
   const handleActive = () => {
     setIsActive((prevState) => !prevState)
@@ -158,7 +164,9 @@ const HorizontalNav = () => {
             />
           </div>
           <span className='text-end hidden md:inline-block'>
-            <p className='text-base font-semibold'>Ozoemena E.</p>
+            <p className='text-base font-semibold'>
+              {lastName} .{firstLetterOfFirstName}
+            </p>
           </span>
           <div className='relative'>
             <Image
