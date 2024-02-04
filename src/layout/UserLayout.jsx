@@ -1,7 +1,7 @@
 /** @format */
 'use client'
 
-import { useDataContext } from '@/context/dataContext'
+import { UserProvider, useDataContext } from '@/context/dataContext'
 import HorizontalNav from '@/navigation/horizontal'
 import VerticalNav from '@/navigation/vertical'
 import { redirect } from 'next/navigation'
@@ -17,14 +17,13 @@ export default function OverviewLayout({ children }) {
     if (!session) {
       redirect('/login')
     }
-
   }, [session])
 
- // if (!session) {
- //   return null
- // }
+  // if (!session) {
+  //   return null
+  // }
   return (
-    <>
+    <UserProvider>
       <HorizontalNav />
       <div className='flex bg-gray-100'>
         <div className='hidden lg:block'>
@@ -34,7 +33,7 @@ export default function OverviewLayout({ children }) {
           {children}
         </div>
       </div>
-    </>
+    </UserProvider>
   )
 }
 

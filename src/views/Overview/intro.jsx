@@ -7,9 +7,13 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import AddBusinessRoundedIcon from '@mui/icons-material/AddBusinessRounded'
 import StoreRoundedIcon from '@mui/icons-material/StoreRounded'
 import Link from 'next/link'
+import { useDataContext } from '@/context/dataContext'
 
 const Intro = () => {
+  const session = useDataContext()
   const [isCopied, setIsCopied] = useState(false)
+
+  console.log(session)
 
   const handleCopyLink = () => {
     const textField = document.createElement('textarea')
@@ -26,20 +30,23 @@ const Intro = () => {
     }, 2000)
   }
 
+  const firstName = session?.first_name
+  const storeName = session?.store_name
+
   return (
     <section className='grid gap-10'>
       <div>
         <p className='text-3xl font-semibold text-slate-600'>
-          Welcome, Emmanuel
+          Welcome, {firstName}
         </p>
         <p className='text-base font-semibold text-indigo-700'>
-          <a href={`#`} target='_blank' rel='noreferrer'>
-            mystore.craaft.shop
-            <ArrowOutwardRoundedIcon sx={{ width: '18px' }} />
+          <a href={`https://${storeName}`} target='_blank' rel='noreferrer'>
+            {storeName}
+            <ArrowOutwardRoundedIcon sx={{ width: '20px' }} />
           </a>
           <ContentCopyOutlinedIcon
             sx={{
-              width: '15px',
+              width: '17px',
               cursor: 'pointer',
               mx: '4px',
               color: isCopied ? 'green' : 'inherit',

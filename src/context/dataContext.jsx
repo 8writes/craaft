@@ -15,21 +15,24 @@ export const UserProvider = ({ children }) => {
 
   const fetchedUserData = async () => {
     try {
-      const session = localStorage.getItem('auth-token')
+        const session = localStorage.getItem('auth-token')
+        
 
       if (session) {
         const sessionData = JSON.parse(session)
         const userSessionData = sessionData || null
 
         const response = await axios.get(
-          `https://craftserver.onrender.com/v1/api/fetchuser?id=${userSessionData.id}`
+          `https://craft.onrender.com/v1/api/fetchuser?id=${userSessionData.id}`
         )
 
         const { error, data } = response.data
 
         if (error) {
           console.error(error.message)
-        }
+          }
+          
+          console.log(data)
 
         setUserData(data[0])
       }
