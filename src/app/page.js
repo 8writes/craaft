@@ -5,11 +5,5 @@
 import OverviewLayout from '@/layout/UserLayout'
 
 export default function Home() {
-  return (
-    <main>
-      <OverviewLayout>
-       
-      </OverviewLayout>
-    </main>
-  )
+  return <OverviewLayout></OverviewLayout>
 }

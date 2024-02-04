@@ -26,7 +26,7 @@ const LoginForm = () => {
     setIsLoading(true)
     try {
       const response = await axios.post(
-        'https://craftserver.onrender.com/v1/api/login',
+        'https://craaft.onrender.com/v1/api/login',
         {
           email: email,
           password: password,
@@ -128,6 +128,7 @@ const LoginForm = () => {
               Email
             </label>
             <input
+              disabled={isLoading}
               type='email'
               autoFocus
               autoComplete='email'
@@ -143,6 +144,7 @@ const LoginForm = () => {
             </label>
             <div className='relative'>
               <input
+                disabled={isLoading}
                 type={showPassword ? 'text' : 'password'}
                 autoComplete='true'
                 value={password}
