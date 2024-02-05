@@ -76,10 +76,11 @@ const UserProfileForm = () => {
               <input
                 type='email'
                 autoFocus
-                className='md:flex-1 border text-gray-700'
+                className={`md:flex-1 ${
+                  isEditing ? 'outline rounded-sm' : ''
+                } text-gray-700`}
+                defaultValue={primaryEmail}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={!isEditing}
-                placeholder={primaryEmail}
               />
             )}
           </label>
@@ -95,11 +96,11 @@ const UserProfileForm = () => {
             ) : (
               <input
                 type='number'
-                value={phoneNumber}
-                className='md:flex-1 border text-gray-700'
+                defaultValue={tel}
+                className={`md:flex-1 ${
+                  isEditing ? 'outline rounded-sm' : ''
+                } text-gray-700`}
                 onChange={(e) => setPhoneNumber(e.target.value)}
-                disabled={!isEditing}
-                placeholder={`${tel}`}
               />
             )}
           </label>
