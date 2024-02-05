@@ -1,11 +1,10 @@
 /** @format */
 
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 
 const UserContext = createContext(null)
 
-// Custom hook to use the context
 export const useDataContext = () => {
   return useContext(UserContext)
 }
@@ -13,37 +12,37 @@ export const useDataContext = () => {
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null)
 
-  const fetchedUserData = async () => {
-    try {
-      const session = localStorage.getItem('auth-token')
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (typeof window !== 'undefined') {
+          const session = localStorage.getItem('auth-token')
+          if (session && !userData) {
+            const sessionData = JSON.parse(session)
+            const userSessionData = sessionData || null
+            const response = await axios.get(
+              `https://craaft.onrender.com/v1/api/fetchuser?id=${userSessionData?.id}`
+            )
+            const { error, data } = response.data
 
-      if (session) {
-        const sessionData = JSON.parse(session)
-        const userSessionData = sessionData || null
-
-        const response = await axios.get(
-          `https://craaft.onrender.com/v1/api/fetchuser?id=${userSessionData.id}`,
-          {
-            withCredentials: true,
+            if (error) {
+              console.error(error.message)
+              setUserData(null)
+            } else {
+              setUserData(data[0])
+            }
           }
-        )
-
-        const { error, data } = response.data
-
-        if (error) {
-          console.error(error.message)
         }
-
-        setUserData(data[0])
+      } catch (error) {
+        console.error(error)
+        setUserData(null)
       }
-    } catch (error) {
-      console.error(error)
     }
-  }
 
-  useEffect(() => { 
-      fetchedUserData()
-  }, [])
+    if (!userData) {
+      fetchData()
+    }
+  }, [userData])
 
   return (
     <UserContext.Provider value={userData}>{children}</UserContext.Provider>

@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation'
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 
-export default function OverviewLayout({ children }) {
+export default function UserLayout({ children }) {
   const session = useDataContext()
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function OverviewLayout({ children }) {
 
   return (
     <>
-    <HorizontalNav />
+      <HorizontalNav />
       <div className='flex bg-slate-100'>
         <div className='hidden lg:block'>
           <VerticalNav />
@@ -31,10 +31,9 @@ export default function OverviewLayout({ children }) {
         </div>
       </div>
     </>
-      
   )
 }
 
-OverviewLayout.propTypes = {
+UserLayout.propTypes = {
   children: PropTypes.node.isRequired,
 }

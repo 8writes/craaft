@@ -21,6 +21,7 @@ const HorizontalNav = () => {
   const [isActive, setIsActive] = useState(false)
   const navigationRef = useRef(null)
   const [showDropdown, setShowDropdown] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const lastName = session?.last_name
   const firstName = session?.first_name
@@ -59,8 +60,10 @@ const HorizontalNav = () => {
   }, [isActive, showDropdown])
 
   const handleLogout = async () => {
+    setIsLoading(true)
     try {
       localStorage.removeItem('auth-token')
+      sessionStorage.removeItem('userSessionData')
 
       const response = await axios.post(
         'https://craaft.onrender.com/v1/api/signout',
@@ -85,9 +88,12 @@ const HorizontalNav = () => {
         })
       } else {
         router.push('/login')
+          session.resetContext()
       }
     } catch (error) {
       console.log(error.message)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -179,8 +185,8 @@ const HorizontalNav = () => {
                 <ul className='py-2 text-gray-500 font-semibold'>
                   <li
                     onClick={handleLogout}
-                    className='flex items-center px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
-                    <LogoutIcon /> Logout
+                    className='flex gap-3 items-center px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
+                    <LogoutIcon /> {isLoading ? 'Logging Out..' : 'Logout'}
                   </li>
                 </ul>
               </div>

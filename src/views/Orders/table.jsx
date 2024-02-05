@@ -27,6 +27,7 @@ const columns = [
 const Table = () => {
   const session = useDataContext()
   const [page, setPage] = useState(0)
+  const [loading, setIsLoading] = useState(false)
   const rowsPerPage = useMemo(() => 10, [])
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false)
   const [selectedValue, setSelectedValue] = useState('All')
@@ -44,32 +45,37 @@ const Table = () => {
 
   const fetchData = async (searchTerm) => {
     try {
-      const response = await axios.get(
-        `https://craaft.onrender.com/v1/api/fetch?store_order_id=${store_order_id}`
-      )
+      setIsLoading(true)
+      if (session) {
+        const response = await axios.get(
+          `https://craaft.onrender.com/v1/api/fetch?store_order_id=${store_order_id}`
+        )
 
-      const { error, data } = response.data
+        const { error, data } = response.data
 
-      if (error) {
-        console.log(error)
+        if (error) {
+          console.log(error)
+        }
+
+        let idCounter = 0
+
+        const formattedData = data.map((item) => ({
+          ...item,
+          sn: ++idCounter,
+        }))
+
+        setNormalData(formattedData)
+
+        const dataToUse = formattedData.filter((item) =>
+          item.reference.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+
+        setSearchData(dataToUse)
       }
-
-      let idCounter = 0
-
-      const formattedData = data.map((item) => ({
-        ...item,
-        sn: ++idCounter,
-      }))
-
-      setNormalData(formattedData)
-
-      const dataToUse = formattedData.filter((item) =>
-        item.reference.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-
-      setSearchData(dataToUse)
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -182,7 +188,7 @@ const Table = () => {
                   ))}
                 </tr>
               </thead>
-              {!session ? (
+              {loading ? (
                 <tbody className='bg-gray-100 font-semibold'>
                   <tr>
                     {columns.slice(0, -2).map((column) => (
@@ -193,7 +199,6 @@ const Table = () => {
                   </tr>
                 </tbody>
               ) : (
-                <>
                   <tbody className='bg-gray-100 font-semibold'>
                     {dataToUse
                       .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
@@ -253,14 +258,16 @@ const Table = () => {
                         </tr>
                       ))}
                   </tbody>
-                </>
               )}
             </table>
-            {!dataToUse.length && (
-              <p className='flex justify-center font-semibold text-xl text-gray-600'>
-                No Data Available{' '}
-              </p>
-            )}
+            {loading ||
+              (dataToUse.length === 0 && (
+                <div className='text-center my-10'>
+                  <p className='flex justify-center font-semibold text-xl text-gray-600'>
+                    No Data Available
+                  </p>
+                </div>
+              ))}
           </div>
           <div className='pagination flex items-center text-gray-600 font-semibold justify-between my-5'>
             <span className='text-sm px-2'>

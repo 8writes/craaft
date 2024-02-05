@@ -26,37 +26,43 @@ const columns = [
 const Table = () => {
   const session = useDataContext()
   const [page, setPage] = useState(0)
+  const [loading, setIsLoading] = useState(false)
   const rowsPerPage = useMemo(() => 10, [])
   const [tableData, setTableData] = useState([])
 
   const store_name_id = session?.store_name_id
 
   useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        ` https://craaft.onrender.com/v1/api/fetch?store_name_id=${store_name_id}`
-      )
+    const fetchData = async () => {
+      try {
+        setIsLoading(true)
+        if (session) {
+          const response = await axios.get(
+            ` https://craaft.onrender.com/v1/api/fetch?store_name_id=${store_name_id}`
+          )
 
-      const { error, data } = response.data
+          const { error, data } = response.data
 
-      if (error) {
-        console.log(error)
+          if (error) {
+            console.log(error)
+          }
+
+          let idCounter = 0
+
+          const formattedData = data.map((item) => ({
+            ...item,
+            sn: ++idCounter,
+            image: item.uploaded_image_urls,
+          }))
+
+          setTableData(formattedData)
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error.message)
+      } finally {
+        setIsLoading(false)
       }
-
-      let idCounter = 0
-
-      const formattedData = data.map((item) => ({
-        ...item,
-        sn: ++idCounter,
-        image: item.uploaded_image_urls,
-      }))
-
-      setTableData(formattedData)
-    } catch (error) {
-      console.error('Error fetching data:', error.message)
     }
-  }
 
     fetchData()
   }, [session])
@@ -110,7 +116,7 @@ const Table = () => {
                 ))}
               </tr>
             </thead>
-            {!session ? (
+            {loading ? (
               <tbody className='bg-gray-100 font-semibold'>
                 <tr>
                   {columns.slice(0, -2).map((column) => (
@@ -141,6 +147,7 @@ const Table = () => {
                                     height: '50px',
                                     borderRadius: '4px',
                                   }}
+                                  loading='lazy'
                                 />
                               </>
                             </td>
@@ -185,11 +192,14 @@ const Table = () => {
               </tbody>
             )}
           </table>
-          {!tableData.length && (
-            <p className='flex justify-center font-semibold text-xl text-gray-600'>
-              No Data Available{' '}
-            </p>
-          )}
+          {loading ||
+            (tableData.length === 0 && (
+              <div className='text-center my-10'>
+                <p className='flex justify-center font-semibold text-xl text-gray-600'>
+                  No Data Available
+                </p>
+              </div>
+            ))}
         </div>
         <div className='pagination flex items-center justify-between text-gray-600 font-semibold  my-5'>
           <span className='text-sm px-2'>
