@@ -111,7 +111,7 @@ const HorizontalNav = () => {
   return (
     <section
       ref={navigationRef}
-      className='fixed bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-slate-300/50 px-5 2xl:px-10 py-3 items-center gap-5'>
+      className='fixed bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-gray-300/20 px-5 2xl:px-10 py-3 items-center gap-5'>
       <div className='flex items-center gap-5'>
         <div className='Mobile Navigation lg:hidden'>
           <span onClick={handleActive}>

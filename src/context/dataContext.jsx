@@ -15,14 +15,12 @@ export const UserProvider = ({ children }) => {
 
   const fetchedUserData = async () => {
     try {
-        const session = localStorage.getItem('auth-token')
-        
+      const session = localStorage.getItem('auth-token')
 
       if (session) {
         const sessionData = JSON.parse(session)
         const userSessionData = sessionData || null
 
-          
         const response = await axios.get(
           `https://craaft.onrender.com/v1/api/fetchuser?id=${userSessionData.id}`,
           {
@@ -34,10 +32,10 @@ export const UserProvider = ({ children }) => {
 
         if (error) {
           console.error(error.message)
-          }
-          
-          console.log(data)
+        }
 
+          console.log(data)
+          
         setUserData(data[0])
       }
     } catch (error) {
@@ -49,7 +47,7 @@ export const UserProvider = ({ children }) => {
     if (!userData) {
       fetchedUserData()
     }
-  }, [userData])
+  }, [])
 
   return (
     <UserContext.Provider value={userData}>{children}</UserContext.Provider>

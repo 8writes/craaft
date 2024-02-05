@@ -22,7 +22,7 @@ export default function OverviewLayout({ children }) {
   return (
     <UserProvider>
       <HorizontalNav />
-      <div className='flex bg-gray-100'>
+      <div className='flex bg-slate-100'>
         <div className='hidden lg:block'>
           <VerticalNav />
         </div>
