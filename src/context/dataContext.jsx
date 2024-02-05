@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios'
+import { usePathname } from 'next/navigation'
 
 const UserContext = createContext(null)
 
@@ -11,13 +12,14 @@ export const useDataContext = () => {
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null)
+   const pathname = usePathname()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (typeof window !== 'undefined') {
           const session = localStorage.getItem('auth-token')
-          if (session && !userData) {
+          if (session) {
             const sessionData = JSON.parse(session)
             const userSessionData = sessionData || null
             const response = await axios.get(
@@ -35,14 +37,16 @@ export const UserProvider = ({ children }) => {
         }
       } catch (error) {
         console.error(error)
-        setUserData(null)
+      } finally {
       }
     }
 
-    if (!userData) {
-      fetchData()
-    }
-  }, [userData])
+    fetchData()
+  }, [pathname === '/overview'])
+
+  useEffect(() => {
+    setUserData(null)
+  }, [pathname === '/login'])
 
   return (
     <UserContext.Provider value={userData}>{children}</UserContext.Provider>
