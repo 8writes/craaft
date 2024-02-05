@@ -75,8 +75,8 @@ const UserProfileForm = () => {
             ) : (
               <input
                 type='email'
-                value={email}
-                className='md:flex-1 text-gray-700'
+                autoFocus
+                className='md:flex-1 border text-gray-700'
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={!isEditing}
                 placeholder={primaryEmail}
@@ -96,7 +96,7 @@ const UserProfileForm = () => {
               <input
                 type='number'
                 value={phoneNumber}
-                className='md:flex-1 text-gray-700'
+                className='md:flex-1 border text-gray-700'
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 disabled={!isEditing}
                 placeholder={`${tel}`}

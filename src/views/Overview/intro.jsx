@@ -96,7 +96,7 @@ const Intro = () => {
           )}
 
           {!session ? (
-            <Skeleton width={150} height={40} animation='wave' />
+            <Skeleton width={120} height={40} animation='wave' />
           ) : (
             <Link href='#'>
               <button className='grid text-base font-semibold hover:text-yellow-500 text-yellow-600 items-center'>
