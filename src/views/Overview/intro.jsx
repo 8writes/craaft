@@ -74,7 +74,7 @@ const Intro = () => {
         )}
         <div className='flex justify-center md:justify-start flex-wrap gap-5'>
           {!session ? (
-            <Skeleton width={120} height={40} animation='wave' />
+            <Skeleton width={100} height={40} animation='wave' />
           ) : (
             <Link href='#'>
               <button className='grid text-base font-semibold hover:text-green-500 text-green-600 items-center'>
@@ -85,7 +85,7 @@ const Intro = () => {
           )}
 
           {!session ? (
-            <Skeleton width={120} height={40} animation='wave' />
+            <Skeleton width={100} height={40} animation='wave' />
           ) : (
             <Link href='#'>
               <button className='grid text-base font-semibold hover:text-blue-700 text-blue-900 items-center'>
@@ -96,7 +96,7 @@ const Intro = () => {
           )}
 
           {!session ? (
-            <Skeleton width={120} height={40} animation='wave' />
+            <Skeleton width={100} height={40} animation='wave' />
           ) : (
             <Link href='#'>
               <button className='grid text-base font-semibold hover:text-yellow-500 text-yellow-600 items-center'>
