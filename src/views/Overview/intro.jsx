@@ -67,13 +67,13 @@ const Intro = () => {
         )}
       </div>
       <div className='grid gap-5 md:px-4'>
-        <p className='text-2xl font-semibold text-gray-600'>
-          {!session ? (
-            <Skeleton width={150} height={50} animation='wave' />
-          ) : (
-            'Quick Actions'
-          )}
-        </p>
+        {!session ? (
+          <Skeleton width={150} height={50} animation='wave' />
+        ) : (
+          <p className='text-2xl font-semibold text-slate-500'>
+            Quick Actions
+          </p>
+        )}
         <div className='flex justify-center md:justify-start flex-wrap gap-5'>
           {!session ? (
             <Skeleton width={120} animation='wave' />
@@ -90,7 +90,7 @@ const Intro = () => {
             <Skeleton width={120} animation='wave' />
           ) : (
             <Link href='#'>
-              <button className='grid text-base font-semibold hover:text-blue-800 text-blue-900 items-center'>
+              <button className='grid text-base font-semibold hover:text-blue-700 text-blue-900 items-center'>
                 <AddBusinessRoundedIcon className='mx-auto' />
                 Subscription
               </button>
