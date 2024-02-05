@@ -20,9 +20,7 @@ const LoginForm = () => {
 
   const isDisabled = !email || !password
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
-
+  const handleLogin = async () => {
     setIsLoading(true)
     try {
       const response = await axios.post(

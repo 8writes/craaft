@@ -13,8 +13,10 @@ import axios from 'axios'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useDataContext } from '@/context/dataContext'
 import { Skeleton } from '@mui/material'
+import { useRouter } from 'next/navigation'
 
 const HorizontalNav = () => {
+  const router = useRouter()
   const session = useDataContext()
   const [isActive, setIsActive] = useState(false)
   const navigationRef = useRef(null)
@@ -82,30 +84,10 @@ const HorizontalNav = () => {
           transition: Bounce,
         })
       } else {
-        toast.success('Logged out!', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-        })
+        router.push('/login')
       }
     } catch (error) {
-      toast.error(error.message, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
+      console.log(error.message)
     }
   }
 
@@ -195,11 +177,11 @@ const HorizontalNav = () => {
             {showDropdown && (
               <div className='Dropdown mt-3 right-0 absolute w-48 bg-white border border-gray-200 rounded-b-md shadow-md'>
                 <ul className='py-2 text-gray-500 font-semibold'>
-                  <Link href='login' onClick={handleLogout}>
-                    <li className='flex items-center px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
-                      <LogoutIcon /> Logout
-                    </li>
-                  </Link>
+                  <li
+                    onClick={handleLogout}
+                    className='flex items-center px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
+                    <LogoutIcon /> Logout
+                  </li>
                 </ul>
               </div>
             )}

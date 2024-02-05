@@ -46,7 +46,7 @@ const Intro = () => {
         {!session ? (
           <Skeleton width={200} animation='wave' />
         ) : (
-          <p className='text-base font-semibold text-indigo-700'>
+          <p className='text-base lowercase font-semibold text-indigo-700'>
             <a href={`https://${storeName}`} target='_blank' rel='noreferrer'>
               {storeName}
               <ArrowOutwardRoundedIcon sx={{ width: '20px' }} />

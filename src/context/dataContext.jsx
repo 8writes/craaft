@@ -33,7 +33,7 @@ export const UserProvider = ({ children }) => {
         if (error) {
           console.error(error.message)
         }
-          
+
         setUserData(data[0])
       }
     } catch (error) {
@@ -41,13 +41,10 @@ export const UserProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    if (!userData) {
+  useEffect(() => { 
       fetchedUserData()
-    }
   }, [])
 
-    console.log(userData)
   return (
     <UserContext.Provider value={userData}>{children}</UserContext.Provider>
   )
