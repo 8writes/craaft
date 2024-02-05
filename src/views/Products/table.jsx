@@ -165,7 +165,6 @@ const Table = () => {
                             </td>
                           )
                         }
-                        return null
                       })}
                       <td className='flex items-center py-4 text-xs'>
                         <div
@@ -186,6 +185,11 @@ const Table = () => {
               </tbody>
             )}
           </table>
+          {!tableData && (
+            <p className='flex justify-center font-semibold text-xl text-gray-600'>
+              No Data Available{' '}
+            </p>
+          )}
         </div>
         <div className='pagination flex items-center justify-between text-gray-600 font-semibold  my-5'>
           <span className='text-sm px-2'>10 of {tableData.length} entries</span>
