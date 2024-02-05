@@ -2,8 +2,16 @@
 
 'use client'
 
+import { useEffect } from 'react'
 import OverviewLayout from '@/layout/UserLayout'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  return <OverviewLayout></OverviewLayout>
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push('/overview')
+  }, [])
+
+  return null
 }
