@@ -2,14 +2,21 @@
 
 import React, { useState } from 'react'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import { useDataContext } from '@/context/dataContext'
+import Skeleton from '@mui/material/Skeleton'
 
 const UserProfileForm = () => {
-  const [fullName, setFullName] = useState('emmanuel chisom')
-  const [email, setEmail] = useState('mailemmanuel00@gmail.com')
-  const [phoneNumber, setPhoneNumber] = useState('0807462838')
-  const [subscriptionType, setSubscriptionType] = useState('Free')
-  const [active, setActive] = useState('1/11/2018')
+  const session = useDataContext()
+  const [email, setEmail] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [isEditing, setEditing] = useState(false)
+
+  const firstName = session?.first_name
+  const lastName = session?.last_name
+  const subscription = session?.subscription
+  const createdAt = session?.created_at
+  const primaryEmail = session?.email
+  const tel = session?.tel
 
   const handleEditClick = () => {
     setEditing(!isEditing)
@@ -17,74 +24,140 @@ const UserProfileForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Perform your form submission logic here, e.g., send data to the server
-    console.log('Form submitted:', { fullName, email, subscriptionType })
+    console.log('Form submitted:', { tel, email })
   }
 
   return (
     <div>
-      <div className='grid gap-20 py-10'>
+      <div className='grid gap-20 py-10 shadow-sm bg-white rounded-md mt-5 px-4 md:px-5'>
         <form
           onSubmit={handleSubmit}
-          className='grid gap-5 w-full md:text-xl md:w-2/4 font-semibold text-gray-600'>
+          className='grid gap-5 w-full md:text-xl xl:w-2/4 font-semibold text-gray-600'>
           <label className='grid md:flex'>
             <p className='md:flex-1 text-xl'>Name</p>
-            <p className='md:flex-1 bg-gray-100 text-gray-700'>
-              emmanuel chisom
-            </p>
+            {!session ? (
+              <Skeleton
+                width={150}
+                height={35}
+                className='md:flex-1'
+                animation='wave'
+              />
+            ) : (
+              <p className='md:flex-1 text-gray-700'>
+                {firstName} {lastName}
+              </p>
+            )}
           </label>
-
+          <label className='grid md:flex'>
+            <p className='md:flex-1 text-xl'>Active Since</p>
+            {!session ? (
+              <Skeleton
+                width={150}
+                height={35}
+                className='md:flex-1'
+                animation='wave'
+              />
+            ) : (
+              <p className='md:flex-1 text-base text-gray-700'>
+                {`${new Date(createdAt).toLocaleDateString()}`}
+              </p>
+            )}
+          </label>
           <label className='grid md:flex'>
             <p className='md:flex-1 text-xl'>Primary Email</p>
-            <input
-              type='email'
-              value={email}
-              className='md:flex-1 text-gray-700'
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={!isEditing}
-              placeholder='mailemmanuel00@gmail.com'
-            />
+            {!session ? (
+              <Skeleton
+                width={150}
+                height={35}
+                className='md:flex-1'
+                animation='wave'
+              />
+            ) : (
+              <input
+                type='email'
+                value={email}
+                className='md:flex-1 text-gray-700'
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={!isEditing}
+                placeholder={primaryEmail}
+              />
+            )}
           </label>
           <label className='grid md:flex'>
             <p className='md:flex-1 text-xl'>Phone Number</p>
-            <input
-              type='number'
-              value={phoneNumber}
-              className='md:flex-1 text-gray-700'
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              disabled={!isEditing}
-              placeholder='0807462838'
-            />
+            {!session ? (
+              <Skeleton
+                width={150}
+                height={35}
+                className='md:flex-1'
+                animation='wave'
+              />
+            ) : (
+              <input
+                type='number'
+                value={phoneNumber}
+                className='md:flex-1 text-gray-700'
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                disabled={!isEditing}
+                placeholder={`${tel}`}
+              />
+            )}
           </label>
           <div className='flex gap-2 justify-end '>
-            {isEditing && (
-              <button
-                className='border-2 py-1 px-6 text-gray-600 uppercase text-xs rounded-md'
-                onClick={handleEditClick}>
-                Save
-              </button>
+            {!session ? (
+              <Skeleton width={150} height={35} animation='wave' />
+            ) : (
+              <>
+                {isEditing && (
+                  <button
+                    className='border-2 border-green-600 py-1 px-6 text-gray-600 uppercase text-xs rounded-sm'
+                    onClick={handleEditClick}>
+                    Save
+                  </button>
+                )}
+                <button
+                  className='border-2 border-indigo-600 py-1 px-2 text-xs uppercase text-gray-600 rounded-sm'
+                  onClick={handleEditClick}>
+                  {isEditing ? 'Cancel' : 'Update Info'}
+                </button>
+              </>
             )}
-            <button
-              className='border-2 py-1 px-2 text-xs uppercase text-gray-600 rounded-md'
-              onClick={handleEditClick}>
-              {isEditing ? 'Cancel' : 'Update Info'}
-            </button>
           </div>
           <label className='grid md:flex'>
             <p className='md:flex-1 text-xl'>Subscription</p>
-            <p className='md:flex-1 bg-gray-100 text-gray-700'>Trial 14 days</p>
-          </label>
+            {!session ? (
+              <Skeleton
+                width={150}
+                height={35}
+                className='md:flex-1'
+                animation='wave'
+              />
+            ) : (
+              <p className='md:flex-1 text-gray-700'>{subscription}</p>
+            )}
+          </label>{' '}
           <label className='grid md:flex'>
-            <p className='md:flex-1 text-base'>Active Since</p>
-            <p className='md:flex-1 text-base bg-gray-100 text-gray-700'>
-              1/11/2018
-            </p>
+            <p className='md:flex-1 text-xl'>Expires</p>
+            {!session ? (
+              <Skeleton
+                width={150}
+                height={35}
+                className='md:flex-1'
+                animation='wave'
+              />
+            ) : (
+              <p className='md:flex-1 text-gray-700'>23/2/2024</p>
+            )}
           </label>
         </form>
-        <div>
-          <button className='border-2 py-1 px-6 border-red-500 uppercase text-base text-red-600 rounded-md'>
-            <DeleteOutlineIcon /> Delete Account
-          </button>
+        <div className='flex justify-end'>
+          {!session ? (
+            <Skeleton width={160} height={60} animation='wave' />
+          ) : (
+            <button className='border-2 py-1 px-6 border-red-500 uppercase text-base text-red-600 rounded-md'>
+              <DeleteOutlineIcon /> Delete Account
+            </button>
+          )}
         </div>
       </div>
     </div>

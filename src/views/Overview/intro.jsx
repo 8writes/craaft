@@ -70,13 +70,11 @@ const Intro = () => {
         {!session ? (
           <Skeleton width={150} height={50} animation='wave' />
         ) : (
-          <p className='text-2xl font-semibold text-slate-500'>
-            Quick Actions
-          </p>
+          <p className='text-2xl font-semibold text-slate-500'>Quick Actions</p>
         )}
         <div className='flex justify-center md:justify-start flex-wrap gap-5'>
           {!session ? (
-            <Skeleton width={120} animation='wave' />
+            <Skeleton width={120} height={40} animation='wave' />
           ) : (
             <Link href='#'>
               <button className='grid text-base font-semibold hover:text-green-500 text-green-600 items-center'>
@@ -87,7 +85,7 @@ const Intro = () => {
           )}
 
           {!session ? (
-            <Skeleton width={120} animation='wave' />
+            <Skeleton width={120} height={40} animation='wave' />
           ) : (
             <Link href='#'>
               <button className='grid text-base font-semibold hover:text-blue-700 text-blue-900 items-center'>
@@ -98,7 +96,7 @@ const Intro = () => {
           )}
 
           {!session ? (
-            <Skeleton width={150} animation='wave' />
+            <Skeleton width={150} height={40} animation='wave' />
           ) : (
             <Link href='#'>
               <button className='grid text-base font-semibold hover:text-yellow-500 text-yellow-600 items-center'>

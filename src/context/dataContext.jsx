@@ -33,8 +33,6 @@ export const UserProvider = ({ children }) => {
         if (error) {
           console.error(error.message)
         }
-
-          console.log(data)
           
         setUserData(data[0])
       }
@@ -49,6 +47,7 @@ export const UserProvider = ({ children }) => {
     }
   }, [])
 
+    console.log(userData)
   return (
     <UserContext.Provider value={userData}>{children}</UserContext.Provider>
   )

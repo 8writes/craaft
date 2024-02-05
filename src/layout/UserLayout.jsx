@@ -20,8 +20,8 @@ export default function OverviewLayout({ children }) {
   }, [session])
 
   return (
-    <UserProvider>
-      <HorizontalNav />
+    <>
+    <HorizontalNav />
       <div className='flex bg-slate-100'>
         <div className='hidden lg:block'>
           <VerticalNav />
@@ -30,7 +30,8 @@ export default function OverviewLayout({ children }) {
           {children}
         </div>
       </div>
-    </UserProvider>
+    </>
+      
   )
 }
 

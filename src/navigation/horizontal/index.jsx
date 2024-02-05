@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useDataContext } from '@/context/dataContext'
+import { Skeleton } from '@mui/material'
 
 const HorizontalNav = () => {
   const session = useDataContext()
@@ -168,9 +169,18 @@ const HorizontalNav = () => {
             />
           </div>
           <span className='text-end hidden md:inline-block'>
-            <p className='text-base font-semibold'>
-              {lastName} .{firstLetterOfFirstName}
-            </p>
+            {!session ? (
+              <Skeleton
+                width={50}
+                height={35}
+                className='md:flex-1'
+                animation='wave'
+              />
+            ) : (
+              <p className='text-base font-semibold'>
+                {lastName} .{firstLetterOfFirstName}
+              </p>
+            )}
           </span>
           <div className='relative'>
             <Image
