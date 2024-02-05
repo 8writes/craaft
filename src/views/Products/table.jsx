@@ -5,7 +5,6 @@ import { useState, useMemo, useEffect } from 'react'
 import AddRoundedIcon from '@mui/icons-material/AddRounded'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import searchIcon from '../../../public/searchIcon.svg'
-import avatar from '../../../public/avatar.svg'
 import axios from 'axios'
 import { useDataContext } from '@/context/dataContext'
 import { Skeleton } from '@mui/material'
@@ -170,7 +169,7 @@ const Table = () => {
                       })}
                       <td className='flex items-center py-4 text-xs'>
                         <div
-                          className={`flex flex-1 items-center gap-2 py-2 px-4 ${
+                          className={`flex flex-1 w-32 md:w-fit items-center gap-2 py-2 px-4 ${
                             row.stock === 'Out Of Stock'
                               ? 'text-red-600'
                               : row.stock === 'In Stock'
