@@ -185,14 +185,16 @@ const Table = () => {
               </tbody>
             )}
           </table>
-          {!tableData && (
+          {!tableData.length && (
             <p className='flex justify-center font-semibold text-xl text-gray-600'>
               No Data Available{' '}
             </p>
           )}
         </div>
         <div className='pagination flex items-center justify-between text-gray-600 font-semibold  my-5'>
-          <span className='text-sm px-2'>10 of {tableData.length} entries</span>
+          <span className='text-sm px-2'>
+            {tableData.length} of {tableData.length} entries
+          </span>
           <span className=' flex items-center border-2 rounded-sm text-sm px-1'>
             <button
               className=' border-r-2 p-1'

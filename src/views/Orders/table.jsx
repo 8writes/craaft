@@ -194,74 +194,77 @@ const Table = () => {
                 </tbody>
               ) : (
                 <>
-                    <tbody className='bg-gray-100 font-semibold'>
-                      {dataToUse
-                        .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-                        .map((row) => (
-                          <tr key={row.sn} className='border-b-2'>
-                            {columns.slice(0, -2).map((column) => {
-                              if (column.id === 'image') {
-                                return (
-                                  <td
-                                    key={column.id}
-                                    className='text-start text-sm p-4 text-gray-600 flex items-center'>
-                                    <div>
-                                      <Image
-                                        src={avatar}
-                                        alt='Product Image'
-                                        width={40}
-                                        height={40}
-                                      />
-                                    </div>
-                                  </td>
-                                )
-                              } else if (column.id === 'item') {
-                                return (
-                                  <td
-                                    key={column.id}
-                                    className='text-start text-sm p-4 text-gray-600'>
-                                    {row[column.id]}
-                                  </td>
-                                )
-                              } else if (column.id !== 'action') {
-                                return (
-                                  <td
-                                    key={column.id}
-                                    className='text-start text-sm p-4 text-gray-600'>
-                                    {column.format &&
-                                    typeof row[column.id] === 'number'
-                                      ? column.format(row[column.id])
-                                      : row[column.id]}
-                                  </td>
-                                )
-                              }
-                            })}
-                            <td className='flex items-center py-4 text-xs'>
-                              <div
-                                className={`flex flex-1 items-center gap-2 py-2 px-4 ${
-                                  row.status === 'Pending'
-                                    ? 'text-yellow-500'
-                                    : row.status === 'Delivered'
-                                    ? 'text-green-500'
-                                    : 'text-gray-400'
-                                }`}>
-                                <span className=' w-3 h-3 inline-block bg-current rounded-full'></span>{' '}
-                                {row.status}
-                              </div>
-                              <MoreVertIcon className='text-gray-600 cursor-pointer' />
-                            </td>
-                          </tr>
-                        ))}
-                    </tbody>
-                  
+                  <tbody className='bg-gray-100 font-semibold'>
+                    {dataToUse
+                      .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+                      .map((row) => (
+                        <tr key={row.sn} className='border-b-2'>
+                          {columns.slice(0, -2).map((column) => {
+                            if (column.id === 'image') {
+                              return (
+                                <td
+                                  key={column.id}
+                                  className='text-start text-sm p-4 text-gray-600 flex items-center'>
+                                  <div>
+                                    <Image
+                                      src={avatar}
+                                      alt='Product Image'
+                                      width={40}
+                                      height={40}
+                                    />
+                                  </div>
+                                </td>
+                              )
+                            } else if (column.id === 'item') {
+                              return (
+                                <td
+                                  key={column.id}
+                                  className='text-start text-sm p-4 text-gray-600'>
+                                  {row[column.id]}
+                                </td>
+                              )
+                            } else if (column.id !== 'action') {
+                              return (
+                                <td
+                                  key={column.id}
+                                  className='text-start text-sm p-4 text-gray-600'>
+                                  {column.format &&
+                                  typeof row[column.id] === 'number'
+                                    ? column.format(row[column.id])
+                                    : row[column.id]}
+                                </td>
+                              )
+                            }
+                          })}
+                          <td className='flex items-center py-4 text-xs'>
+                            <div
+                              className={`flex flex-1 items-center gap-2 py-2 px-4 ${
+                                row.status === 'Pending'
+                                  ? 'text-yellow-500'
+                                  : row.status === 'Delivered'
+                                  ? 'text-green-500'
+                                  : 'text-gray-400'
+                              }`}>
+                              <span className=' w-3 h-3 inline-block bg-current rounded-full'></span>{' '}
+                              {row.status}
+                            </div>
+                            <MoreVertIcon className='text-gray-600 cursor-pointer' />
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
                 </>
               )}
             </table>
-            {!dataToUse && (<p className='flex justify-center font-semibold text-xl text-gray-600'>No Data Available </p>)}
+            {!dataToUse.length && (
+              <p className='flex justify-center font-semibold text-xl text-gray-600'>
+                No Data Available{' '}
+              </p>
+            )}
           </div>
           <div className='pagination flex items-center text-gray-600 font-semibold justify-between my-5'>
             <span className='text-sm px-2'>
-              10 of {dataToUse.length} entries
+              {dataToUse.length} of {dataToUse.length} entries
             </span>
             <span className=' flex items-center border-2 rounded-sm text-sm px-1'>
               <button
