@@ -116,7 +116,7 @@ const UserProfileForm = () => {
                   </button>
                 )}
                 <button
-                  className='border-2 border-indigo-600 py-1 px-2 text-xs uppercase text-gray-600 rounded-sm'
+                  className='py-1 px-2 text-xs uppercase text-indigo-600 rounded-sm'
                   onClick={handleEditClick}>
                   {isEditing ? 'Cancel' : 'Update Info'}
                 </button>

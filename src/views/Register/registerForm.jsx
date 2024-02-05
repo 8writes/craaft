@@ -60,7 +60,6 @@ const RegisterForm = () => {
       const { error } = response.data
 
       if (error) {
-        console.log(error)
         toast.error(error.message, {
           position: 'top-right',
           autoClose: 5000,
@@ -103,7 +102,6 @@ const RegisterForm = () => {
           transition: Bounce,
         })
       } else {
-        console.log(error)
         toast.error(error.message, {
           position: 'top-right',
           autoClose: 5000,

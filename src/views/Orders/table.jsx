@@ -5,14 +5,16 @@ import searchIcon from '../../../public/searchIcon.svg'
 import { useState, useMemo, useRef, useEffect } from 'react'
 import avatar from '../../../public/avatar.svg'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import { useDataContext } from '@/context/dataContext'
+import axios from 'axios'
+import { Skeleton } from '@mui/material'
 
 const columns = [
   { id: 'sn', label: 'S/N' },
-  { id: 'image', label: 'Preview' },
-  { id: 'item', label: 'Product' },
+  { id: 'full_name', label: 'Name' },
   { id: 'email', label: 'Email' },
-  { id: 'reference_id', label: 'ReferenceId' },
-  { id: 'date', label: 'Date' },
+  { id: 'reference', label: 'ReferenceId' },
+  { id: 'order_date', label: 'Date' },
   {
     id: 'price',
     label: 'Price(₦)',
@@ -23,49 +25,73 @@ const columns = [
 ]
 
 const Table = () => {
+  const session = useDataContext()
   const [page, setPage] = useState(0)
   const rowsPerPage = useMemo(() => 10, [])
-
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false)
   const [selectedValue, setSelectedValue] = useState('All')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [normalData, setNormalData] = useState([])
+  const [searchData, setSearchData] = useState([])
+
+  const store_order_id = session?.store_order_id
 
   const toggleDropdown2 = () => {
     setIsDropdownOpen2((prevState) => !prevState)
   }
-  
-  const value2 = ['All', 'Delivered', 'Pending', 'Refunded' ]
 
-  const generateDummyData = () => {
-    const dummyData = []
+  const value2 = ['All', 'Delivered', 'Pending', 'Refunded']
 
-    for (let i = 1; i <= 20; i++) {
-      const status =
-        i % 2 === 0 ? 'Pending' : i % 3 === 0 ? 'Refunded' : 'Shipped'
+  const fetchData = async (searchTerm) => {
+    try {
+      const response = await axios.get(
+        `https://craaft.onrender.com/v1/api/fetch?store_order_id=${store_order_id}`
+      )
 
-      const row = {
-        sn: i,
-        item: 'Apple MacBook ',
-        reference_id: 84375393324,
-        email: 'mailemmanuel00@gmail.com',
-        date: '2022-02-01',
-        price: 73430,
-        status,
-      }
+      const { error, data } = response.data
 
-      dummyData.push(row)
+      if (error) {
+        console.log(error)
+      }  
+
+      let idCounter = 0
+
+      const formattedData = data.map((item) => ({
+        ...item,
+        sn: ++idCounter,
+      }))
+
+      setNormalData(formattedData)
+
+      const dataToUse = formattedData.filter((item) =>
+        item.reference.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+
+      setSearchData(dataToUse)
+    } catch (error) {
+      console.error(error)
     }
-
-    return dummyData
   }
-  const data = generateDummyData()
 
-  const filteredData = data.filter((row) => {
-    if (selectedValue === 'All') {
-      return true
-    } else {
-      return row.status.toLowerCase() === selectedValue.toLowerCase()
-    }
-  })
+  useEffect(() => {
+    fetchData(searchTerm)
+  }, [session, searchTerm])
+
+  const handleSearch = () => {
+    fetchData(searchTerm)
+  }
+
+  const dataToUse = useMemo(() => {
+    return searchTerm.length > 0
+      ? searchData
+      : normalData.filter((row) => {
+          if (selectedValue === 'All') {
+            return true
+          } else {
+            return row.status.toLowerCase() === selectedValue.toLowerCase()
+          }
+        })
+  }, [searchTerm, selectedValue, normalData, searchData])
 
   const handlePrevPage = () => {
     setPage((prevPage) => Math.max(prevPage - 1, 0))
@@ -73,7 +99,7 @@ const Table = () => {
 
   const handleNextPage = () => {
     setPage((prevPage) =>
-      Math.min(prevPage + 1, Math.ceil(filteredData.length / rowsPerPage) - 1)
+      Math.min(prevPage + 1, Math.ceil(dataToUse.length / rowsPerPage) - 1)
     )
   }
 
@@ -86,13 +112,16 @@ const Table = () => {
               type='text'
               className='outline-none font-semibold bg-transparent w-full text-base md:text-sm'
               placeholder='Search reference id'
-            />{' '}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <Image
               src={searchIcon}
               alt='Search icon'
-              className=' cursor-pointer'
+              className='cursor-pointer'
               width={19}
               height={19}
+              onClick={handleSearch}
             />
           </span>
           <div className='flex gap-2 items-center'>
@@ -139,23 +168,33 @@ const Table = () => {
         </div>
       </div>
       <div className='Table-Body'>
-        {filteredData && filteredData.length > 0 ? (
-          <div>
-            <div className='overflow-x-auto rounded-md shadow-md'>
-              <table className='your-table-styles table-auto w-full'>
-                <thead className='bg-indigo-500 p-4 '>
+        <div>
+          <div className='overflow-x-auto rounded-md shadow-md'>
+            <table className='your-table-styles table-auto w-full'>
+              <thead className='bg-indigo-500 p-4 '>
+                <tr>
+                  {columns.map((column) => (
+                    <th
+                      key={column.id}
+                      className='text-start font-semibold text-sm p-4 text-white'>
+                      {column.label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              {!session ? (
+                <tbody className='bg-gray-100 font-semibold'>
                   <tr>
-                    {columns.map((column) => (
-                      <th
-                        key={column.id}
-                        className='text-start font-semibold text-sm p-4 text-white'>
-                        {column.label}
-                      </th>
+                    {columns.slice(0, -2).map((column) => (
+                      <td key={column.id}>
+                        <Skeleton width={150} height={35} animation='wave' />
+                      </td>
                     ))}
                   </tr>
-                </thead>
+                </tbody>
+              ) : (
                 <tbody className='bg-gray-100 font-semibold'>
-                  {filteredData
+                  {dataToUse
                     .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                     .map((row) => (
                       <tr key={row.sn} className='border-b-2'>
@@ -202,7 +241,7 @@ const Table = () => {
                             className={`flex flex-1 items-center gap-2 py-2 px-4 ${
                               row.status === 'Pending'
                                 ? 'text-yellow-500'
-                                : row.status === 'Shipped'
+                                : row.status === 'Delivered'
                                 ? 'text-green-500'
                                 : 'text-gray-400'
                             }`}>
@@ -214,37 +253,35 @@ const Table = () => {
                       </tr>
                     ))}
                 </tbody>
-              </table>
-            </div>
-            <div className='pagination flex items-center text-gray-600 font-semibold justify-between my-5'>
-              <span className='text-sm px-2'>
-                10 of {filteredData.length} entries
-              </span>
-              <span className=' flex items-center border-2 rounded-sm text-sm px-1'>
-                <button
-                  className=' border-r-2 p-1'
-                  onClick={handlePrevPage}
-                  disabled={page === 0}>
-                  Previous
-                </button>
-                <span className='py-1 px-3  bg-indigo-300'>{page + 1}</span>
-                <span className='py-1 px-3'>
-                  {Math.ceil(filteredData.length / rowsPerPage)}
-                </span>
-                <button
-                  className=' border-l-2 p-1'
-                  onClick={handleNextPage}
-                  disabled={
-                    page === Math.ceil(filteredData.length / rowsPerPage) - 1
-                  }>
-                  Next
-                </button>
-              </span>
-            </div>
+              )}
+            </table>
           </div>
-        ) : (
-          <p className='text-center'>No data available</p>
-        )}
+          <div className='pagination flex items-center text-gray-600 font-semibold justify-between my-5'>
+            <span className='text-sm px-2'>
+              10 of {dataToUse.length} entries
+            </span>
+            <span className=' flex items-center border-2 rounded-sm text-sm px-1'>
+              <button
+                className=' border-r-2 p-1'
+                onClick={handlePrevPage}
+                disabled={page === 0}>
+                Previous
+              </button>
+              <span className='py-1 px-3  bg-indigo-300'>{page + 1}</span>
+              <span className='py-1 px-3'>
+                {Math.ceil(dataToUse.length / rowsPerPage)}
+              </span>
+              <button
+                className=' border-l-2 p-1'
+                onClick={handleNextPage}
+                disabled={
+                  page === Math.ceil(dataToUse.length / rowsPerPage) - 1
+                }>
+                Next
+              </button>
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   )

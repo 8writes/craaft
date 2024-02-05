@@ -31,6 +31,7 @@ const Table = () => {
 
   const store_name_id = session?.store_name_id
 
+  useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -40,7 +41,7 @@ const Table = () => {
       const { error, data } = response.data
 
       if (error) {
-        setFailed(error.message)
+        console.log(error)
       }
 
       let idCounter = 0
@@ -57,7 +58,6 @@ const Table = () => {
     }
   }
 
-  useEffect(() => {
     fetchData()
   }, [session])
 
