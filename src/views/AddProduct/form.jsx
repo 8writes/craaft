@@ -1,15 +1,12 @@
 /** @format */
 
 import { useState } from 'react'
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from '@mui/material'
+import { Dialog, DialogTitle, DialogContent } from '@mui/material'
 import ProductOptions from './product-options'
+import { IconButton } from '@mui/material'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined'
 
 const ProductForm = () => {
   const [productName, setProductName] = useState('')
@@ -18,6 +15,45 @@ const ProductForm = () => {
   const [productStock, setProductStock] = useState('')
   const [productDescription, setProductDescription] = useState('')
   const [isOptionsDialogOpen, setOptionsDialogOpen] = useState(false)
+
+  const [selectedImages, setSelectedImages] = useState([])
+
+  const handleImageUpload = () => {
+    if (selectedImages.length < 6) {
+      const newInput = document.createElement('input')
+      newInput.type = 'file'
+      newInput.accept = 'image/*'
+      newInput.multiple = true
+      newInput.style.display = 'none'
+      newInput.addEventListener('change', handleFilesSelected)
+
+      document.body.appendChild(newInput)
+      newInput.click()
+    }
+  }
+
+  const handleFilesSelected = (e) => {
+    const selectedFiles = e.target.files
+
+    if (selectedFiles.length > 0) {
+      const newImages = Array.from(selectedFiles).map((file) => ({
+        file,
+        url: URL.createObjectURL(file),
+      }))
+
+      // Update the state to store selected images
+      setSelectedImages((prevImages) => [...prevImages, ...newImages])
+    }
+
+    // Remove the dynamically created input to avoid reopening the dialog
+    e.target.remove()
+  }
+
+  const handleRemoveImage = (index) => {
+    const updatedImages = [...selectedImages]
+    updatedImages.splice(index, 1)
+    setSelectedImages(updatedImages)
+  }
 
   const handleOptionsButtonClick = () => {
     setOptionsDialogOpen(true)
@@ -29,7 +65,36 @@ const ProductForm = () => {
 
   return (
     <div className='py-10'>
-      <form className='grid bg-white rounded-md shadow-sm p-10'>
+      <form className='grid bg-white rounded-md shadow-sm p-5 md:p-10 '>
+        <div className='flex flex-wrap gap-2'>
+          {selectedImages.length > 0 && (
+            <div className='flex justify-center flex-wrap mx-auto items-center gap-2'>
+              {selectedImages.map((image, index) => (
+                <div key={index} className=' relative'>
+                  <IconButton
+                    className='absolute text-red-500 top-0 right-0'
+                    onClick={() => handleRemoveImage(index)}>
+                    <CloseOutlinedIcon />
+                  </IconButton>
+                  <img
+                    src={image.url}
+                    alt={`Selected Image ${index + 1}`}
+                    className='my-auto w-20 h-20'
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
+          <label
+            onClick={handleImageUpload}
+            className={`grid cursor-pointer border my-2 p-4 font-semibold text-gray-700 bg-slate-100 ${
+              selectedImages.length >= 6 && 'opacity-50 pointer-events-none'
+            }`}>
+            <FileUploadOutlinedIcon className='mx-auto' /> Add Image(s)
+          </label>
+        </div>
+
         <label>
           <p className='font-semibold text-gray-600'>Product Name</p>
           <input
@@ -41,6 +106,7 @@ const ProductForm = () => {
             autoFocus
           />
         </label>
+
         <label>
           <p className='font-semibold text-gray-600'>Product Price</p>
           <input
@@ -102,7 +168,7 @@ const ProductForm = () => {
             Add Product Details
           </button>
           <p className='text-xs md:text-sm flex item-center text-center md:text-start text-gray-600 font-semibold'>
-           <InfoOutlinedIcon /> Add product colors, sizes and more.
+            <InfoOutlinedIcon /> Add product colors, sizes and more.
           </p>
         </div>
         <button
