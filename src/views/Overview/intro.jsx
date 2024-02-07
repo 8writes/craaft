@@ -72,7 +72,7 @@ const Intro = () => {
         ) : (
           <p className='text-2xl font-semibold text-slate-500'>Quick Actions</p>
         )}
-        <div className='flex justify-center md:justify-start flex-wrap gap-5'>
+        <div className='flex justify-between gap-1 md:justify-start flex-wrap'>
           {!session ? (
             <Skeleton width={100} height={40} animation='wave' />
           ) : (

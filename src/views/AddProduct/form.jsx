@@ -150,13 +150,13 @@ const ProductForm = () => {
               onChange={(e) => setProductUnit(e.target.value)}>
               <option value=''>Select unit</option>
               <option value='kg'>Kilogram</option>
-              <option value='pair'>pair</option>
-              <option value='yd'>yard</option>
-              <option value='box'>box</option>
+              <option value='pair'>Pair</option>
+              <option value='yd'>Yard</option>
+              <option value='box'>Box</option>
               <option value='lb'>Pound</option>
-              <option value='bag'>bag</option>
-              <option value='ft'>feet</option>
-              <option value='plate'>plate</option>
+              <option value='bag'>Bag</option>
+              <option value='ft'>Feet</option>
+              <option value='plate'>Plate</option>
             </select>
           </label>
         </div>
