@@ -63,8 +63,8 @@ const HorizontalNav = () => {
     setIsLoading(true)
     try {
       localStorage.removeItem('auth-token')
-      sessionStorage.removeItem('userSessionData')
-
+      router.push('/login')
+      
       const response = await axios.post(
         'https://craaft.onrender.com/v1/api/signout',
         {
@@ -86,9 +86,6 @@ const HorizontalNav = () => {
           theme: 'light',
           transition: Bounce,
         })
-      } else {
-        router.push('/login')
-          session.resetContext()
       }
     } catch (error) {
       console.log(error.message)

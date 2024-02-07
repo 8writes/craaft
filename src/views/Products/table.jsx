@@ -8,6 +8,7 @@ import searchIcon from '../../../public/searchIcon.svg'
 import axios from 'axios'
 import { useDataContext } from '@/context/dataContext'
 import { Skeleton } from '@mui/material'
+import Link from 'next/link'
 
 const columns = [
   { id: 'sn', label: 'S/N' },
@@ -96,9 +97,12 @@ const Table = () => {
             />
           </span>
           <div className='flex justify-end w-full md:w-1/3 gap-2 items-center'>
-            <button className='text-gray-600 font-semibold text-sm md:text-base'>
+            <Link href='add-product' >
+              <button className='text-gray-600 font-semibold text-sm md:text-base'>
               <AddRoundedIcon /> Add product
             </button>
+            </Link>
+          
           </div>
         </div>
       </div>

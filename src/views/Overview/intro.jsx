@@ -76,7 +76,7 @@ const Intro = () => {
           {!session ? (
             <Skeleton width={100} height={40} animation='wave' />
           ) : (
-            <Link href='#'>
+            <Link href='add-product'>
               <button className='grid text-base font-semibold hover:text-green-500 text-green-600 items-center'>
                 <AddCircleOutlineIcon className='mx-auto' />
                 New Product
