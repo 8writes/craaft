@@ -5,7 +5,6 @@ import { Dialog, DialogTitle, DialogContent } from '@mui/material'
 import ProductOptions from './product-options'
 import { IconButton } from '@mui/material'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined'
 
 const ProductForm = () => {
@@ -66,9 +65,10 @@ const ProductForm = () => {
   return (
     <div className='py-10'>
       <form className='grid bg-white rounded-md shadow-sm p-5 md:p-10 '>
-        <div className='flex flex-wrap gap-2'>
+        <p className='font-semibold text-gray-600'>Product Image(s)</p>
+        <div className='flex flex-wrap gap-2 mt-2 mb-5'>
           {selectedImages.length > 0 && (
-            <div className='flex justify-center flex-wrap mx-auto items-center gap-2'>
+            <div className='flex flex-wrap md:mx-1 mx-auto items-center gap-2'>
               {selectedImages.map((image, index) => (
                 <div key={index} className=' relative'>
                   <IconButton
@@ -89,7 +89,8 @@ const ProductForm = () => {
           <label
             onClick={handleImageUpload}
             className={`grid cursor-pointer border my-2 p-4 font-semibold text-gray-700 bg-slate-100 ${
-              selectedImages.length >= 6 && 'opacity-50 pointer-events-none'
+              selectedImages.length >= 6 &&
+              'opacity-50 hidden pointer-events-none'
             }`}>
             <FileUploadOutlinedIcon className='mx-auto' /> Add Image(s)
           </label>
@@ -168,7 +169,7 @@ const ProductForm = () => {
             Add Product Details
           </button>
           <p className='text-xs md:text-sm flex item-center text-center md:text-start text-gray-600 font-semibold'>
-            <InfoOutlinedIcon /> Add product colors, sizes and more.
+            Add product colors, sizes and more.
           </p>
         </div>
         <button
