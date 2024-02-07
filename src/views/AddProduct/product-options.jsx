@@ -54,7 +54,7 @@ const ProductOptions = () => {
                 setOptions(updatedOptions)
               }}
             />
-            <button className=' my-2 text-xs font-semibold text-gray-600'>
+            <button className=' mb-2 text-xs font-semibold text-gray-600'>
               <InfoOutlinedIcon /> One value per input
             </button>
           </label>
@@ -78,7 +78,7 @@ const ProductOptions = () => {
                   className=' -ml-7 text-gray-600'>
                   <CancelOutlinedIcon />
                 </button>
-                <button className='my-2 text-xs font-semibold text-gray-600'>
+                <button className='mb-2 text-xs font-semibold text-gray-600'>
                   <InfoOutlinedIcon /> One value per input
                 </button>
               </div>
