@@ -8,6 +8,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { useDataContext } from '@/context/dataContext'
 import axios from 'axios'
 import { Skeleton } from '@mui/material'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 const columns = [
   { id: 'sn', label: 'S/N' },
@@ -131,29 +132,13 @@ const Table = () => {
             />
           </span>
           <div className='flex gap-2 items-center'>
-            <p className='text-sm hidden font-semibold md:inline-block text-gray-600 text-end justify-end w-1/2 md:w-1/3 '>
-              Filter by
-            </p>
             <span
-              role='button'
               onClick={toggleDropdown2}
-              className='flex relative items-center border w-32 p-2 justify-between cursor-pointer rounded-sm border-gray-200'>
-              <p className='text-xs text-gray-500 font-semibold'>
+              className='text-gray-600 flex relative items-center border w-32 p-2 justify-between cursor-pointer rounded-sm border-gray-200 font-semibold text-sm md:text-base'>
+              <FilterAltOutlinedIcon className='text-3xl md:text-2xl' />{' '}
+              <span className='inline-block text-gray-600'>
                 {selectedValue}
-              </p>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='#1251bf'
-                className='w-3 h-4'>
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='m19.5 8.25-7.5 7.5-7.5-7.5'
-                />
-              </svg>
+              </span>
               {isDropdownOpen2 && (
                 <div className='absolute z-20 left-0 right-0 top-8 rounded-b-md w-full shadow-md bg-white'>
                   {value2.map((value, index) => (
@@ -161,7 +146,7 @@ const Table = () => {
                       role='button'
                       onClick={() => setSelectedValue(value)}
                       key={index.id}
-                      className={` px-3 py-2 text-black text-xs hover:bg-gray-100 ${
+                      className={` px-3 py-2 text-gray-500 text-xs hover:bg-gray-100 ${
                         value === selectedValue ? 'bg-gray-100' : ''
                       }`}>
                       {value}
@@ -199,65 +184,65 @@ const Table = () => {
                   </tr>
                 </tbody>
               ) : (
-                  <tbody className='bg-gray-100 font-semibold'>
-                    {dataToUse
-                      .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-                      .map((row) => (
-                        <tr key={row.sn} className='border-b-2'>
-                          {columns.slice(0, -2).map((column) => {
-                            if (column.id === 'image') {
-                              return (
-                                <td
-                                  key={column.id}
-                                  className='text-start text-sm p-4 text-gray-600 flex items-center'>
-                                  <div>
-                                    <Image
-                                      src={avatar}
-                                      alt='Product Image'
-                                      width={40}
-                                      height={40}
-                                    />
-                                  </div>
-                                </td>
-                              )
-                            } else if (column.id === 'item') {
-                              return (
-                                <td
-                                  key={column.id}
-                                  className='text-start text-sm p-4 text-gray-600'>
-                                  {row[column.id]}
-                                </td>
-                              )
-                            } else if (column.id !== 'action') {
-                              return (
-                                <td
-                                  key={column.id}
-                                  className='text-start text-sm p-4 text-gray-600'>
-                                  {column.format &&
-                                  typeof row[column.id] === 'number'
-                                    ? column.format(row[column.id])
-                                    : row[column.id]}
-                                </td>
-                              )
-                            }
-                          })}
-                          <td className='flex items-center py-4 text-xs'>
-                            <div
-                              className={`flex flex-1 items-center gap-2 py-2 px-4 ${
-                                row.status === 'Pending'
-                                  ? 'text-yellow-500'
-                                  : row.status === 'Delivered'
-                                  ? 'text-green-500'
-                                  : 'text-gray-400'
-                              }`}>
-                              <span className=' w-3 h-3 inline-block bg-current rounded-full'></span>{' '}
-                              {row.status}
-                            </div>
-                            <MoreVertIcon className='text-gray-600 cursor-pointer' />
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
+                <tbody className='bg-gray-100 font-semibold'>
+                  {dataToUse
+                    .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+                    .map((row) => (
+                      <tr key={row.sn} className='border-b-2'>
+                        {columns.slice(0, -2).map((column) => {
+                          if (column.id === 'image') {
+                            return (
+                              <td
+                                key={column.id}
+                                className='text-start text-sm p-4 text-gray-600 flex items-center'>
+                                <div>
+                                  <Image
+                                    src={avatar}
+                                    alt='Product Image'
+                                    width={40}
+                                    height={40}
+                                  />
+                                </div>
+                              </td>
+                            )
+                          } else if (column.id === 'item') {
+                            return (
+                              <td
+                                key={column.id}
+                                className='text-start text-sm p-4 text-gray-600'>
+                                {row[column.id]}
+                              </td>
+                            )
+                          } else if (column.id !== 'action') {
+                            return (
+                              <td
+                                key={column.id}
+                                className='text-start text-sm p-4 text-gray-600'>
+                                {column.format &&
+                                typeof row[column.id] === 'number'
+                                  ? column.format(row[column.id])
+                                  : row[column.id]}
+                              </td>
+                            )
+                          }
+                        })}
+                        <td className='flex items-center py-4 text-xs'>
+                          <div
+                            className={`flex flex-1 items-center gap-2 py-2 px-4 ${
+                              row.status === 'Pending'
+                                ? 'text-yellow-500'
+                                : row.status === 'Delivered'
+                                ? 'text-green-500'
+                                : 'text-gray-400'
+                            }`}>
+                            <span className=' w-3 h-3 inline-block bg-current rounded-full'></span>{' '}
+                            {row.status}
+                          </div>
+                          <MoreVertIcon className='text-gray-600 cursor-pointer' />
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
               )}
             </table>
             {loading ||

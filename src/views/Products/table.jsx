@@ -2,13 +2,14 @@
 
 import Image from 'next/image'
 import { useState, useMemo, useEffect } from 'react'
-import AddRoundedIcon from '@mui/icons-material/AddRounded'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import searchIcon from '../../../public/searchIcon.svg'
 import axios from 'axios'
 import { useDataContext } from '@/context/dataContext'
 import { Skeleton } from '@mui/material'
 import Link from 'next/link'
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 
 const columns = [
   { id: 'sn', label: 'S/N' },
@@ -96,13 +97,19 @@ const Table = () => {
               height={19}
             />
           </span>
-          <div className='flex justify-end w-full md:w-1/3 gap-2 items-center'>
-            <Link href='add-product' >
-              <button className='text-gray-600 font-semibold text-sm md:text-base'>
-              <AddRoundedIcon /> Add product
+
+          <div className='flex justify-end w-full md:w-1/3 gap-4 md:gap-5 items-center'>
+            {' '}
+            <button className='text-gray-600 font-semibold text-sm md:text-base'>
+              <FilterAltOutlinedIcon className='text-3xl md:text-2xl' />{' '}
+              <span className='hidden md:inline-block'>Filter</span>
             </button>
+            <Link href='add-product'>
+              <button className='text-gray-600 font-semibold text-sm md:text-base'>
+                <AddCircleOutlineOutlinedIcon className='text-3xl md:text-2xl' />{' '}
+                <span className='hidden md:inline-block'>Add product</span>
+              </button>
             </Link>
-          
           </div>
         </div>
       </div>
