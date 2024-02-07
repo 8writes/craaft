@@ -3,9 +3,9 @@
 import { useState } from 'react'
 import { Dialog, DialogTitle, DialogContent } from '@mui/material'
 import ProductOptions from './product-options'
-import { IconButton } from '@mui/material'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 const ProductForm = () => {
   const [productName, setProductName] = useState('')
@@ -71,11 +71,11 @@ const ProductForm = () => {
             <div className='flex flex-wrap md:mx-1 mx-auto items-center gap-2'>
               {selectedImages.map((image, index) => (
                 <div key={index} className=' relative'>
-                  <IconButton
-                    className='absolute text-red-500 top-0 right-0'
+                  <span
+                    className=' cursor-pointer absolute text-red-500 top-0 right-0'
                     onClick={() => handleRemoveImage(index)}>
                     <CloseOutlinedIcon />
-                  </IconButton>
+                  </span>
                   <img
                     src={image.url}
                     alt={`Selected Image ${index + 1}`}
@@ -168,7 +168,8 @@ const ProductForm = () => {
             variant='contained'>
             Add Product Details
           </button>
-          <p className='text-xs md:text-sm flex item-center text-center md:text-start text-gray-600 font-semibold'>
+          <p className='flex items-center text-xs md:text-sm item-center text-gray-600 font-semibold'>
+            <InfoOutlinedIcon />
             Add product colors, sizes and more.
           </p>
         </div>

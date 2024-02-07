@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { useState } from 'react'
-import { Tooltip } from '@mui/material'
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
@@ -49,17 +48,14 @@ const ProductOptions = () => {
               type='text'
               placeholder='Size / Color / Storage '
               value={option.name}
-              autoFocus
               onChange={(e) => {
                 const updatedOptions = [...options]
                 updatedOptions[index].name = e.target.value
                 setOptions(updatedOptions)
               }}
             />
-            <button className=' -ml-8 text-gray-600'>
-              <Tooltip title='One value per input' arrow placement='top'>
-                <InfoOutlinedIcon style={{ marginLeft: '5px' }} />
-              </Tooltip>
+            <button className=' my-2 text-xs font-semibold text-gray-600'>
+              <InfoOutlinedIcon /> One value per input
             </button>
           </label>
 
@@ -82,10 +78,8 @@ const ProductOptions = () => {
                   className=' -ml-7 text-gray-600'>
                   <CancelOutlinedIcon />
                 </button>
-                <button className=' -ml-14 text-gray-600'>
-                  <Tooltip title='One value per input' arrow placement='top'>
-                    <InfoOutlinedIcon style={{ marginLeft: '5px' }} />
-                  </Tooltip>
+                <button className='my-2 text-xs font-semibold text-gray-600'>
+                  <InfoOutlinedIcon /> One value per input
                 </button>
               </div>
             </>
@@ -111,15 +105,14 @@ const ProductOptions = () => {
       ))}
       <div className='flex justify-between flex-wrap gap-5 md:gap-10 items-center mt-10 mb-7'>
         <button
-          className='flex-1 text-indigo-600 justify-center px-2 rounded-sm border border-indigo-500 flex items-center md:gap-2 hover:text-indigo-500'
+          className='w-full text-indigo-600 justify-center rounded-sm border border-indigo-500 flex items-center md:gap-2 hover:text-indigo-500'
           type='button'
           onClick={handleAddOption}>
           <AddCircleOutlineOutlinedIcon /> Add New Details
         </button>
         <button
-          className='flex-1 text-green-600 justify-center px-2 rounded-sm border border-green-500 flex items-center md:gap-2 hover:text-green-500'
-          type='button'
-          onClick={handleAddOption}>
+          className='w-full text-green-600 justify-center p-2 rounded-sm border border-green-500 flex items-center md:gap-2 hover:text-green-500'
+          type='button'>
           <SaveAltOutlinedIcon /> Save and Continue
         </button>
       </div>
