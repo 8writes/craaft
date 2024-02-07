@@ -86,7 +86,7 @@ const ProductOptions = () => {
           ))}
           <div className='flex justify-end'>
             <button
-              className='border text-sm px-1 text-green-500 uppercase font-semibold  rounded-sm'
+              className=' text-sm px-1 text-green-500 uppercase font-semibold  rounded-sm'
               type='button'
               onClick={() => handleAddValue(index)}>
               Add Value
