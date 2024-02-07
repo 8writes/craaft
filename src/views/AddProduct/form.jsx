@@ -88,7 +88,7 @@ const ProductForm = () => {
 
           <label
             onClick={handleImageUpload}
-            className={`grid cursor-pointer border my-2 p-4 font-semibold text-gray-700 bg-slate-100 ${
+            className={`grid text-sm cursor-pointer border my-2 p-4 font-semibold text-gray-600 bg-slate-100 ${
               selectedImages.length >= 6 &&
               'opacity-50 hidden pointer-events-none'
             }`}>
