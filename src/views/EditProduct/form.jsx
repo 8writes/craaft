@@ -7,7 +7,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
-const ProductForm = () => {
+const ProductEditForm = () => {
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productUnit, setProductUnit] = useState('')
@@ -206,4 +206,4 @@ const ProductForm = () => {
   )
 }
 
-export default ProductForm
+export default ProductEditForm
