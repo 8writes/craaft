@@ -63,7 +63,7 @@ const ProductForm = () => {
   }
 
   return (
-    <div className='py-10'>
+    <div className='pt-10'>
       <form className='grid bg-white rounded-md shadow-sm p-5 md:p-10 '>
         <p className='font-semibold text-gray-600'>Product Image(s)</p>
         <div className='flex flex-wrap gap-2 mt-2 mb-5'>
