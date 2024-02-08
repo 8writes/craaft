@@ -42,7 +42,7 @@ const ProductOptions = () => {
       {options.map((option, index) => (
         <div key={index}>
           <label>
-            <p className='font-semibold text-gray-500'>Option Name</p>
+            <p className='font-semibold text-xl text-indigo-600'>Detail Name</p>
             <input
               className='w-full uppercase outline-none border px-1  py-1 my-2 font-semibold'
               type='text'
@@ -54,14 +54,14 @@ const ProductOptions = () => {
                 setOptions(updatedOptions)
               }}
             />
-            <button className=' mb-2 text-xs font-semibold text-gray-600'>
+            <button className=' mb-2 text-xs font-semibold text-red-600'>
               <InfoOutlinedIcon /> One value per input
             </button>
           </label>
 
           {option.values.map((value, valueIndex) => (
             <>
-              <p className='font-semibold text-gray-500'>Option Value</p>
+              <p className='font-semibold text-base text-green-500'>Value</p>
               <div key={valueIndex}>
                 <input
                   className='w-full uppercase outline-none border px-1 my-2 py-1 font-semibold'
@@ -78,7 +78,7 @@ const ProductOptions = () => {
                   className=' -ml-7 text-gray-600'>
                   <CancelOutlinedIcon />
                 </button>
-                <button className='mb-2 text-xs font-semibold text-gray-600'>
+                <button className='mb-2 text-xs font-semibold text-red-600'>
                   <InfoOutlinedIcon /> One value per input
                 </button>
               </div>
@@ -95,10 +95,10 @@ const ProductOptions = () => {
 
           <span className='flex gap-2 my-4'>
             <button
-              className='border border-red-600 px-1 text-red-500 uppercase font-semibold  rounded-sm'
+              className='border border-yellow-600 px-1 text-yellow-600 uppercase font-semibold  rounded-sm'
               type='button'
               onClick={() => handleRemoveOption(index)}>
-              Remove Option
+              Remove Details
             </button>
           </span>
         </div>
@@ -108,7 +108,7 @@ const ProductOptions = () => {
           className='w-full text-indigo-600 justify-center rounded-sm border border-indigo-500 flex items-center md:gap-2 hover:text-indigo-500'
           type='button'
           onClick={handleAddOption}>
-          <AddCircleOutlineOutlinedIcon /> Add New Details
+          <AddCircleOutlineOutlinedIcon /> Add New Detail
         </button>
         <button
           className='w-full text-green-600 justify-center p-2 rounded-sm border border-green-500 flex items-center md:gap-2 hover:text-green-500'

@@ -120,7 +120,7 @@ const ProductForm = () => {
         <label>
           <p className='font-semibold text-gray-600'>Product Description</p>
           <textarea
-            className='w-full p-2 outline-none border my-2 h-2/3'
+            className='w-full p-2 outline-none border my-2 h-28'
             type='text'
             style={{ resize: 'none' }}
             value={productDescription}
@@ -137,7 +137,7 @@ const ProductForm = () => {
               className='w-full p-2 outline-none border my-2 cursor-pointer'
               value={productStock}
               onChange={(e) => setProductStock(e.target.value)}>
-              <option value=''>Select unit</option>
+              <option value=''>Select Quantity</option>
               <option value='In Stock'>In Stock (above 5)</option>
               <option value='Low Stock'>Low Stock (below 5)</option>
               <option value='Out Of Stock'>Out Of Stock (0)</option>
