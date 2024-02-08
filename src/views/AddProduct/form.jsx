@@ -104,7 +104,6 @@ const ProductForm = () => {
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
             placeholder='Enter product name'
-            autoFocus
           />
         </label>
 
