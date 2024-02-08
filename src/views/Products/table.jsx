@@ -6,10 +6,17 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import searchIcon from '../../../public/searchIcon.svg'
 import axios from 'axios'
 import { useDataContext } from '@/context/dataContext'
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from '@mui/material'
 import { Skeleton } from '@mui/material'
 import Link from 'next/link'
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 
 const columns = [
   { id: 'sn', label: 'S/N' },
@@ -35,6 +42,28 @@ const Table = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [normalData, setNormalData] = useState([])
   const [searchData, setSearchData] = useState([])
+  const [openDialog, setOpenDialog] = useState(false)
+  const [selectedRowData, setSelectedRowData] = useState(null)
+
+  const handleOpenDialog = (rowData) => {
+    setSelectedRowData(rowData)
+    setOpenDialog(true)
+  }
+
+  const handleCloseDialog = () => {
+    setSelectedRowData(null)
+    setOpenDialog(false)
+  }
+
+  const handleEdit = () => {
+    // Implement your edit logic here
+    handleCloseDialog()
+  }
+
+  const handleDelete = () => {
+    // Implement your delete logic here
+    handleCloseDialog()
+  }
 
   const store_name_id = session?.store_name_id
 
@@ -187,7 +216,10 @@ const Table = () => {
                 {dataToUse
                   .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                   .map((row) => (
-                    <tr key={row.sn} className='border-b-2'>
+                    <tr
+                      key={row.sn}
+                      className='border-b-2 hover:bg-indigo-100 cursor-pointer'
+                      onClick={() => handleOpenDialog(row)}>
                       {columns.slice(0, -2).map((column) => {
                         if (column.id === 'image' && row.image) {
                           return (
@@ -239,7 +271,10 @@ const Table = () => {
                           <span className=' w-3 h-3 inline-block bg-current rounded-full'></span>{' '}
                           {row.stock}
                         </div>
-                        <MoreVertIcon className='text-gray-600 cursor-pointer' />
+                        <MoreVertIcon
+                          onClick={() => handleOpenDialog(row)}
+                          className='text-gray-600 cursor-pointer'
+                        />
                       </td>
                     </tr>
                   ))}
@@ -279,6 +314,69 @@ const Table = () => {
           </span>
         </div>
       </div>
+      <Dialog
+        maxWidth='sm'
+        fullWidth
+        open={openDialog}
+        onClose={handleCloseDialog}>
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '10px',
+          }}>
+          <p className='text-xl font-semibold text-indigo-700'>
+            {selectedRowData?.name}
+          </p>
+          <button className='text-gray-700' onClick={handleCloseDialog}>
+            <CloseOutlinedIcon />
+          </button>
+        </DialogTitle>
+        <DialogContent>
+          {selectedRowData && (
+            <>
+              <img
+                src={`${selectedRowData.image[0]}`}
+                alt='Product Image'
+                style={{
+                  width: '120px',
+                  height: '100px',
+                  borderRadius: '4px',
+                }}
+                loading='lazy'
+              />
+              <div className='mt-5'>
+                Date Uploaded
+                <p className='text-sm font-semibold'>{selectedRowData?.date}</p>
+              </div>
+              <div className='mt-5'>
+                Price
+                <p className='text-xl font-bold text-gray-800'>
+                  ₦{selectedRowData?.price.toLocaleString('en-US')}
+                </p>
+              </div>
+              <div className='mt-5'>
+                Stock count
+                <p className='text-xl font-semibold text-gray-800'></p>
+                {selectedRowData?.stock}
+              </div>
+            </>
+          )}
+        </DialogContent>
+        <span className='flex justify-between p-7'>
+          <button
+            className='text-xl font-semibold text-red-600'
+            onClick={handleDelete}>
+            Delete
+          </button>
+          <button
+            className='text-xl font-semibold text-indigo-600'
+            onClick={handleEdit}>
+            Edit
+          </button>
+        </span>
+      </Dialog>
     </section>
   )
 }
