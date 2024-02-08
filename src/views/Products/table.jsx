@@ -129,8 +129,8 @@ const Table = () => {
           <div className='flex justify-end w-full md:w-1/3 gap-2 md:gap-5 items-center'>
             <span
               onClick={toggleDropdown2}
-              className='text-gray-600 flex relative items-center w-36 cursor-pointer rounded-sm text-sm md:text-base'>
-              <FilterAltOutlinedIcon className='text-4xl md:text-2xl' />
+              className='text-indigo-600 flex relative items-center w-36 cursor-pointer rounded-sm text-xl md:text-base'>
+              <FilterAltOutlinedIcon className='text-2xl md:text-2xl' />
               <span className='inline-block text-gray-500 font-semibold'>
                 {selectedValue}
               </span>

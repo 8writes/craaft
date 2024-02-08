@@ -135,8 +135,8 @@ const Table = () => {
           <div className='flex gap-2 items-center'>
             <span
               onClick={toggleDropdown2}
-              className='text-gray-600 flex relative items-center w-32 cursor-pointer rounded-sm font-semibold text-sm md:text-base'>
-              <FilterAltOutlinedIcon className='text-3xl md:text-2xl' />{' '}
+              className='text-indigo-600 flex text-xl md:text-base relative items-center w-32 cursor-pointer rounded-sm font-semibold'>
+              <FilterAltOutlinedIcon className='text-2xl' />{' '}
               <span className='inline-block text-gray-500'>
                 {selectedValue}
               </span>
@@ -144,7 +144,6 @@ const Table = () => {
                 <div className='absolute z-20 left-0 right-0 top-8 rounded-b-md w-full shadow-md bg-white'>
                   {value2.map((value, index) => (
                     <p
-                      
                       role='button'
                       onClick={() => setSelectedValue(value)}
                       key={index.id}
