@@ -133,13 +133,15 @@ const ProductForm = () => {
             <p className='text-sm font-semibold text-gray-600'>
               Stock Quantity
             </p>
-            <input
-              className='w-full p-2 outline-none border my-2 cursor-text'
-              type='tel'
+            <select
+              className='w-full p-2 outline-none border my-2 cursor-pointer'
               value={productStock}
-              onChange={(e) => setProductStock(e.target.value)}
-              placeholder='10'
-            />
+              onChange={(e) => setProductStock(e.target.value)}>
+              <option value=''>Select unit</option>
+              <option value='In Stock'>In Stock (above 5)</option>
+              <option value='Low Stock'>Low Stock (below 5)</option>
+              <option value='Out Of Stock'>Out Of Stock (0)</option>
+            </select>
           </label>
           <label className='flex-1'>
             <p className='text-sm font-semibold text-gray-600'>Product Unit</p>
