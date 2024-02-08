@@ -61,7 +61,7 @@ const ProductOptions = () => {
 
           {option.values.map((value, valueIndex) => (
             <>
-              <p className='font-semibold text-base text-green-500'>Value</p>
+              <p className='font-semibold text-base text-green-600'>Value</p>
               <div key={valueIndex}>
                 <input
                   className='w-full uppercase outline-none border px-1 my-2 py-1 font-semibold'
@@ -86,7 +86,7 @@ const ProductOptions = () => {
           ))}
           <div className='flex justify-end'>
             <button
-              className=' text-sm px-1 text-green-500 uppercase font-semibold  rounded-sm'
+              className=' text-sm px-1 text-green-600 uppercase font-semibold  rounded-sm'
               type='button'
               onClick={() => handleAddValue(index)}>
               Add Value
