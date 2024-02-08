@@ -340,7 +340,7 @@ const Table = () => {
         <span
           className={`${
             !isEditing ? 'hidden' : ''
-          }  text-indigo-600 text-xl px-7 font-semibold`}>
+          }  text-indigo-600 text-base px-7 font-semibold`}>
           Editing Product
         </span>{' '}
         <span className='overflow-x-hidden p-7'>
