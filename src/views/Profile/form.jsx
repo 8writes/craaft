@@ -24,7 +24,7 @@ const UserProfileForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Form submitted:', { tel, email })
+    console.log('Form submitted:', { phoneNumber, email })
   }
 
   return (

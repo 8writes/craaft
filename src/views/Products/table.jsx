@@ -44,6 +44,11 @@ const Table = () => {
   const [searchData, setSearchData] = useState([])
   const [openDialog, setOpenDialog] = useState(false)
   const [selectedRowData, setSelectedRowData] = useState(null)
+  const [isEditing, setEditing] = useState(false)
+
+  const handleEdit = () => {
+    setEditing(!isEditing)
+  }
 
   const handleOpenDialog = (rowData) => {
     setSelectedRowData(rowData)
@@ -53,11 +58,6 @@ const Table = () => {
   const handleCloseDialog = () => {
     setSelectedRowData(null)
     setOpenDialog(false)
-  }
-
-  const handleEdit = () => {
-    // Implement your edit logic here
-    handleCloseDialog()
   }
 
   const handleDelete = () => {
@@ -230,8 +230,8 @@ const Table = () => {
                                 src={`${row.image[0]}`}
                                 alt='Product Image'
                                 style={{
-                                  width: '60px',
-                                  height: '50px',
+                                  width: '55px',
+                                  height: '55px',
                                   borderRadius: '4px',
                                 }}
                                 loading='lazy'
@@ -336,16 +336,22 @@ const Table = () => {
         <DialogContent>
           {selectedRowData && (
             <>
-              <img
-                src={`${selectedRowData.image[0]}`}
-                alt='Product Image'
-                style={{
-                  width: '120px',
-                  height: '100px',
-                  borderRadius: '4px',
-                }}
-                loading='lazy'
-              />
+              <div className='flex overflow-y-auto'>
+                {selectedRowData.image.map((imageUrl, index) => (
+                  <img
+                    key={index}
+                    src={imageUrl}
+                    alt={`Product Image ${index + 1}`}
+                    style={{
+                      width: '120px',
+                      height: '120px',
+                      borderRadius: '4px',
+                      marginRight: '8px',
+                    }}
+                    loading='lazy'
+                  />
+                ))}
+              </div>
               <div className='mt-5'>
                 Date Uploaded
                 <p className='text-sm font-semibold'>{selectedRowData?.date}</p>
@@ -353,13 +359,20 @@ const Table = () => {
               <div className='mt-5'>
                 Price
                 <p className='text-xl font-bold text-gray-800'>
-                  ₦{selectedRowData?.price.toLocaleString('en-US')}
+                  <input
+                    type='text'
+                    className={`${!isEditing ? '' : 'border'}`}
+                    disabled={!isEditing}
+                    value={`₦${selectedRowData?.price.toLocaleString('en-US')}`}
+                    onChange={(e) => setEditPrice(e.target.value)}
+                  />
                 </p>
               </div>
               <div className='mt-5'>
-                Stock count
-                <p className='text-xl font-semibold text-gray-800'></p>
-                {selectedRowData?.stock}
+                Stock Count
+                <p className='text-sm font-semibold'>
+                  {selectedRowData?.stock}
+                </p>
               </div>
             </>
           )}
@@ -370,10 +383,18 @@ const Table = () => {
             onClick={handleDelete}>
             Delete
           </button>
+
+          {isEditing && (
+            <button
+              className='text-xl font-semibold text-green-600'
+              onClick={handleDelete}>
+              Save
+            </button>
+          )}
           <button
             className='text-xl font-semibold text-indigo-600'
             onClick={handleEdit}>
-            Edit
+            {isEditing ? 'Cancel' : 'Edit'}
           </button>
         </span>
       </Dialog>
