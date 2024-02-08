@@ -391,6 +391,7 @@ const Table = () => {
                       !isEditing ? '' : 'outline-none border px-2'
                     }`}
                     disabled={!isEditing}
+                    placeholder='Input Price'
                     value={editPrice}
                     onChange={(e) => setEditPrice(e.target.value)}
                   />
@@ -434,6 +435,9 @@ const Table = () => {
                       !isEditing ? '' : 'mt-3 cursor-pointer border px-2'
                     }`}
                     onChange={(e) => setEditStock(e.target.value)}>
+                    <option value='' className='text-green-600'>
+                      Select Stock Update
+                    </option>
                     <option value='In Stock' className='text-green-600'>
                       In Stock
                     </option>
