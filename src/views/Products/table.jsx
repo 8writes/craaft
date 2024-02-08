@@ -337,7 +337,7 @@ const Table = () => {
             <CloseOutlinedIcon />
           </button>
         </DialogTitle>
-        <DialogContent>
+        <span className='overflow-x-hidden p-7'>
           {selectedRowData && (
             <>
               <div className='flex overflow-y-auto'>
@@ -441,7 +441,7 @@ const Table = () => {
               </div>
             </>
           )}
-        </DialogContent>
+        </span>
         <span className='flex overflow-hidden justify-between p-7'>
           <button
             className='text-xl font-semibold text-red-600'
