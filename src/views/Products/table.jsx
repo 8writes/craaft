@@ -63,6 +63,7 @@ const Table = () => {
     setEditing(false)
     setOpenDialog(false)
     setEditStock('')
+    setEditPrice('')
   }
 
   const handleDelete = () => {
