@@ -135,11 +135,9 @@ const Table = () => {
           <div className='flex gap-2 items-center'>
             <span
               onClick={toggleDropdown2}
-              className='text-indigo-600 flex text-base relative items-center cursor-pointer font-semibold'>
+              className='text-indigo-600 flex justify-end text-base w-32 relative items-center cursor-pointer font-semibold'>
               <FilterAltOutlinedIcon />
-              <span>
-                {selectedValue}
-              </span>
+              <span>{selectedValue}</span>
               {isDropdownOpen2 && (
                 <div className='absolute z-20 left-0 right-0 w-32 top-8 rounded-b-md shadow-md bg-white'>
                   {value2.map((value, index) => (

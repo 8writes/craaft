@@ -126,10 +126,10 @@ const Table = () => {
             />
           </span>
 
-          <div className='flex justify-end w-full md:w-1/3 gap-2 md:gap-5 items-center'>
+          <div className='flex justify-end w-full gap-1 md:w-1/3 items-center'>
             <span
               onClick={toggleDropdown2}
-              className='text-indigo-600 font-semibold flex relative items-center cursor-pointer text-base'>
+              className='text-indigo-600 font-semibold flex w-28 relative items-center cursor-pointer text-sm md:text-base'>
               <FilterAltOutlinedIcon />
               <span>{selectedValue}</span>
               {isDropdownOpen2 && (
@@ -149,8 +149,9 @@ const Table = () => {
               )}
             </span>
             <Link href='add-product'>
-              <button className='flex gap-2 text-indigo-600 font-semibold text-base'>
-                <AddCircleOutlineOutlinedIcon />New
+              <button className='flex text-indigo-600 font-semibold text-base'>
+                <AddCircleOutlineOutlinedIcon />
+                New
                 <span className='hidden md:inline-block'></span>
               </button>
             </Link>
