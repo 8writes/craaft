@@ -4,13 +4,23 @@
 
 import OverviewLayout from '@/layout/UserLayout'
 import ProductForm from '@/views/AddProduct/form'
+import Link from 'next/link'
+import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
 
 export default function AddProduct() {
   return (
     <OverviewLayout>
-      <p className='text-2xl uppercase md:text-3xl font-semibold text-gray-600'>
-        Add Product
-      </p>
+      <div className='flex items-center gap-10 '>
+        <Link href='products'>
+          <p className='text-xl font-semibold text-indigo-600'>
+            <ChevronLeftRoundedIcon className='text-5xl' />
+          </p>
+        </Link>
+        <p className=' text-indigo-600 text-base md:text-2xl font-semibold'>
+          Add Product
+        </p>
+      </div>
+
       <ProductForm />
     </OverviewLayout>
   )

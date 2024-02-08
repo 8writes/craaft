@@ -46,7 +46,7 @@ const Intro = () => {
         {!session ? (
           <Skeleton width={200} animation='wave' />
         ) : (
-          <p className='text-base lowercase font-semibold text-indigo-700'>
+          <p className='text-base lowercase font-semibold text-indigo-800'>
             <a href={`https://${storeName}`} target='_blank' rel='noreferrer'>
               {storeName}
               <ArrowOutwardRoundedIcon sx={{ width: '20px' }} />
@@ -70,7 +70,9 @@ const Intro = () => {
         {!session ? (
           <Skeleton width={150} height={50} animation='wave' />
         ) : (
-          <p className='text-2xl font-semibold text-slate-500'>Quick Actions</p>
+          <p className='text-2xl font-semibold text-indigo-600'>
+            Quick Actions
+          </p>
         )}
         <div className='flex justify-between gap-1 md:gap-5 md:justify-start flex-wrap'>
           {!session ? (

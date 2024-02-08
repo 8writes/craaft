@@ -31,7 +31,7 @@ const Table = () => {
   const [loading, setIsLoading] = useState(false)
   const rowsPerPage = useMemo(() => 10, [])
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false)
-  const [selectedValue, setSelectedValue] = useState('All')
+  const [selectedValue, setSelectedValue] = useState('Filter')
   const [searchTerm, setSearchTerm] = useState('')
   const [normalData, setNormalData] = useState([])
   const [searchData, setSearchData] = useState([])
@@ -42,7 +42,7 @@ const Table = () => {
     setIsDropdownOpen2((prevState) => !prevState)
   }
 
-  const value2 = ['All', 'Delivered', 'Pending', 'Refunded']
+  const value2 = ['Filter', 'Delivered', 'Pending', 'Refunded']
 
   const fetchData = async (searchTerm) => {
     try {
@@ -64,6 +64,7 @@ const Table = () => {
           ...item,
           sn: ++idCounter,
         }))
+
 
         setNormalData(formattedData)
 
@@ -92,7 +93,7 @@ const Table = () => {
     return searchTerm.length > 0
       ? searchData
       : normalData.filter((row) => {
-          if (selectedValue === 'All') {
+          if (selectedValue === 'Filter') {
             return true
           } else {
             return row.status.toLowerCase() === selectedValue.toLowerCase()
@@ -134,15 +135,16 @@ const Table = () => {
           <div className='flex gap-2 items-center'>
             <span
               onClick={toggleDropdown2}
-              className='text-gray-600 flex relative items-center border w-32 p-2 justify-between cursor-pointer rounded-sm border-gray-200 font-semibold text-sm md:text-base'>
+              className='text-gray-600 flex relative items-center w-32 cursor-pointer rounded-sm font-semibold text-sm md:text-base'>
               <FilterAltOutlinedIcon className='text-3xl md:text-2xl' />{' '}
-              <span className='inline-block text-gray-600'>
+              <span className='inline-block text-gray-500'>
                 {selectedValue}
               </span>
               {isDropdownOpen2 && (
                 <div className='absolute z-20 left-0 right-0 top-8 rounded-b-md w-full shadow-md bg-white'>
                   {value2.map((value, index) => (
                     <p
+                      
                       role='button'
                       onClick={() => setSelectedValue(value)}
                       key={index.id}
@@ -194,7 +196,7 @@ const Table = () => {
                             return (
                               <td
                                 key={column.id}
-                                className='text-start text-sm p-4 text-gray-600 flex items-center'>
+                                className='text-start text-sm p-4 text-gray-600'>
                                 <div>
                                   <Image
                                     src={avatar}
@@ -226,7 +228,7 @@ const Table = () => {
                             )
                           }
                         })}
-                        <td className='flex items-center py-4 text-xs'>
+                        <td className='flex items-center py-5 text-xs'>
                           <div
                             className={`flex flex-1 items-center gap-2 py-2 px-4 ${
                               row.status === 'Pending'

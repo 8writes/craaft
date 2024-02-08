@@ -30,83 +30,129 @@ const Table = () => {
   const [page, setPage] = useState(0)
   const [loading, setIsLoading] = useState(false)
   const rowsPerPage = useMemo(() => 10, [])
-  const [tableData, setTableData] = useState([])
+  const [isDropdownOpen2, setIsDropdownOpen2] = useState(false)
+  const [selectedValue, setSelectedValue] = useState('Filter')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [normalData, setNormalData] = useState([])
+  const [searchData, setSearchData] = useState([])
 
   const store_name_id = session?.store_name_id
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true)
-        if (session) {
-          const response = await axios.get(
-            ` https://craaft.onrender.com/v1/api/fetch?store_name_id=${store_name_id}`
-          )
+  const toggleDropdown2 = () => setIsDropdownOpen2((prevState) => !prevState)
 
-          const { error, data } = response.data
+  const value2 = ['Filter', 'In Stock', 'Out Of Stock']
 
-          if (error) {
-            console.log(error)
-          }
+  const fetchData = async () => {
+    try {
+      setIsLoading(true)
+      if (session) {
+        const response = await axios.get(
+          `https://craaft.onrender.com/v1/api/fetch?store_name_id=${store_name_id}`
+        )
 
-          let idCounter = 0
+        const { error, data } = response.data
 
-          const formattedData = data.map((item) => ({
-            ...item,
-            sn: ++idCounter,
-            image: item.uploaded_image_urls,
-          }))
-
-          setTableData(formattedData)
+        if (error) {
+          console.log(error)
         }
-      } catch (error) {
-        console.error('Error fetching data:', error.message)
-      } finally {
-        setIsLoading(false)
+
+        let idCounter = 0
+
+        const formattedData = data.map((item) => ({
+          ...item,
+          sn: ++idCounter,
+          image: item.uploaded_image_urls,
+        }))
+
+        setNormalData(formattedData)
+
+        const dataToUse = formattedData.filter((item) =>
+          item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+
+        setSearchData(dataToUse)
       }
+    } catch (error) {
+      console.error('Error fetching data:', error.message)
+    } finally {
+      setIsLoading(false)
     }
-
-    fetchData()
-  }, [session])
-
-  const handlePrevPage = () => {
-    setPage((prevPage) => Math.max(prevPage - 1, 0))
   }
 
-  const handleNextPage = () => {
+  useEffect(() => {
+    fetchData(searchTerm)
+  }, [session, searchTerm])
+
+  const handleSearch = () => {
+    fetchData(searchTerm)
+  }
+
+  const dataToUse = useMemo(() => {
+    return searchTerm.length > 0
+      ? searchData
+      : normalData.filter((row) => {
+          if (selectedValue === 'Filter') {
+            return true
+          } else {
+            return row.stock.toLowerCase() === selectedValue.toLowerCase()
+          }
+        })
+  }, [searchTerm, selectedValue, normalData, searchData])
+
+  const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 0))
+  const handleNextPage = () =>
     setPage((prevPage) =>
-      Math.min(prevPage + 1, Math.ceil(data.length / rowsPerPage) - 1)
+      Math.min(prevPage + 1, Math.ceil(dataToUse.length / rowsPerPage) - 1)
     )
-  }
 
   return (
     <section className='font-noto'>
       <div className='Table-Header px-1'>
-        <div className='flex my-5 gap-1 justify-between items-center'>
+        <div className='flex my-5 gap-2 justify-between items-center'>
           <span className='flex w-full md:w-1/3 gap-2 border-b border-gray-500 '>
             <input
               type='text'
               className='outline-none bg-transparent font-semibold w-full text-base md:text-sm'
               placeholder='Search products'
-            />{' '}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <Image
               src={searchIcon}
               alt='Search icon'
               className='cursor-pointer'
               width={19}
               height={19}
+              onClick={handleSearch}
             />
           </span>
 
-          <div className='flex justify-end w-full md:w-1/3 gap-4 md:gap-5 items-center'>
-            {' '}
-            <button className='text-gray-600 font-semibold text-sm md:text-base'>
-              <FilterAltOutlinedIcon className='text-3xl md:text-2xl' />{' '}
-              <span className='hidden md:inline-block'>Filter</span>
-            </button>
+          <div className='flex justify-end w-full md:w-1/3 gap-2 md:gap-5 items-center'>
+            <span
+              onClick={toggleDropdown2}
+              className='text-gray-600 flex relative items-center w-36 cursor-pointer rounded-sm text-sm md:text-base'>
+              <FilterAltOutlinedIcon className='text-4xl md:text-2xl' />
+              <span className='inline-block text-gray-500 font-semibold'>
+                {selectedValue}
+              </span>
+              {isDropdownOpen2 && (
+                <div className='absolute z-20 left-0 right-0 top-8 rounded-b-md w-full shadow-md bg-white'>
+                  {value2.map((value, index) => (
+                    <p
+                      role='button'
+                      onClick={() => setSelectedValue(value)}
+                      key={index}
+                      className={` px-3 py-2 text-gray-500 text-xs hover:bg-gray-100 ${
+                        value === selectedValue ? 'bg-gray-100' : ''
+                      }`}>
+                      {value}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </span>
             <Link href='add-product'>
-              <button className='text-gray-600 font-semibold text-sm md:text-base'>
-                <AddCircleOutlineOutlinedIcon className='text-3xl md:text-2xl' />{' '}
+              <button className='flex gap-2 text-indigo-600 font-semibold text-sm md:text-base'>
+                <AddCircleOutlineOutlinedIcon className='text-4xl md:text-2xl' />
                 <span className='hidden md:inline-block'>Add product</span>
               </button>
             </Link>
@@ -139,7 +185,7 @@ const Table = () => {
               </tbody>
             ) : (
               <tbody className='bg-gray-100 font-semibold'>
-                {tableData
+                {dataToUse
                   .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
                   .map((row) => (
                     <tr key={row.sn} className='border-b-2'>
@@ -148,19 +194,17 @@ const Table = () => {
                           return (
                             <td
                               key={column.id}
-                              className='text-start text-sm p-4 text-gray-600 flex items-center'>
-                              <>
-                                <img
-                                  src={`${row.image[0]}`}
-                                  alt='Product Image'
-                                  style={{
-                                    width: '60px',
-                                    height: '50px',
-                                    borderRadius: '4px',
-                                  }}
-                                  loading='lazy'
-                                />
-                              </>
+                              className='text-start text-sm p-4 text-gray-600'>
+                              <img
+                                src={`${row.image[0]}`}
+                                alt='Product Image'
+                                style={{
+                                  width: '60px',
+                                  height: '50px',
+                                  borderRadius: '4px',
+                                }}
+                                loading='lazy'
+                              />
                             </td>
                           )
                         } else if (column.id === 'item') {
@@ -184,9 +228,9 @@ const Table = () => {
                           )
                         }
                       })}
-                      <td className='flex items-center py-4 text-xs'>
+                      <td className='flex items-center py-5 text-xs'>
                         <div
-                          className={`flex flex-1 w-32 md:w-fit items-center gap-2 py-2 px-4 ${
+                          className={`flex flex-1 w-32 my-auto md:w-fit items-center gap-2 py-2 px-4 ${
                             row.stock === 'Out Of Stock'
                               ? 'text-red-600'
                               : row.stock === 'In Stock'
@@ -204,7 +248,7 @@ const Table = () => {
             )}
           </table>
           {loading ||
-            (tableData.length === 0 && (
+            (dataToUse.length === 0 && (
               <div className='text-center my-10'>
                 <p className='flex justify-center font-semibold text-xl text-gray-600'>
                   No Data Available
@@ -214,7 +258,7 @@ const Table = () => {
         </div>
         <div className='pagination flex items-center justify-between text-gray-600 font-semibold  my-5'>
           <span className='text-sm px-2'>
-            {tableData.length} of {tableData.length} entries
+            {dataToUse.length} of {dataToUse.length} entries
           </span>
           <span className=' flex items-center border-2 rounded-sm text-sm px-1'>
             <button
@@ -225,12 +269,12 @@ const Table = () => {
             </button>
             <span className='py-1 px-3 bg-indigo-300'>{page + 1}</span>
             <span className='py-1 px-3'>
-              {Math.ceil(tableData.length / rowsPerPage)}
+              {Math.ceil(dataToUse.length / rowsPerPage)}
             </span>
             <button
               className=' border-l-2 p-1'
               onClick={handleNextPage}
-              disabled={page === Math.ceil(tableData.length / rowsPerPage) - 1}>
+              disabled={page === Math.ceil(dataToUse.length / rowsPerPage) - 1}>
               Next
             </button>
           </span>
