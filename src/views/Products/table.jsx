@@ -152,7 +152,7 @@ const Table = () => {
             </span>
             <Link href='add-product'>
               <button className='flex gap-2 text-indigo-600 font-semibold text-sm md:text-base'>
-                <AddCircleOutlineOutlinedIcon className='text-4xl md:text-2xl' />
+                <AddCircleOutlineOutlinedIcon className='text-5xl md:text-2xl' />
                 <span className='hidden md:inline-block'>Add product</span>
               </button>
             </Link>
