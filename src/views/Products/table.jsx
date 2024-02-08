@@ -337,6 +337,12 @@ const Table = () => {
             <CloseOutlinedIcon />
           </button>
         </DialogTitle>
+        <span
+          className={`${
+            !isEditing ? 'hidden' : ''
+          }  text-indigo-600 text-xl px-7 font-semibold`}>
+          Editing Product
+        </span>{' '}
         <span className='overflow-x-hidden p-7'>
           {selectedRowData && (
             <>
@@ -444,11 +450,18 @@ const Table = () => {
         </span>
         <span className='flex overflow-hidden justify-between p-7'>
           <button
-            className='text-xl font-semibold text-red-600'
+            className={`${
+              !isEditing ? '' : 'hidden'
+            } text-xl font-semibold text-red-600`}
             onClick={handleDelete}>
             Delete
           </button>
 
+          <button
+            className='text-xl font-semibold text-indigo-600'
+            onClick={handleEdit}>
+            {isEditing ? 'Cancel' : 'Edit'}
+          </button>
           {isEditing && (
             <button
               className='text-xl font-semibold text-green-600'
@@ -456,11 +469,6 @@ const Table = () => {
               Save
             </button>
           )}
-          <button
-            className='text-xl font-semibold text-indigo-600'
-            onClick={handleEdit}>
-            {isEditing ? 'Cancel' : 'Edit'}
-          </button>
         </span>
       </Dialog>
     </section>
