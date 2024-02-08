@@ -17,6 +17,7 @@ import Link from 'next/link'
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import TrendingFlatOutlinedIcon from '@mui/icons-material/TrendingFlatOutlined'
 
 const columns = [
   { id: 'sn', label: 'S/N' },
@@ -45,20 +46,11 @@ const Table = () => {
   const [openDialog, setOpenDialog] = useState(false)
   const [selectedRowData, setSelectedRowData] = useState(null)
   const [isEditing, setEditing] = useState(false)
-  const [editedValues, setEditedValues] = useState({
-    stock: selectedRowData?.stock || 'In Stock',
-  })
+  const [editStock, setEditStock] = useState('')
+  const [editPrice, setEditPrice] = useState('')
 
   const handleEdit = () => {
     setEditing(!isEditing)
-  }
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setEditedValues({
-      ...editedValues,
-      [name]: value,
-    })
   }
 
   const handleOpenDialog = (rowData) => {
@@ -70,6 +62,7 @@ const Table = () => {
     setSelectedRowData(null)
     setEditing(false)
     setOpenDialog(false)
+    setEditStock('')
   }
 
   const handleDelete = () => {
@@ -367,50 +360,89 @@ const Table = () => {
                 Date Uploaded
                 <p className='text-sm font-semibold'>{selectedRowData?.date}</p>
               </div>
-              <div className='mt-5'>
+              <div className='grid mt-5'>
                 Price
                 <p className='text-xl font-bold text-gray-800'>
+                  ₦{selectedRowData?.price.toLocaleString('en-US')}
+                  <span
+                    className={`${
+                      !isEditing ? 'hidden' : ''
+                    }  text-gray-600 text-xl px-3`}>
+                    <TrendingFlatOutlinedIcon />
+                  </span>{' '}
+                  <span
+                    className={`text-xl font-bold text-gray-800 ${
+                      !isEditing ? 'hidden' : ''
+                    }  outline-none font-bold `}>
+                    ₦{editPrice.toLocaleString('en-US')}
+                  </span>
+                </p>
+                {isEditing && (
                   <input
-                    type='text'
-                    className={`${!isEditing ? '' : 'border px-2'}`}
+                    type='tel'
+                    className={`${
+                      !isEditing ? '' : 'outline-none border px-2'
+                    }`}
                     disabled={!isEditing}
-                    value={`₦${selectedRowData?.price.toLocaleString('en-US')}`}
+                    value={editPrice}
                     onChange={(e) => setEditPrice(e.target.value)}
                   />
-                </p>
+                )}
               </div>
               <div className='grid mt-5'>
                 Stock Count
-                <select
-                  id='editStock'
-                  name='stock'
-                  disabled={!isEditing}
-                  value={editedValues.stock}
-                  onChange={handleInputChange}
-                  className={`text-base outline-none ${
-                    !isEditing ? '' : 'cursor-pointer'
-                  } font-bold ${
-                    editedValues.stock === 'Low Stock'
+                <p
+                  className={`text-base outline-none font-bold ${
+                    selectedRowData.stock === 'Low Stock'
                       ? 'text-yellow-600'
-                      : editedValues.stock === 'In Stock'
+                      : selectedRowData.stock === 'In Stock'
                       ? 'text-green-600'
                       : 'text-red-600'
                   }`}>
-                  <option value='In Stock' className='text-green-600'>
-                    In Stock
-                  </option>
-                  <option value='Low Stock' className='text-yellow-600'>
-                    Low Stock
-                  </option>
-                  <option value='Out Of Stock' className='text-red-600'>
-                    Out Of Stock
-                  </option>
-                </select>
+                  {selectedRowData?.stock}
+                  <span
+                    className={`${
+                      !isEditing ? 'hidden' : ''
+                    }  text-gray-600 text-sm px-3`}>
+                    <TrendingFlatOutlinedIcon />
+                  </span>{' '}
+                  <span
+                    className={`text-base ${
+                      !isEditing ? 'hidden' : ''
+                    }  outline-none font-bold ${
+                      editStock === 'Low Stock'
+                        ? 'text-yellow-600'
+                        : editStock === 'In Stock'
+                        ? 'text-green-600'
+                        : 'text-red-600'
+                    }`}>
+                    {editStock}
+                  </span>
+                </p>
+                {isEditing && (
+                  <select
+                    disabled={!isEditing}
+                    value={editStock}
+                    className={`${
+                      !isEditing ? '' : 'mt-3 cursor-pointer border px-2'
+                    }`}
+                    onChange={(e) => setEditStock(e.target.value)}>
+                    <option value='In Stock' className='text-green-600'>
+                      In Stock
+                    </option>
+                    <option value='Low Stock' className='text-yellow-600'>
+                      Low Stock
+                    </option>
+                    <option value='Out Of Stock' className='text-red-600'>
+                      Out Of Stock
+                    </option>
+                  </select>
+                )}
               </div>
             </>
           )}
         </DialogContent>
-        <span className='flex justify-between p-7'>
+        <span className='flex overflow-hidden justify-between p-7'>
           <button
             className='text-xl font-semibold text-red-600'
             onClick={handleDelete}>
