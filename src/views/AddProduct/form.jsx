@@ -79,7 +79,7 @@ const ProductForm = () => {
                   <img
                     src={image.url}
                     alt={`Selected Image ${index + 1}`}
-                    className='my-auto w-20 h-20'
+                    className='my-auto w-24 h-24'
                   />
                 </div>
               ))}
