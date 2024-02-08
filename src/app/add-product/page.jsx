@@ -13,7 +13,7 @@ export default function AddProduct() {
       <div className='flex items-center gap-10 '>
         <Link href='products'>
           <p className='font-semibold text-4xl text-indigo-600'>
-            <ChevronLeftRoundedIcon className='' />
+            <ChevronLeftRoundedIcon />
           </p>
         </Link>
         <p className=' text-indigo-600 text-2xl font-semibold'>
