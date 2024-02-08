@@ -129,13 +129,11 @@ const Table = () => {
           <div className='flex justify-end w-full md:w-1/3 gap-2 md:gap-5 items-center'>
             <span
               onClick={toggleDropdown2}
-              className='text-indigo-600 flex relative items-center w-36 cursor-pointer rounded-sm text-xl md:text-base'>
-              <FilterAltOutlinedIcon className='text-2xl md:text-2xl' />
-              <span className='inline-block text-gray-500 font-semibold'>
-                {selectedValue}
-              </span>
+              className='text-indigo-600 font-semibold flex relative items-center cursor-pointer text-base'>
+              <FilterAltOutlinedIcon />
+              <span>{selectedValue}</span>
               {isDropdownOpen2 && (
-                <div className='absolute z-20 left-0 right-0 top-8 rounded-b-md w-full shadow-md bg-white'>
+                <div className='absolute z-20 left-0 right-0 w-32 top-8 rounded-b-md shadow-md bg-white'>
                   {value2.map((value, index) => (
                     <p
                       role='button'
@@ -151,9 +149,9 @@ const Table = () => {
               )}
             </span>
             <Link href='add-product'>
-              <button className='flex gap-2 text-indigo-600 font-semibold text-4xl md:text-base'>
-                <AddCircleOutlineOutlinedIcon />
-                <span className='hidden md:inline-block'>Add product</span>
+              <button className='flex gap-2 text-indigo-600 font-semibold text-base'>
+                <AddCircleOutlineOutlinedIcon />New
+                <span className='hidden md:inline-block'></span>
               </button>
             </Link>
           </div>

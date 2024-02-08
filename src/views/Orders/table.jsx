@@ -135,13 +135,13 @@ const Table = () => {
           <div className='flex gap-2 items-center'>
             <span
               onClick={toggleDropdown2}
-              className='text-indigo-600 flex text-xl md:text-base relative items-center w-32 cursor-pointer rounded-sm font-semibold'>
-              <FilterAltOutlinedIcon className='text-2xl' />{' '}
-              <span className='inline-block text-gray-500'>
+              className='text-indigo-600 flex text-base relative items-center cursor-pointer font-semibold'>
+              <FilterAltOutlinedIcon />
+              <span>
                 {selectedValue}
               </span>
               {isDropdownOpen2 && (
-                <div className='absolute z-20 left-0 right-0 top-8 rounded-b-md w-full shadow-md bg-white'>
+                <div className='absolute z-20 left-0 right-0 w-32 top-8 rounded-b-md shadow-md bg-white'>
                   {value2.map((value, index) => (
                     <p
                       role='button'
