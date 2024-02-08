@@ -12,7 +12,9 @@ export default function AddProduct() {
     <OverviewLayout>
       <div className='flex items-center gap-10 '>
         <Link href='products'>
-          <ChevronLeftRoundedIcon className='font-semibold text-6xl text-indigo-600' />
+          <span >
+            <ChevronLeftRoundedIcon className='font-semibold text-6xl text-indigo-600'/>
+          </span>
         </Link>
         <p className=' text-indigo-600 text-2xl font-semibold'>Add Product</p>
       </div>
