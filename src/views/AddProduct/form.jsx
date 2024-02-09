@@ -5,13 +5,14 @@ import { Dialog, DialogTitle, DialogContent } from '@mui/material'
 import ProductOptions from './product-dialogue'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 const ProductForm = () => {
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productUnit, setProductUnit] = useState('')
   const [productStock, setProductStock] = useState('')
+  const [productSize, setProductSize] = useState('')
+  const [productColor, setProductColor] = useState('')
   const [productDescription, setProductDescription] = useState('')
   const [isOptionsDialogOpen, setOptionsDialogOpen] = useState(false)
 
@@ -149,7 +150,7 @@ const ProductForm = () => {
               className='w-full p-2 outline-none border my-2 cursor-pointer'
               value={productUnit}
               onChange={(e) => setProductUnit(e.target.value)}>
-              <option value=''>Select unit</option>
+              <option value=''>Select Unit</option>
               <option value='kg'>Kilogram</option>
               <option value='pair'>Pair</option>
               <option value='yd'>Yard</option>
@@ -161,18 +162,41 @@ const ProductForm = () => {
             </select>
           </label>
         </div>
-        <div>
-          <button
-            className='w-full p-2 font-semibold text-gray-600 outline-none border my-2'
-            type='button'
-            onClick={handleOptionsButtonClick}
-            variant='contained'>
-            Add Product Details
-          </button>
-          <p className='flex items-center text-xs md:text-sm item-center text-gray-600 font-semibold'>
-            <InfoOutlinedIcon />
-            Add product colors, sizes and more.
-          </p>
+        <div className='flex gap-5'>
+          <label className='flex-1'>
+            <p className='text-sm font-semibold text-gray-600'>Size(s)</p>
+            <input
+              className='w-full uppercase outline-none border px-1  py-1 my-2 font-semibold'
+              type='text'
+              placeholder='e.g, 40,XL,64gb'
+              value={productSize}
+              onChange={(e) => {
+                const inputSizes = e.target.value
+                  .split(',')
+                  .map((item) => item.trim())
+                if (inputSizes.length <= 10) {
+                  setProductSize(inputSizes.map((size) => size.toUpperCase()))
+                }
+              }}
+            />
+          </label>
+          <label className='flex-1'>
+            <p className='text-sm font-semibold text-gray-600'>Color(s)</p>
+            <input
+              className='w-full uppercase outline-none border px-1  py-1 my-2 font-semibold'
+              type='text'
+              placeholder='e.g, RED,BLUE,GREEN'
+              value={productColor}
+              onChange={(e) => {
+                const inputSizes = e.target.value
+                  .split(',')
+                  .map((item) => item.trim())
+                if (inputSizes.length <= 10) {
+                  setProductColor(inputSizes.map((size) => size.toUpperCase()))
+                }
+              }}
+            />
+          </label>
         </div>
         <button
           className='bg-green-800 rounded-sm font-semibold my-4 hover:bg-green-600 p-2 text-white'

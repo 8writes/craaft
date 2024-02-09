@@ -6,12 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import searchIcon from '../../../public/searchIcon.svg'
 import axios from 'axios'
 import { useDataContext } from '@/context/dataContext'
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from '@mui/material'
+import { Dialog, DialogTitle } from '@mui/material'
 import { Skeleton } from '@mui/material'
 import Link from 'next/link'
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
@@ -36,7 +31,7 @@ const columns = [
 const Table = () => {
   const session = useDataContext()
   const [page, setPage] = useState(0)
-  const [loading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const rowsPerPage = useMemo(() => 10, [])
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false)
   const [selectedValue, setSelectedValue] = useState('Filter')
@@ -47,14 +42,15 @@ const Table = () => {
   const [selectedRowData, setSelectedRowData] = useState(null)
   const [isEditing, setEditing] = useState(false)
   const [editStock, setEditStock] = useState('')
+  const [editName, setEditName] = useState('')
   const [editPrice, setEditPrice] = useState('')
-
-  const handleEdit = () => {
-    setEditing(!isEditing)
-  }
+  const [editSize, setEditSize] = useState([])
+  const [editColor, setEditColor] = useState([])
+  const [editProductId, setEditProductId] = useState(null)
 
   const handleOpenDialog = (rowData) => {
     setSelectedRowData(rowData)
+    setEditProductId(rowData.id)
     setOpenDialog(true)
   }
 
@@ -62,15 +58,17 @@ const Table = () => {
     setSelectedRowData(null)
     setEditing(false)
     setOpenDialog(false)
-    setEditStock('')
+    setEditProductId('')
     setEditPrice('')
+    setEditStock('')
+    setEditName('')
+    setEditColor('')
+    setEditSize('')
   }
 
-  const handleDelete = () => {
-    handleCloseDialog()
-  }
-
+  const user_id = session?.id
   const store_name_id = session?.store_name_id
+  const store_bucket_id = session?.store_bucket_id
 
   const toggleDropdown2 = () => setIsDropdownOpen2((prevState) => !prevState)
 
@@ -110,6 +108,91 @@ const Table = () => {
       console.error('Error fetching data:', error.message)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  // Handle editing
+  const handleEdit = (id, price, stock, name, color, size) => {
+    setEditProductId(id)
+    setEditPrice(price)
+    setEditStock(stock)
+    setEditName(name)
+    setEditColor(color)
+    setEditSize(size)
+    setEditing(!isEditing)
+  }
+
+  // Handle saving edit
+  const handleSaveEdit = async () => {
+    setIsLoading(true)
+
+    try {
+      const response = await axios.post(
+        ` http://localhost:3000/v1/api/update?store_name_id=${store_name_id}&user_id=${user_id}`,
+        {
+          editPrice,
+          editStock,
+          editSize,
+          editName,
+          editColor,
+          editProductId,
+        }
+      )
+
+      const { error } = response.data
+
+      if (error) {
+        console.log(error.message)
+      } else {
+        await fetchData()
+        handleCloseDialog()
+      }
+    } catch (error) {
+      console.error('Error updating data:', error.message)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Handle deleting product
+
+  const handleDelete = async (id) => {
+    try {
+      selectedRowData
+
+      await deleteImage(selectedRowData.image)
+
+      const response = await axios.post(
+        ` https://craft.onrender.com/v1/api/delete?store_name_id=${store_name_id}&id=${id}&user_id=${user_id}`
+      )
+
+      const { error } = response.data
+
+      if (error) {
+        console.log(error.message)
+      } else {
+        console.log('success')
+      }
+    } catch (error) {
+      console.log(error.message)
+    } finally {
+      fetchData()
+    }
+  }
+
+  const deleteImage = async (imageUrls) => {
+    try {
+      const response = await axios.post(
+        ` https://craft.onrender.com/v1/api/remove?store_bucket_id=${store_bucket_id}&modified_urls=${imageUrls}`
+      )
+
+      const { error } = response.data
+
+      if (error) {
+        console.log(error.message)
+      }
+    } catch (error) {
+      console.error('Error deleting images:', error.message)
     }
   }
 
@@ -163,7 +246,7 @@ const Table = () => {
           <div className='flex justify-end w-full gap-1 md:w-1/3 items-center'>
             <span
               onClick={toggleDropdown2}
-              className='text-indigo-600 font-semibold flex w-28 relative items-center cursor-pointer text-sm md:text-base'>
+              className='text-indigo-600 font-semibold flex w-28 md:w-32 relative items-center cursor-pointer text-sm md:text-base'>
               <FilterAltOutlinedIcon />
               <span>{selectedValue}</span>
               {isDropdownOpen2 && (
@@ -206,7 +289,7 @@ const Table = () => {
                 ))}
               </tr>
             </thead>
-            {loading ? (
+            {isLoading ? (
               <tbody className='bg-gray-100 font-semibold'>
                 <tr>
                   {columns.slice(0, -2).map((column) => (
@@ -223,7 +306,7 @@ const Table = () => {
                   .map((row) => (
                     <tr
                       key={row.sn}
-                      className='border-b-2 hover:bg-indigo-100 cursor-pointer'
+                      className='border-b-2 uppercase hover:bg-indigo-100 cursor-pointer'
                       onClick={() => handleOpenDialog(row)}>
                       {columns.slice(0, -2).map((column) => {
                         if (column.id === 'image' && row.image) {
@@ -286,7 +369,7 @@ const Table = () => {
               </tbody>
             )}
           </table>
-          {loading ||
+          {isLoading ||
             (dataToUse.length === 0 && (
               <div className='text-center my-10'>
                 <p className='flex justify-center font-semibold text-xl text-gray-600'>
@@ -331,7 +414,7 @@ const Table = () => {
             alignItems: 'center',
             gap: '10px',
           }}>
-          <p className='text-xl font-semibold text-indigo-700'>
+          <p className='text-xl uppercase font-semibold text-indigo-700'>
             {selectedRowData?.name}
           </p>
           <button className='text-gray-700' onClick={handleCloseDialog}>
@@ -363,40 +446,103 @@ const Table = () => {
                   />
                 ))}
               </div>
+              <div className='grid mt-5'>
+                Product Name
+                <p className='text-xl uppercase font-bold text-gray-800'>
+                  {selectedRowData?.name}
+                </p>
+                {isEditing && (
+                  <input
+                    type='text'
+                    className={`${
+                      !isEditing ? '' : 'uppercase outline-none border px-2'
+                    }`}
+                    disabled={!isEditing}
+                    placeholder='Input New Colors'
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
+                  />
+                )}
+              </div>
               <div className='mt-5'>
                 Date Uploaded
                 <p className='text-sm font-semibold'>{selectedRowData?.date}</p>
               </div>
-              <div className='grid mt-5'>
-                Price
-                <p className='text-xl font-bold text-gray-800'>
-                  ₦{selectedRowData?.price.toLocaleString('en-US')}
-                  <span
-                    className={`${
-                      !isEditing ? 'hidden' : ''
-                    }  text-gray-600 text-xl px-3`}>
-                    <TrendingFlatOutlinedIcon />
-                  </span>{' '}
-                  <span
-                    className={`text-xl font-bold text-gray-800 ${
-                      !isEditing ? 'hidden' : ''
-                    }  outline-none font-bold `}>
-                    ₦{editPrice.toLocaleString('en-US')}
-                  </span>
-                </p>
-                {isEditing && (
-                  <input
-                    type='tel'
-                    className={`${
-                      !isEditing ? '' : 'outline-none border px-2'
-                    }`}
-                    disabled={!isEditing}
-                    placeholder='Input New Price'
-                    value={editPrice}
-                    onChange={(e) => setEditPrice(e.target.value)}
-                  />
-                )}
+              <div className='flex gap-2 overflow-hidden flex-wrap justify-between'>
+                <div className='grid mt-5'>
+                  Price
+                  <p className='text-xl font-bold text-gray-800'>
+                    ₦{selectedRowData?.price.toLocaleString('en-US')}
+                  </p>
+                  {isEditing && (
+                    <input
+                      type='tel'
+                      className={`${
+                        !isEditing ? '' : 'uppercase outline-none border px-2'
+                      }`}
+                      disabled={!isEditing}
+                      placeholder='Input New Price'
+                      value={editPrice}
+                      onChange={(e) => setEditPrice(e.target.value)}
+                    />
+                  )}
+                </div>
+                <div className='grid mt-5'>
+                  Sizes
+                  <p className='text-xl font-bold text-gray-800'>
+                    {selectedRowData?.size?.toLocaleString('en-US')}
+                  </p>
+                  {isEditing && (
+                    <input
+                      type='tel'
+                      className={`${
+                        !isEditing ? '' : 'outline-none uppercase border px-2'
+                      }`}
+                      disabled={!isEditing}
+                      value={editSize}
+                      placeholder='e.g., 40,XL,45'
+                      onChange={(e) => {
+                        const inputSizes = e.target.value
+                          .split(',')
+                          .map((item) => item.trim())
+                        if (inputSizes.length <= 10) {
+                          setEditSize(
+                            inputSizes.map((size) => size.toUpperCase())
+                          )
+                        }
+                      }}
+                    />
+                  )}
+                </div>
+                <div className='grid mt-5'>
+                  Colors
+                  <p className='text-xl font-bold text-gray-800'>
+                    {selectedRowData?.color?.toLocaleString('en-US')}
+                  </p>
+                  {isEditing && (
+                    <input
+                      type='text'
+                      className={`${
+                        !isEditing ? '' : 'uppercase outline-none border px-2'
+                      }`}
+                      disabled={!isEditing}
+                      placeholder='e.g., RED,BLACK,BLUE'
+                      value={editColor}
+                      onChange={(e) => {
+                        const inputSizes = e.target.value
+                          .split(',')
+                          .map((item) => item.trim())
+                        if (inputSizes.length <= 10) {
+                          setEditColor(
+                            inputSizes.map((size) => size.toUpperCase())
+                          )
+                        }
+                      }}
+                    />
+                  )}
+                </div>
               </div>
+
               <div className='grid mt-5'>
                 Stock Count
                 <p
@@ -435,7 +581,7 @@ const Table = () => {
                       !isEditing ? '' : 'mt-3 cursor-pointer border px-2'
                     }`}
                     onChange={(e) => setEditStock(e.target.value)}>
-                    <option value='' className='text-green-600'>
+                    <option value='' className='text-gray-600'>
                       Select Stock Update
                     </option>
                     <option value='In Stock' className='text-green-600'>
@@ -464,14 +610,23 @@ const Table = () => {
 
           <button
             className='text-xl font-semibold text-indigo-600'
-            onClick={handleEdit}>
+            onClick={() =>
+              handleEdit(
+                selectedRowData?.id,
+                selectedRowData?.price,
+                selectedRowData?.stock,
+                selectedRowData?.name,
+                selectedRowData?.color,
+                selectedRowData?.size
+              )
+            }>
             {isEditing ? 'Cancel' : 'Edit'}
           </button>
           {isEditing && (
             <button
               className='text-xl font-semibold text-green-600'
-              onClick={handleDelete}>
-              Save
+              onClick={handleSaveEdit}>
+              {isLoading ? 'Save...' : 'Save'}
             </button>
           )}
         </span>

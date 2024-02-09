@@ -42,11 +42,11 @@ const ProductOptions = () => {
       {options.map((option, index) => (
         <div key={index}>
           <label>
-            <p className='font-semibold text-xl text-indigo-600'>Detail Name</p>
+            <p className='font-semibold text-xl text-indigo-600'>Size</p>
             <input
               className='w-full uppercase outline-none border px-1  py-1 my-2 font-semibold'
               type='text'
-              placeholder='Size / Color / Storage '
+              placeholder='e.g., 40,XL,45'
               value={option.name}
               onChange={(e) => {
                 const updatedOptions = [...options]
