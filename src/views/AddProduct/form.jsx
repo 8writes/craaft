@@ -57,7 +57,6 @@ const ProductForm = () => {
 
   // Function to handle form data insertion
   const handleUploadForm = async () => {
-    
     setIsLoading(true)
 
     try {
@@ -91,7 +90,7 @@ const ProductForm = () => {
       }
 
       const response = await axios.post(
-        ` https://craft.onrender.com/v1/api/insert?store_name_id=${store_name_id}`,
+        ` https://craaft.onrender.com/v1/api/insert?store_name_id=${store_name_id}`,
         {
           withCredentials: true,
           formData,
@@ -129,7 +128,7 @@ const ProductForm = () => {
       formData.append('file', file)
 
       const response = await axios.post(
-        ` https://craft.onrender.com/v1/api/uploadfile?id=${user_id}&store_bucket_id=${store_bucket_id}`,
+        ` https://craaft.onrender.com/v1/api/uploadfile?id=${user_id}&store_bucket_id=${store_bucket_id}`,
         {
           withCredentials: true,
           formData,

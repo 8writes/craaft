@@ -129,7 +129,7 @@ const Table = () => {
 
     try {
       const response = await axios.post(
-        ` https://craft.onrender.com/v1/api/update?store_name_id=${store_name_id}&user_id=${user_id}`,
+        ` https://craaft.onrender.com/v1/api/update?store_name_id=${store_name_id}&user_id=${user_id}`,
         {
           withCredentials: true,
           editPrice,
@@ -165,7 +165,7 @@ const Table = () => {
       await deleteImage(selectedRowData.image)
 
       const response = await axios.post(
-        ` https://craft.onrender.com/v1/api/delete?store_name_id=${store_name_id}&id=${id}&user_id=${user_id}`,
+        ` https://craaft.onrender.com/v1/api/delete?store_name_id=${store_name_id}&id=${id}&user_id=${user_id}`,
         { withCredentials: true }
       )
 
@@ -186,7 +186,7 @@ const Table = () => {
   const deleteImage = async (imageUrls) => {
     try {
       const response = await axios.post(
-        ` https://craft.onrender.com/v1/api/remove?store_bucket_id=${store_bucket_id}&modified_urls=${imageUrls}`,
+        ` https://craaft.onrender.com/v1/api/remove?store_bucket_id=${store_bucket_id}&modified_urls=${imageUrls}`,
         { withCredentials: true }
       )
 
