@@ -5,6 +5,9 @@ import axios from 'axios'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined'
 import { useDataContext } from '@/context/dataContext'
+import { toast, Bounce } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
 const ProductForm = () => {
   const session = useDataContext()
@@ -103,11 +106,30 @@ const ProductForm = () => {
       const { error } = response.data
 
       if (error) {
-        console.log(error.message)
-
+        toast.error(error.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
         return null
       } else {
-        console.log('success')
+        toast.success('Uploaded Successfully!', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
 
         // clearForm()
         // window.location.reload(true)
@@ -139,7 +161,17 @@ const ProductForm = () => {
       const { error, url } = response.data
 
       if (error) {
-        console.log(error.message)
+        toast.error(error.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
         return null
       }
 
@@ -163,6 +195,7 @@ const ProductForm = () => {
 
   return (
     <div className='pt-10'>
+      <ToastContainer />
       <form className='grid bg-white rounded-md shadow-sm p-5 md:p-10 '>
         <p className='font-semibold text-gray-600'>Product Image(s)</p>
         <div className='flex flex-wrap gap-2 mt-2 mb-5'>

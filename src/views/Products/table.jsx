@@ -13,6 +13,9 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import TrendingFlatOutlinedIcon from '@mui/icons-material/TrendingFlatOutlined'
+import { toast, Bounce } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
 const columns = [
   { id: 'sn', label: 'S/N' },
@@ -74,6 +77,7 @@ const Table = () => {
 
   const value2 = ['Filter', 'In Stock', 'Low Stock', 'Out Of Stock']
 
+  // Fetch data
   const fetchData = async () => {
     try {
       setIsLoading(true)
@@ -86,24 +90,34 @@ const Table = () => {
         const { error, data } = response.data
 
         if (error) {
-          console.log(error)
+          toast.error('An error occurred.', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            transition: Bounce,
+          })
+        } else {
+          let idCounter = 0
+
+          const formattedData = data.map((item) => ({
+            ...item,
+            sn: ++idCounter,
+            image: item.uploaded_image_urls,
+          }))
+
+          setNormalData(formattedData)
+
+          const dataToUse = formattedData.filter((item) =>
+            item.name.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+
+          setSearchData(dataToUse)
         }
-
-        let idCounter = 0
-
-        const formattedData = data.map((item) => ({
-          ...item,
-          sn: ++idCounter,
-          image: item.uploaded_image_urls,
-        }))
-
-        setNormalData(formattedData)
-
-        const dataToUse = formattedData.filter((item) =>
-          item.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-
-        setSearchData(dataToUse)
       }
     } catch (error) {
       console.error('Error fetching data:', error.message)
@@ -144,8 +158,29 @@ const Table = () => {
       const { error } = response.data
 
       if (error) {
-        console.log(error.message)
+        toast.error(error.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
       } else {
+        toast.success('Update Successful!', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
         handleCloseDialog()
       }
     } catch (error) {
@@ -170,8 +205,29 @@ const Table = () => {
       const { error } = response.data
 
       if (error) {
-        console.log(error.message)
+        toast.error(error.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
       } else {
+        toast.success('Deleted Successfully!', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
         handleCloseDialog()
       }
     } catch (error) {
@@ -192,10 +248,20 @@ const Table = () => {
       const { error } = response.data
 
       if (error) {
-        console.log(error.message)
+        toast.success(error.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
       }
     } catch (error) {
-      console.error('Error deleting images:', error.message)
+      console.log(error.message)
     }
   }
 
@@ -227,6 +293,7 @@ const Table = () => {
 
   return (
     <section className='font-noto'>
+      <ToastContainer />
       <div className='Table-Header px-1'>
         <div className='flex my-5 gap-2 justify-between items-center'>
           <span className='flex w-full md:w-1/3 gap-2 border-b border-gray-500 '>
