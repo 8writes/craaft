@@ -261,7 +261,7 @@ const Table = () => {
         })
       }
     } catch (error) {
-     console.error('Error deleting images:', error.message)
+      console.error('Error deleting images:', error.message)
     }
   }
 

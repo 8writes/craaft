@@ -13,10 +13,8 @@ import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded'
 import AddBusinessRoundedIcon from '@mui/icons-material/AddBusinessRounded'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import logo from '../../../public/logo.svg'
-import Image from 'next/image'
 
-const VerticalNav = ({ isActive }) => {
+const VerticalNav = () => {
   const pathname = usePathname()
 
   const navigationItems = [
@@ -84,20 +82,9 @@ const VerticalNav = ({ isActive }) => {
   return (
     <div className={`w-screen h-fit md:w-fit bg-transparent`}>
       <section
-        className={`mt-6 lg:mt-16 md:pt-10 z-20 pb-40 shadow-lg shadow-gray-300/50 md:pb-1 bg-white transition-all ease-in-out lg:block text-gray-500 h-screen overflow-y-auto w-60`}>
+        style={{marginTop: '20px',}}
+        className={`lg:mt-16 pt-5 md:pt-10 z-20 pb-40 shadow-lg shadow-gray-300/50 md:pb-1 bg-white transition-all ease-in-out lg:block text-gray-500 h-screen overflow-y-auto w-60`}>
         <nav>
-          <section className='flex pt-7 pb-10 px-6 md:hidden'>
-            <Link href='overview'>
-              <Image
-                src={logo}
-                className='Logo h-fit'
-                alt='TransMonitor Logo'
-                width={100}
-                height={45}
-                loading='lazy'
-              />
-            </Link>
-          </section>
           {navigationItems.map((item, index) => (
             <div key={index}>
               {item.sectionTitle ? (

@@ -99,7 +99,7 @@ const HorizontalNav = () => {
       ref={navigationRef}
       className='fixed bg-white z-50 flex font-noto text-gray-500 justify-between w-full shadow-lg shadow-gray-300/20 px-3 2xl:px-10 py-3 items-center gap-5'>
       <div className='flex items-center gap-5'>
-        <div className='Mobile Navigation lg:hidden'>
+        <div className='Mobile Navigation flex items-center gap-4 lg:hidden'>
           <span onClick={handleActive}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -107,7 +107,7 @@ const HorizontalNav = () => {
               viewBox='0 0 24 24'
               strokeWidth='1.5'
               stroke='currentColor'
-              className='w-6 h-6'>
+              className='w-7 h-7'>
               <path
                 strokeLinecap='round'
                 strokeLinejoin='round'
@@ -126,6 +126,18 @@ const HorizontalNav = () => {
               </div>
             </div>
           </span>
+          <section className='inline-block md:hidden'>
+            <Link href='overview'>
+              <Image
+                src={logo}
+                className='Logo h-fit'
+                alt='TransMonitor Logo'
+                width={100}
+                height={45}
+                loading='lazy'
+              />
+            </Link>
+          </section>
         </div>
         <section className=' justify-between items-center gap-24 hidden md:inline-block'>
           <Link href='overview'>
