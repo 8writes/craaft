@@ -391,7 +391,7 @@ const Table = () => {
                       !isEditing ? '' : 'outline-none border px-2'
                     }`}
                     disabled={!isEditing}
-                    placeholder='Input Price'
+                    placeholder='Input New Price'
                     value={editPrice}
                     onChange={(e) => setEditPrice(e.target.value)}
                   />
@@ -413,7 +413,7 @@ const Table = () => {
                       !isEditing ? 'hidden' : ''
                     }  text-gray-600 text-sm px-3`}>
                     <TrendingFlatOutlinedIcon />
-                  </span>{' '}
+                  </span>
                   <span
                     className={`text-base ${
                       !isEditing ? 'hidden' : ''
@@ -439,13 +439,13 @@ const Table = () => {
                       Select Stock Update
                     </option>
                     <option value='In Stock' className='text-green-600'>
-                      In Stock
+                      In Stock (above 5)
                     </option>
                     <option value='Low Stock' className='text-yellow-600'>
-                      Low Stock
+                      Low Stock (below 5)
                     </option>
                     <option value='Out Of Stock' className='text-red-600'>
-                      Out Of Stock
+                      Out Of Stock (0)
                     </option>
                   </select>
                 )}
