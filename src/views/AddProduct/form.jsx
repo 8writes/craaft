@@ -1,6 +1,7 @@
 /** @format */
 
 import { useState } from 'react'
+import axios from 'axios'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined'
 import { useDataContext } from '@/context/dataContext'
@@ -30,7 +31,6 @@ const ProductForm = () => {
       newInput.multiple = true
       newInput.style.display = 'none'
       newInput.addEventListener('change', handleFilesSelected)
-
       document.body.appendChild(newInput)
       newInput.click()
     }
@@ -46,6 +46,7 @@ const ProductForm = () => {
       }))
       setSelectedImages((prevImages) => [...prevImages, ...newImages])
     }
+
     e.target.remove()
   }
 
@@ -56,7 +57,8 @@ const ProductForm = () => {
   }
 
   // Function to handle form data insertion
-  const handleUploadForm = async () => {
+  const handleUploadForm = async (e) => {
+    e.preventDefault()
     setIsLoading(true)
 
     try {
@@ -65,13 +67,14 @@ const ProductForm = () => {
 
       //Upload Images
       const ImgUrls = await Promise.all(
-        selectedImages.map((_, index) => uploadImage(index))
+        selectedImages.map((image) => uploadImage(image.file))
       )
 
-      // Check if ImgUrls is null
-      if (!ImgUrls) {
-        console.log('Error uploading image')
+      console.log('imgUrls', ImgUrls)
 
+      // Check if ImgUrls is null
+      if (!ImgUrls || ImgUrls.includes(null)) {
+        console.log('Error uploading image')
         return null
       }
 
@@ -106,8 +109,8 @@ const ProductForm = () => {
       } else {
         console.log('success')
 
-        clearForm()
-        window.location.reload(true)
+        // clearForm()
+        // window.location.reload(true)
       }
     } catch (error) {
       console.log(error.message)
@@ -116,10 +119,8 @@ const ProductForm = () => {
     }
   }
 
-  const uploadImage = async (index) => {
+  const uploadImage = async (file) => {
     try {
-      const file = selectedImages[index]
-
       if (!file) {
         return null
       }
@@ -129,25 +130,22 @@ const ProductForm = () => {
 
       const response = await axios.post(
         ` https://craaft.onrender.com/v1/api/uploadfile?id=${user_id}&store_bucket_id=${store_bucket_id}`,
+        formData,
         {
           withCredentials: true,
-          formData,
         }
       )
 
       const { error, url } = response.data
 
       if (error) {
-        setFailed(error.message)
-
+        console.log(error.message)
         return null
       }
 
       return url
     } catch (error) {
       console.error('An unexpected error occurred:', error.message)
-
-      return null
     }
   }
 

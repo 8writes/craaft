@@ -151,18 +151,16 @@ const Table = () => {
     } catch (error) {
       console.error('Error updating data:', error.message)
     } finally {
-      setIsLoading(false)
       fetchData()
+      setIsLoading(false)
     }
   }
 
   // Handle deleting product
-
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, image) => {
+    setIsLoading(true)
     try {
-      selectedRowData
-
-      await deleteImage(selectedRowData.image)
+      await deleteImage(image)
 
       const response = await axios.post(
         ` https://craaft.onrender.com/v1/api/delete?store_name_id=${store_name_id}&id=${id}&user_id=${user_id}`,
@@ -174,12 +172,13 @@ const Table = () => {
       if (error) {
         console.log(error.message)
       } else {
-        console.log('success')
+        handleCloseDialog()
       }
     } catch (error) {
       console.log(error.message)
     } finally {
       fetchData()
+      setIsLoading(false)
     }
   }
 
@@ -613,8 +612,10 @@ const Table = () => {
             className={`${
               !isEditing ? '' : 'hidden'
             } text-xl font-semibold text-red-600`}
-            onClick={handleDelete}>
-            Delete
+            onClick={() =>
+              handleDelete(selectedRowData?.id, selectedRowData?.image)
+            }>
+            {isLoading ? 'Deleting...' : 'Delete'}
           </button>
 
           <button
