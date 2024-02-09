@@ -79,7 +79,8 @@ const Table = () => {
       setIsLoading(true)
       if (session) {
         const response = await axios.get(
-          `https://craaft.onrender.com/v1/api/fetch?store_name_id=${store_name_id}`
+          `https://craaft.onrender.com/v1/api/fetch?store_name_id=${store_name_id}`,
+          { withCredentials: true }
         )
 
         const { error, data } = response.data
@@ -128,8 +129,9 @@ const Table = () => {
 
     try {
       const response = await axios.post(
-        ` http://localhost:3000/v1/api/update?store_name_id=${store_name_id}&user_id=${user_id}`,
+        ` https://craft.onrender.com/v1/api/update?store_name_id=${store_name_id}&user_id=${user_id}`,
         {
+          withCredentials: true,
           editPrice,
           editStock,
           editSize,
@@ -144,13 +146,13 @@ const Table = () => {
       if (error) {
         console.log(error.message)
       } else {
-        await fetchData()
         handleCloseDialog()
       }
     } catch (error) {
       console.error('Error updating data:', error.message)
     } finally {
       setIsLoading(false)
+      fetchData()
     }
   }
 
@@ -163,7 +165,8 @@ const Table = () => {
       await deleteImage(selectedRowData.image)
 
       const response = await axios.post(
-        ` https://craft.onrender.com/v1/api/delete?store_name_id=${store_name_id}&id=${id}&user_id=${user_id}`
+        ` https://craft.onrender.com/v1/api/delete?store_name_id=${store_name_id}&id=${id}&user_id=${user_id}`,
+        { withCredentials: true }
       )
 
       const { error } = response.data
@@ -183,7 +186,8 @@ const Table = () => {
   const deleteImage = async (imageUrls) => {
     try {
       const response = await axios.post(
-        ` https://craft.onrender.com/v1/api/remove?store_bucket_id=${store_bucket_id}&modified_urls=${imageUrls}`
+        ` https://craft.onrender.com/v1/api/remove?store_bucket_id=${store_bucket_id}&modified_urls=${imageUrls}`,
+        { withCredentials: true }
       )
 
       const { error } = response.data
@@ -461,6 +465,7 @@ const Table = () => {
                     placeholder='Input New Colors'
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
+                    required
                   />
                 )}
               </div>
@@ -484,6 +489,7 @@ const Table = () => {
                       placeholder='Input New Price'
                       value={editPrice}
                       onChange={(e) => setEditPrice(e.target.value)}
+                      required
                     />
                   )}
                 </div>
@@ -511,6 +517,7 @@ const Table = () => {
                           )
                         }
                       }}
+                      required
                     />
                   )}
                 </div>
@@ -538,6 +545,7 @@ const Table = () => {
                           )
                         }
                       }}
+                      required
                     />
                   )}
                 </div>
@@ -575,6 +583,7 @@ const Table = () => {
                 </p>
                 {isEditing && (
                   <select
+                    required
                     disabled={!isEditing}
                     value={editStock}
                     className={`${
@@ -625,6 +634,7 @@ const Table = () => {
           {isEditing && (
             <button
               className='text-xl font-semibold text-green-600'
+              type='submit'
               onClick={handleSaveEdit}>
               {isLoading ? 'Save...' : 'Save'}
             </button>

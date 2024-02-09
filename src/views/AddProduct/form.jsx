@@ -1,12 +1,13 @@
 /** @format */
 
 import { useState } from 'react'
-import { Dialog, DialogTitle, DialogContent } from '@mui/material'
-import ProductOptions from './product-dialogue'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined'
+import { useDataContext } from '@/context/dataContext'
 
 const ProductForm = () => {
+  const session = useDataContext()
+  const [isLoading, setIsLoading] = useState('')
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productUnit, setProductUnit] = useState('')
@@ -14,9 +15,12 @@ const ProductForm = () => {
   const [productSize, setProductSize] = useState('')
   const [productColor, setProductColor] = useState('')
   const [productDescription, setProductDescription] = useState('')
-  const [isOptionsDialogOpen, setOptionsDialogOpen] = useState(false)
-
   const [selectedImages, setSelectedImages] = useState([])
+
+  const user_id = session?.id
+  const email = session?.email
+  const store_name_id = session?.store_name_id
+  const store_bucket_id = session?.store_bucket_id
 
   const handleImageUpload = () => {
     if (selectedImages.length < 6) {
@@ -40,12 +44,8 @@ const ProductForm = () => {
         file,
         url: URL.createObjectURL(file),
       }))
-
-      // Update the state to store selected images
       setSelectedImages((prevImages) => [...prevImages, ...newImages])
     }
-
-    // Remove the dynamically created input to avoid reopening the dialog
     e.target.remove()
   }
 
@@ -55,12 +55,113 @@ const ProductForm = () => {
     setSelectedImages(updatedImages)
   }
 
-  const handleOptionsButtonClick = () => {
-    setOptionsDialogOpen(true)
+  // Function to handle form data insertion
+  const handleUploadForm = async () => {
+    
+    setIsLoading(true)
+
+    try {
+      const currentDate = new Date()
+      const date = currentDate.toISOString().split('T')[0]
+
+      //Upload Images
+      const ImgUrls = await Promise.all(
+        selectedImages.map((_, index) => uploadImage(index))
+      )
+
+      // Check if ImgUrls is null
+      if (!ImgUrls) {
+        console.log('Error uploading image')
+
+        return null
+      }
+
+      // Prepare an array to store individual data objects
+      const formData = {
+        user_id,
+        name: productName,
+        description: productDescription,
+        price: productPrice,
+        size: productSize,
+        email,
+        color: productColor,
+        stock: productStock,
+        date,
+        uploaded_image_urls: ImgUrls,
+      }
+
+      const response = await axios.post(
+        ` https://craft.onrender.com/v1/api/insert?store_name_id=${store_name_id}`,
+        {
+          withCredentials: true,
+          formData,
+        }
+      )
+
+      const { error } = response.data
+
+      if (error) {
+        console.log(error.message)
+
+        return null
+      } else {
+        console.log('success')
+
+        clearForm()
+        window.location.reload(true)
+      }
+    } catch (error) {
+      console.log(error.message)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const closeOptionsDialog = () => {
-    setOptionsDialogOpen(false)
+  const uploadImage = async (index) => {
+    try {
+      const file = selectedImages[index]
+
+      if (!file) {
+        return null
+      }
+
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await axios.post(
+        ` https://craft.onrender.com/v1/api/uploadfile?id=${user_id}&store_bucket_id=${store_bucket_id}`,
+        {
+          withCredentials: true,
+          formData,
+        }
+      )
+
+      const { error, url } = response.data
+
+      if (error) {
+        setFailed(error.message)
+
+        return null
+      }
+
+      return url
+    } catch (error) {
+      console.error('An unexpected error occurred:', error.message)
+
+      return null
+    }
+  }
+
+  // Function to clear form fields
+  const clearForm = () => {
+    setProductName('')
+    setProductDescription('')
+    setProductPrice('')
+    setProductStock('')
+    setProductUnit('')
+    setProductSize([])
+    setProductColor([])
+    setSelectedImages([])
   }
 
   return (
@@ -105,6 +206,7 @@ const ProductForm = () => {
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
             placeholder='Enter product name'
+            required
           />
         </label>
 
@@ -116,6 +218,7 @@ const ProductForm = () => {
             value={productPrice}
             onChange={(e) => setProductPrice(e.target.value)}
             placeholder='Enter price'
+            required
           />
         </label>
         <label>
@@ -135,6 +238,7 @@ const ProductForm = () => {
               Stock Quantity
             </p>
             <select
+              required
               className='w-full p-2 outline-none border my-2 cursor-pointer'
               value={productStock}
               onChange={(e) => setProductStock(e.target.value)}>
@@ -178,6 +282,7 @@ const ProductForm = () => {
                   setProductSize(inputSizes.map((size) => size.toUpperCase()))
                 }
               }}
+              required
             />
           </label>
           <label className='flex-1'>
@@ -195,38 +300,17 @@ const ProductForm = () => {
                   setProductColor(inputSizes.map((size) => size.toUpperCase()))
                 }
               }}
+              required
             />
           </label>
         </div>
         <button
-          className='bg-green-800 rounded-sm font-semibold my-4 hover:bg-green-600 p-2 text-white'
-          type='submit'>
-          Upload Product
+          className='bg-green-800 rounded-sm font-semibold my-4 hover:bg-green-700 p-2 text-white'
+          type='submit'
+          onClick={handleUploadForm}>
+          {isLoading ? 'Uploading...' : 'Upload Product'}
         </button>
       </form>
-      <Dialog
-        open={isOptionsDialogOpen}
-        onClose={closeOptionsDialog}
-        maxWidth='sm'
-        fullWidth>
-        <DialogTitle
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: '10px',
-          }}>
-          <p className='text-base font-semibold text-gray-600'>
-            Manage Product Details
-          </p>
-          <button className='text-gray-700' onClick={closeOptionsDialog}>
-            <CloseOutlinedIcon />
-          </button>
-        </DialogTitle>
-        <DialogContent>
-          <ProductOptions />
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }
