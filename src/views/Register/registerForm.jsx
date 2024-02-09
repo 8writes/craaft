@@ -204,7 +204,10 @@ const RegisterForm = () => {
               disabled={isLoading}
               type='text'
               value={storeName}
-              onChange={(e) => setStoreName(e.target.value)}
+              onChange={(e) => {
+                const inputValue = e.target.value.replace(/[^a-zA-Z]/g, '')
+                setStoreName(inputValue.toLowerCase())
+              }}
               className='w-full lowercase px-4 py-2 border rounded focus:outline-none focus:border-indigo-500'
               placeholder='Enter your store name'
             />
