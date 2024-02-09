@@ -231,7 +231,7 @@ const Table = () => {
         handleCloseDialog()
       }
     } catch (error) {
-      console.log(error.message)
+      console.error('Error deleting data:', error.message)
     } finally {
       fetchData()
       setIsLoading(false)
@@ -261,7 +261,7 @@ const Table = () => {
         })
       }
     } catch (error) {
-      console.log(error.message)
+     console.error('Error deleting images:', error.message)
     }
   }
 

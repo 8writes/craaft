@@ -131,11 +131,10 @@ const ProductForm = () => {
           transition: Bounce,
         })
 
-        // clearForm()
-        // window.location.reload(true)
+          clearForm()
       }
     } catch (error) {
-      console.log(error.message)
+      console.error('Error uploading data:', error.message)
     } finally {
       setIsLoading(false)
     }
@@ -177,7 +176,7 @@ const ProductForm = () => {
 
       return url
     } catch (error) {
-      console.error('An unexpected error occurred:', error.message)
+     console.error('Error uploading image:', error.message)
     }
   }
 
