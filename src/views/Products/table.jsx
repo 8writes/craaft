@@ -419,7 +419,7 @@ const Table = () => {
                       })}
                       <td className='flex items-center py-5 text-xs'>
                         <div
-                          className={`flex flex-1 w-32 my-auto md:w-fit items-center gap-2 py-2 px-4 ${
+                          className={`flex flex-1 w-36 my-auto md:w-fit items-center gap-2 py-2 px-4 ${
                             row.stock === 'Low Stock'
                               ? 'text-yellow-600'
                               : row.stock === 'In Stock'
@@ -566,7 +566,7 @@ const Table = () => {
                   </p>
                   {isEditing && (
                     <input
-                      type='tel'
+                      type='text'
                       className={`${
                         !isEditing ? '' : 'outline-none uppercase border px-2'
                       }`}
