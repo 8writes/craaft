@@ -1,15 +1,17 @@
 /** @format */
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import { useDataContext } from '@/context/dataContext'
 import Skeleton from '@mui/material/Skeleton'
+import axios from 'axios'
 
 const UserProfileForm = () => {
   const session = useDataContext()
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [isEditing, setEditing] = useState(false)
+  const [validity, setValidity] = useState(session?.plan_validity || 14)
 
   const firstName = session?.first_name
   const lastName = session?.last_name
@@ -17,6 +19,30 @@ const UserProfileForm = () => {
   const createdAt = session?.created_at
   const primaryEmail = session?.email
   const tel = session?.tel
+
+  useEffect(() => {
+    const countdownInterval = setInterval(() => {
+      setValidity((prevValidity) => (prevValidity > 0 ? prevValidity - 1 : 0))
+
+      updateDatabase(validity - 1)
+    }, 24 * 60 * 60 * 1000)
+
+    return () => clearInterval(countdownInterval)
+  }, [validity])
+
+  const updateDatabase = async (newValidity) => {
+    try {
+      const response = await axios.post(
+        `https://craaft.onrender.com/v1/api/update?store_name_id=${users}&user_id=${user_id}`,
+        {
+          withCredentials: true,
+          plan_validity: newValidity,
+        }
+      )
+    } catch (error) {
+      console.log('Error updating database:', error)
+    }
+  }
 
   const handleEditClick = () => {
     setEditing(!isEditing)
@@ -43,7 +69,7 @@ const UserProfileForm = () => {
                 animation='wave'
               />
             ) : (
-              <p className='md:flex-1 text-gray-700'>
+              <p className='md:flex-1 uppercase text-gray-700'>
                 {firstName} {lastName}
               </p>
             )}
@@ -135,11 +161,13 @@ const UserProfileForm = () => {
                 animation='wave'
               />
             ) : (
-              <p className='md:flex-1 text-gray-700'>{subscription}</p>
+              <p className='md:flex-1 uppercase text-gray-700'>
+                {subscription}
+              </p>
             )}
           </label>{' '}
           <label className='grid md:flex'>
-            <p className='md:flex-1 text-xl'>Expires</p>
+            <p className='md:flex-1 text-xl'>Expires in</p>
             {!session ? (
               <Skeleton
                 width={150}
@@ -148,7 +176,7 @@ const UserProfileForm = () => {
                 animation='wave'
               />
             ) : (
-              <p className='md:flex-1 text-gray-700'>23/2/2024</p>
+              <p className='md:flex-1 text-gray-700'>{validity} days</p>
             )}
           </label>
         </form>

@@ -90,7 +90,7 @@ const Intro = () => {
             <Skeleton width={100} height={40} animation='wave' />
           ) : (
             <Link href='#'>
-              <button className='grid text-base font-semibold hover:text-blue-700 text-blue-900 items-center'>
+              <button className='grid text-base cursor-not-allowed font-semibold hover:text-gray-300 text-gray-300 items-center'>
                 <AddBusinessRoundedIcon className='mx-auto' />
                 Subscription
               </button>
@@ -101,7 +101,7 @@ const Intro = () => {
             <Skeleton width={100} height={40} animation='wave' />
           ) : (
             <Link href='#'>
-              <button className='grid text-base font-semibold hover:text-yellow-500 text-yellow-600 items-center'>
+              <button className='grid text-base font-semibold cursor-not-allowed hover:text-gray-300 text-gray-300 items-center'>
                 <StoreRoundedIcon className='mx-auto' />
                 Manage Store
               </button>

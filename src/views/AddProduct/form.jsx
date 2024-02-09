@@ -8,6 +8,7 @@ import { useDataContext } from '@/context/dataContext'
 import { toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
+import Link from 'next/link'
 
 const ProductForm = () => {
   const session = useDataContext()
@@ -16,14 +17,22 @@ const ProductForm = () => {
   const [productPrice, setProductPrice] = useState('')
   const [productUnit, setProductUnit] = useState('')
   const [productStock, setProductStock] = useState('')
-  const [productSize, setProductSize] = useState('')
-  const [productColor, setProductColor] = useState('')
-  const [productDescription, setProductDescription] = useState('')
+  const [productSize, setProductSize] = useState([])
+  const [productColor, setProductColor] = useState([])
   const [selectedImages, setSelectedImages] = useState([])
+  const [productDescription, setProductDescription] = useState('')
+
+  const isDisabled =
+    !productName ||
+    selectedImages.length === 0 ||
+    !productPrice ||
+    productSize.length === 0 ||
+    !productStock
 
   const user_id = session?.id
   const email = session?.email
   const store_name_id = session?.store_name_id
+  const validity = session?.plan_validity || 0
   const store_bucket_id = session?.store_bucket_id
 
   const handleImageUpload = () => {
@@ -72,8 +81,6 @@ const ProductForm = () => {
       const ImgUrls = await Promise.all(
         selectedImages.map((image) => uploadImage(image.file))
       )
-
-      console.log('imgUrls', ImgUrls)
 
       // Check if ImgUrls is null
       if (!ImgUrls || ImgUrls.includes(null)) {
@@ -131,10 +138,20 @@ const ProductForm = () => {
           transition: Bounce,
         })
 
-          clearForm()
+        clearForm()
       }
     } catch (error) {
-      console.error('Error uploading data:', error.message)
+       toast.error('Invalid Price Input (only numbers allowed)', {
+         position: 'top-right',
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: 'light',
+         transition: Bounce,
+       })
     } finally {
       setIsLoading(false)
     }
@@ -176,7 +193,7 @@ const ProductForm = () => {
 
       return url
     } catch (error) {
-     console.error('Error uploading image:', error.message)
+      console.error('Error uploading image:', error.message)
     }
   }
 
@@ -208,7 +225,7 @@ const ProductForm = () => {
                     <CloseOutlinedIcon />
                   </span>
                   <img
-                    src={image.url}
+                    src={image?.url}
                     alt={`Selected Image ${index + 1}`}
                     className='my-auto w-20 h-20'
                   />
@@ -334,11 +351,27 @@ const ProductForm = () => {
           </label>
         </div>
         <button
-          className='bg-green-800 rounded-sm font-semibold my-4 hover:bg-green-700 p-2 text-white'
+          className={`
+          ${
+            validity === 0 || isDisabled
+              ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed'
+              : ''
+          } bg-green-800 rounded-sm font-semibold my-4 hover:bg-green-700 p-2 text-white`}
           type='submit'
+          disabled={validity === 0 || isDisabled}
           onClick={handleUploadForm}>
           {isLoading ? 'Uploading...' : 'Upload Product'}
         </button>
+        {validity === 0 && (
+          <div>
+            <p className='text-red-500 font-semibold text-center text-xl'>
+              Kindly Renew your subscription{' '}
+              <Link href='#' className=' underline'>
+                here
+              </Link>
+            </p>
+          </div>
+        )}
       </form>
     </div>
   )

@@ -83,7 +83,7 @@ const VerticalNav = () => {
     <div className={`w-screen h-fit md:w-fit bg-transparent`}>
       <section
         style={{marginTop: '20px',}}
-        className={`lg:mt-16 pt-5 md:pt-10 z-20 pb-40 shadow-lg shadow-gray-300/50 md:pb-1 bg-white transition-all ease-in-out lg:block text-gray-500 h-screen overflow-y-auto w-60`}>
+        className={`lg:mt-16 pt-5 md:pt-20 z-20 pb-40 shadow-lg shadow-gray-300/50 md:pb-1 bg-white transition-all ease-in-out lg:block text-gray-500 h-screen overflow-y-auto w-60`}>
         <nav>
           {navigationItems.map((item, index) => (
             <div key={index}>
