@@ -302,6 +302,7 @@ const ProductForm = () => {
               onChange={(e) => setProductUnit(e.target.value)}>
               <option value=''>Select Unit</option>
               <option value='kg'>Kilogram</option>
+              <option value='piece'>Piece</option>
               <option value='pair'>Pair</option>
               <option value='yd'>Yard</option>
               <option value='box'>Box</option>

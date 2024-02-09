@@ -33,7 +33,7 @@ const UserProfileForm = () => {
   const updateDatabase = async (newValidity) => {
     try {
       const response = await axios.post(
-        `https://craaft.onrender.com/v1/api/update?store_name_id=${users}&user_id=${user_id}`,
+        `https://craaft.onrender.com/v1/api/update?store_name_id=users&user_id=${user_id}`,
         {
           withCredentials: true,
           plan_validity: newValidity,
