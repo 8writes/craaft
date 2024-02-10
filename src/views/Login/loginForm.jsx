@@ -18,8 +18,8 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-    const isDisabled = !email || !password
-    
+  const isDisabled = !email || !password
+
   const handleLogin = async () => {
     setIsLoading(true)
     try {
@@ -66,31 +66,17 @@ const LoginForm = () => {
         }, 500)
       }
     } catch (error) {
-      if (error.response.status === 400) {
-        toast.error('Invalid Password!', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-        })
-      } else {
-        toast.error(error.message, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-        })
-      }
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     } finally {
       setIsLoading(false)
     }
