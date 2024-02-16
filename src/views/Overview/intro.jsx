@@ -35,13 +35,15 @@ const Intro = () => {
 
   return (
     <section className='grid gap-10'>
-      {!session ? (
-        <Skeleton width={150} height={50} animation='wave' />
-      ) : (
-        <p className='text-3xl px-4 md:text-4xl font-semibold text-gray-700'>
-          Hi, {firstName}
-        </p>
-      )}
+      <div className='px-4'>
+        {!session ? (
+          <Skeleton width={150} height={50} animation='wave' />
+        ) : (
+          <p className='text-3xl md:text-4xl font-semibold text-gray-700'>
+            Hi, {firstName}
+          </p>
+        )}
+      </div>
       <div className='bg-white flex justify-between rounded-md p-4 shadow-sm md:w-1/2'>
         {!session ? (
           <Skeleton width={200} animation='wave' />
