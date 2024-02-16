@@ -140,17 +140,17 @@ const ProductForm = () => {
         clearForm()
       }
     } catch (error) {
-       toast.error('Invalid Price Input (only numbers allowed)', {
-         position: 'top-right',
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: 'light',
-         transition: Bounce,
-       })
+      toast.error('Invalid Price Input (only numbers allowed)', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     } finally {
       setIsLoading(false)
     }
@@ -354,9 +354,9 @@ const ProductForm = () => {
           className={`
           ${
             validity === 0 || isDisabled
-              ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed'
-              : ''
-          } bg-green-800 rounded-sm font-semibold my-4 hover:bg-green-700 p-2 text-white`}
+              ? ' bg-gray-300 hover:bg-gray-300 cursor-not-allowed'
+              : 'bg-green-800 hover:bg-green-700'
+          } rounded-sm font-semibold my-4 p-2 text-white`}
           type='submit'
           disabled={validity === 0 || isDisabled}
           onClick={handleUploadForm}>
