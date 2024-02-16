@@ -22,7 +22,6 @@ const Intro = () => {
     document.body.appendChild(textField)
     textField.select()
     document.execCommand('copy')
-    document.body.removeChild(textField)
 
     setIsCopied(true)
 
