@@ -26,7 +26,6 @@ const ProductForm = () => {
     !productName ||
     selectedImages.length === 0 ||
     !productPrice ||
-    productSize.length === 0 ||
     !productStock
 
   const user_id = session?.id
