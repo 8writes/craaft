@@ -72,9 +72,9 @@ const Intro = () => {
         ) : (
           <p className='text-2xl font-bold text-indigo-700'>Quick Actions</p>
         )}
-        <div className='flex justify-between gap-1 md:gap-5 md:justify-start flex-wrap'>
+        <div className='flex justify-between px-5 md:px-0 gap-1 md:gap-5 md:justify-start flex-wrap'>
           {!session ? (
-            <Skeleton width={100} height={40} animation='wave' />
+            <Skeleton width={55} height={40} animation='wave' />
           ) : (
             <Link
               href='add-product'
@@ -87,7 +87,7 @@ const Intro = () => {
           )}
 
           {!session ? (
-            <Skeleton width={100} height={40} animation='wave' />
+            <Skeleton width={55} height={40} animation='wave' />
           ) : (
             <Link
               href='orders'
@@ -100,7 +100,7 @@ const Intro = () => {
           )}
 
           {!session ? (
-            <Skeleton width={100} height={40} animation='wave' />
+            <Skeleton width={55} height={40} animation='wave' />
           ) : (
             <Link
               href='#'
