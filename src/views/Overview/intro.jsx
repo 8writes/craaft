@@ -11,10 +11,16 @@ import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import Link from 'next/link'
 import { useDataContext } from '@/context/dataContext'
 import Skeleton from '@mui/material/Skeleton'
+import { toast, Bounce } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
 const Intro = () => {
   const session = useDataContext()
   const [isCopied, setIsCopied] = useState(false)
+
+  const firstName = session?.first_name
+  const storeName = session?.store_url
 
   const handleCopyLink = () => {
     const textField = document.createElement('textarea')
@@ -31,11 +37,35 @@ const Intro = () => {
     }, 2000)
   }
 
-  const firstName = session?.first_name
-  const storeName = session?.store_url
+  const handleShareClick = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: 'Visit my store',
+          text: 'Check out my store!',
+          url: `https://${storeName}`,
+        })
+      } else {
+        toast.error('Share not supported', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
+      }
+    } catch (error) {
+      console.error('Error sharing:', error)
+    }
+  }
 
   return (
     <section className='grid gap-10'>
+      <ToastContainer />
       <div className='px-4'>
         {!session ? (
           <Skeleton width={150} height={50} animation='wave' />
@@ -68,8 +98,17 @@ const Intro = () => {
           </p>
         )}
         <div className='flex gap-3'>
-          <EqualizerOutlinedIcon className='text-green-600 cursor-pointer' />
-          <ShareOutlinedIcon className='text-indigo-600 cursor-pointer' />
+          {!session ? (
+            <Skeleton width={100} height={50} animation='wave' />
+          ) : (
+            <>
+              <EqualizerOutlinedIcon className='text-green-600 cursor-pointer' />
+              <ShareOutlinedIcon
+                onClick={handleShareClick}
+                className='text-indigo-600 cursor-pointer'
+              />
+            </>
+          )}
         </div>
       </div>
       <div className='grid bg-white rounded-md md:w-1/2 p-4 shadow-sm  gap-5 md:px-4'>
