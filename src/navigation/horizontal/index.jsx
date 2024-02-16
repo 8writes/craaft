@@ -144,7 +144,7 @@ const HorizontalNav = () => {
             <Image
               src={logo}
               className='Logo h-fit'
-              alt='TransMonitor Logo'
+              alt='Craaft Logo'
               width={100}
               height={45}
               loading='lazy'

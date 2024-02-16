@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react'
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
-import AddBusinessRoundedIcon from '@mui/icons-material/AddBusinessRounded'
+import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded'
 import StoreRoundedIcon from '@mui/icons-material/StoreRounded'
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import Link from 'next/link'
 import { useDataContext } from '@/context/dataContext'
 import Skeleton from '@mui/material/Skeleton'
@@ -38,8 +39,8 @@ const Intro = () => {
         {!session ? (
           <Skeleton width={150} height={50} animation='wave' />
         ) : (
-          <p className='text-2xl font-semibold text-slate-600'>
-            Welcome, {firstName}
+          <p className='text-2xl my-2 font-semibold text-slate-600'>
+            Hi, {firstName}
           </p>
         )}
 
@@ -48,8 +49,7 @@ const Intro = () => {
         ) : (
           <p className='text-base lowercase font-semibold text-indigo-800'>
             <a href={`https://${storeName}`} target='_blank' rel='noreferrer'>
-              {storeName}
-              <ArrowOutwardRoundedIcon sx={{ width: '20px' }} />
+              <PublicOutlinedIcon /> {storeName}
             </a>
             <ContentCopyOutlinedIcon
               sx={{
@@ -70,39 +70,45 @@ const Intro = () => {
         {!session ? (
           <Skeleton width={150} height={50} animation='wave' />
         ) : (
-          <p className='text-2xl font-semibold text-indigo-600'>
-            Quick Actions
-          </p>
+          <p className='text-2xl font-bold text-indigo-700'>Quick Actions</p>
         )}
         <div className='flex justify-between gap-1 md:gap-5 md:justify-start flex-wrap'>
           {!session ? (
             <Skeleton width={100} height={40} animation='wave' />
           ) : (
-            <Link href='add-product'>
-              <button className='grid text-base font-semibold hover:text-green-500 text-green-600 items-center'>
-                <AddCircleOutlineIcon className='mx-auto' />
-                New Product
-              </button>
+            <Link
+              href='add-product'
+              className='grid hover:text-indigo-600 text-gray-700 items-center'>
+              <span className='mx-auto bg-gray-200 px-3 py-2 rounded-xl'>
+                <AddCircleOutlineIcon />
+              </span>
+              <button className=' text-sm font-semibold '>Add Product</button>
             </Link>
           )}
 
           {!session ? (
             <Skeleton width={100} height={40} animation='wave' />
           ) : (
-            <Link href='#'>
-              <button className='grid text-base cursor-not-allowed font-semibold hover:text-gray-300 text-gray-300 items-center'>
-                <AddBusinessRoundedIcon className='mx-auto' />
-                Subscription
-              </button>
+            <Link
+              href='orders'
+              className='grid  hover:text-indigo-600 text-gray-700  items-center'>
+              <span className='mx-auto bg-gray-200 px-3 py-2 rounded-xl'>
+                <ListAltRoundedIcon />
+              </span>
+              <button className=' text-sm font-semibold '>Orders</button>
             </Link>
           )}
 
           {!session ? (
             <Skeleton width={100} height={40} animation='wave' />
           ) : (
-            <Link href='#'>
-              <button className='grid text-base font-semibold cursor-not-allowed hover:text-gray-300 text-gray-300 items-center'>
-                <StoreRoundedIcon className='mx-auto' />
+            <Link
+              href='#'
+              className='grid cursor-not-allowed hover:text-gray-300 text-gray-300 items-center'>
+              <span className='mx-auto bg-gray-200 px-3 py-2 rounded-xl'>
+                <StoreRoundedIcon />
+              </span>
+              <button className='cursor-not-allowed text-sm font-semibold '>
                 Manage Store
               </button>
             </Link>
