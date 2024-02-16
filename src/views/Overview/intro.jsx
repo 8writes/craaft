@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import ControlPointDuplicateOutlinedIcon from '@mui/icons-material/ControlPointDuplicateOutlined'
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded'
+import EqualizerOutlinedIcon from '@mui/icons-material/EqualizerOutlined'
 import StoreRoundedIcon from '@mui/icons-material/StoreRounded'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import Link from 'next/link'
@@ -35,15 +36,14 @@ const Intro = () => {
 
   return (
     <section className='grid gap-10'>
-      <div className='bg-white rounded-lg p-4 shadow-sm md:w-1/2'>
-        {!session ? (
-          <Skeleton width={150} height={50} animation='wave' />
-        ) : (
-          <p className='text-2xl my-2 font-semibold text-slate-600'>
-            Hi, {firstName}
-          </p>
-        )}
-
+      {!session ? (
+        <Skeleton width={150} height={50} animation='wave' />
+      ) : (
+        <p className='text-3xl md:text-4xl font-semibold text-gray-700'>
+          Hi, {firstName}
+        </p>
+      )}
+      <div className='bg-white flex justify-between rounded-md p-4 shadow-sm md:w-1/2'>
         {!session ? (
           <Skeleton width={200} animation='wave' />
         ) : (
@@ -65,14 +65,18 @@ const Intro = () => {
             )}
           </p>
         )}
+        <div className='flex gap-3'>
+          <EqualizerOutlinedIcon className='text-green-600 cursor-pointer' />
+          <ShareOutlinedIcon className='text-indigo-600 cursor-pointer' />
+        </div>
       </div>
-      <div className='grid gap-5 md:px-4'>
+      <div className='grid bg-white rounded-md md:w-1/2 p-4 shadow-sm  gap-5 md:px-4'>
         {!session ? (
           <Skeleton width={150} height={50} animation='wave' />
         ) : (
           <p className='text-2xl font-bold text-indigo-700'>Quick Actions</p>
         )}
-        <div className='flex justify-between px-5 md:px-0 gap-1 md:gap-5 md:justify-start flex-wrap'>
+        <div className='flex justify-between px-2 md:gap-5 md:justify-start'>
           {!session ? (
             <Skeleton width={55} height={40} animation='wave' />
           ) : (
@@ -80,7 +84,7 @@ const Intro = () => {
               href='add-product'
               className='grid hover:text-indigo-600 text-gray-700 items-center'>
               <span className='mx-auto bg-gray-200 px-3 py-2 rounded-xl'>
-                <AddCircleOutlineIcon />
+                <ControlPointDuplicateOutlinedIcon />
               </span>
               <button className=' text-sm font-semibold '>Add Product</button>
             </Link>

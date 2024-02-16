@@ -6,10 +6,12 @@ import userImage from '../../../public/basic-info.png'
 import logo from '../../../public/logo.svg'
 import Link from 'next/link'
 import VerticalNav from '../vertical'
+import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded'
 import { useState, useEffect, useRef } from 'react'
 import { toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useDataContext } from '@/context/dataContext'
 import { Skeleton } from '@mui/material'
@@ -192,6 +194,17 @@ const HorizontalNav = () => {
             {showDropdown && (
               <div className='Dropdown mt-3 right-0 absolute w-48 bg-white border border-gray-200 rounded-b-md shadow-md'>
                 <ul className='py-2 text-gray-500 font-semibold'>
+                  {' '}
+                  <Link href='#'>
+                    <li className='flex gap-3 items-center px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
+                      <PersonOutlineRoundedIcon /> Profile
+                    </li>{' '}
+                  </Link>
+                  <Link href='#'>
+                    <li className='flex gap-3 items-center px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
+                      <SupportAgentRoundedIcon /> Support
+                    </li>{' '}
+                  </Link>
                   <li
                     onClick={handleLogout}
                     className='flex gap-3 items-center px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
