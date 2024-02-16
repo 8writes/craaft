@@ -38,7 +38,7 @@ const Intro = () => {
       {!session ? (
         <Skeleton width={150} height={50} animation='wave' />
       ) : (
-        <p className='text-3xl md:text-4xl font-semibold text-gray-700'>
+        <p className='text-3xl px-4 md:text-4xl font-semibold text-gray-700'>
           Hi, {firstName}
         </p>
       )}
