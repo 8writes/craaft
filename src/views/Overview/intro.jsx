@@ -71,7 +71,7 @@ const Intro = () => {
         {!session ? (
           <Skeleton width={150} height={50} animation='wave' />
         ) : (
-          <p className='text-3xl md:text-4xl font-semibold text-gray-700'>
+          <p className=' font-mono text-3xl md:text-4xl font-semibold text-gray-700'>
             Hi, {firstName}
           </p>
         )}
@@ -81,9 +81,10 @@ const Intro = () => {
           {!session ? (
             <Skeleton width={200} animation='wave' />
           ) : (
-            <p className='text-base lowercase font-semibold text-indigo-800'>
+            <p className='text-base font-mono lowercase font-semibold text-indigo-800'>
               <a href={`https://${storeName}`} target='_blank' rel='noreferrer'>
-                <PublicOutlinedIcon /> {storeName}
+                <PublicOutlinedIcon />
+                {storeName}
               </a>
               <ContentCopyOutlinedIcon
                 sx={{
@@ -164,7 +165,7 @@ const Intro = () => {
               <Skeleton width={55} height={40} animation='wave' />
             ) : (
               <Link
-                href='products'
+                href='products  '
                 className='grid  hover:text-indigo-600 text-gray-700  items-center'>
                 <span className='mx-auto bg-gray-200 px-3 py-2 rounded-xl'>
                   <CategoryRoundedIcon />

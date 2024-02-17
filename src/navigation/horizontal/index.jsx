@@ -176,7 +176,7 @@ const HorizontalNav = () => {
                 animation='wave'
               />
             ) : (
-              <p className='text-base font-semibold'>
+              <p className='text-base font-mono font-semibold'>
                 {lastName} .{firstLetterOfFirstName}
               </p>
             )}
