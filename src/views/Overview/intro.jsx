@@ -164,7 +164,7 @@ const Intro = () => {
               <Skeleton width={55} height={40} animation='wave' />
             ) : (
               <Link
-                href='orders'
+                href='products'
                 className='grid  hover:text-indigo-600 text-gray-700  items-center'>
                 <span className='mx-auto bg-gray-200 px-3 py-2 rounded-xl'>
                   <CategoryRoundedIcon />
