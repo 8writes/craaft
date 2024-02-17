@@ -10,6 +10,7 @@ import StoreRoundedIcon from '@mui/icons-material/StoreRounded'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import Link from 'next/link'
 import { useDataContext } from '@/context/dataContext'
+import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded'
 import Skeleton from '@mui/material/Skeleton'
 import { toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -118,7 +119,7 @@ const Intro = () => {
           ) : (
             <p className='text-2xl font-bold text-indigo-700'>Quick Actions</p>
           )}
-          <div className='flex justify-between px-2 md:gap-5 md:justify-start'>
+          <div className='flex flex-wrap gap-1 justify-between md:gap-5 md:justify-start'>
             {!session ? (
               <Skeleton width={55} height={40} animation='wave' />
             ) : (
@@ -157,6 +158,18 @@ const Intro = () => {
                 <button className='cursor-not-allowed text-sm font-semibold '>
                   Manage Store
                 </button>
+              </Link>
+            )}
+            {!session ? (
+              <Skeleton width={55} height={40} animation='wave' />
+            ) : (
+              <Link
+                href='orders'
+                className='grid  hover:text-indigo-600 text-gray-700  items-center'>
+                <span className='mx-auto bg-gray-200 px-3 py-2 rounded-xl'>
+                  <CategoryRoundedIcon />
+                </span>
+                <button className=' text-sm font-semibold '>Products</button>
               </Link>
             )}
           </div>
