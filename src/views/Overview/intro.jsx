@@ -72,7 +72,7 @@ const Intro = () => {
           <Skeleton width={150} height={50} animation='wave' />
         ) : (
           <p className=' text-3xl md:text-4xl font-semibold text-gray-700'>
-            Hi, {firstName}
+            Hi, <span className='font-mono'>{firstName}</span>
           </p>
         )}
       </div>
