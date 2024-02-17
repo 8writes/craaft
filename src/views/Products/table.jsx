@@ -236,7 +236,7 @@ const Table = () => {
         handleCloseDialog()
       }
     } catch (error) {
-       console.error('Error updating data:', error.message)
+      console.error('Error updating data:', error.message)
     }
   }
 
@@ -533,7 +533,7 @@ const Table = () => {
             alignItems: 'center',
             gap: '10px',
           }}>
-          <p className='text-2xl uppercase font-semibold text-indigo-700'>
+          <p className='text-2xl uppercase font-semibold text-indigo-800'>
             {selectedRowData?.name}
           </p>
 
@@ -543,16 +543,16 @@ const Table = () => {
         </DialogTitle>
         <p className='text-sm flex items-center px-6 uppercase font-semibold text-green-600'>
           {selectedRowData?.status === 'Published' ? (
-            <ThumbUpAltRoundedIcon />
+            <ThumbUpAltRoundedIcon className='text-xl' />
           ) : (
-            <UnpublishedRoundedIcon />
+            <UnpublishedRoundedIcon className='text-xl' />
           )}
           {selectedRowData?.status}
         </p>
         <div
           className={`${
             !isEditing ? 'hidden' : ''
-          }  text-indigo-600 text-base px-7 font-semibold`}>
+          }  text-indigo-800 uppercase text-base py-4 px-7 font-semibold`}>
           Editing Product
         </div>
         <span className='overflow-x-hidden p-7'>
@@ -742,7 +742,7 @@ const Table = () => {
             }>
             {isLoading ? 'Deleting...' : 'Delete'}
           </button>
-          
+
           <button
             className='text-xl font-semibold text-indigo-600'
             onClick={() =>
