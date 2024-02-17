@@ -71,7 +71,7 @@ const Intro = () => {
         {!session ? (
           <Skeleton width={150} height={50} animation='wave' />
         ) : (
-          <p className=' font-mono text-3xl md:text-4xl font-semibold text-gray-700'>
+          <p className=' text-3xl md:text-4xl font-semibold text-gray-700'>
             Hi, {firstName}
           </p>
         )}
@@ -82,8 +82,8 @@ const Intro = () => {
             <Skeleton width={200} animation='wave' />
           ) : (
             <p className='text-base font-mono lowercase font-semibold text-indigo-800'>
+              <PublicOutlinedIcon />{' '}
               <a href={`https://${storeName}`} target='_blank' rel='noreferrer'>
-                <PublicOutlinedIcon />
                 {storeName}
               </a>
               <ContentCopyOutlinedIcon
