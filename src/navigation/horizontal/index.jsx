@@ -195,7 +195,7 @@ const HorizontalNav = () => {
               <div className='Dropdown mt-3 right-0 absolute w-48 bg-white border border-gray-200 rounded-b-md shadow-md'>
                 <ul className='py-2 text-gray-500 font-semibold'>
                   {' '}
-                  <Link href='#'>
+                  <Link href='profile'>
                     <li className='flex gap-3 items-center px-4 py-2 cursor-pointer md:hover:bg-indigo-500 md:hover:text-white'>
                       <PersonOutlineRoundedIcon /> Profile
                     </li>{' '}
