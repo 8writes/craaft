@@ -98,6 +98,7 @@ const ProductForm = () => {
         color: productColor,
         stock: productStock,
         date,
+        status: 'Published',
         uploaded_image_urls: ImgUrls,
       }
 

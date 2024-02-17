@@ -11,8 +11,10 @@ import { Skeleton } from '@mui/material'
 import Link from 'next/link'
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import UnpublishedRoundedIcon from '@mui/icons-material/UnpublishedRounded'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import TrendingFlatOutlinedIcon from '@mui/icons-material/TrendingFlatOutlined'
+import ThumbUpAltRoundedIcon from '@mui/icons-material/ThumbUpAltRounded'
 import { toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
@@ -47,6 +49,7 @@ const Table = () => {
   const [editStock, setEditStock] = useState('')
   const [editName, setEditName] = useState('')
   const [editPrice, setEditPrice] = useState('')
+  const [editStatus, setEditStatus] = useState('')
   const [editSize, setEditSize] = useState([])
   const [editColor, setEditColor] = useState([])
   const [editProductId, setEditProductId] = useState(null)
@@ -66,6 +69,7 @@ const Table = () => {
     setEditStock('')
     setEditName('')
     setEditColor('')
+    setEditStatus('')
     setEditSize('')
   }
 
@@ -127,12 +131,13 @@ const Table = () => {
   }
 
   // Handle editing
-  const handleEdit = (id, price, stock, name, color, size) => {
+  const handleEdit = (id, price, stock, name, color, size, status) => {
     setEditProductId(id)
     setEditPrice(price)
     setEditStock(stock)
     setEditName(name)
     setEditColor(color)
+    setEditStatus(status)
     setEditSize(size)
     setEditing(!isEditing)
   }
@@ -151,6 +156,7 @@ const Table = () => {
           editSize,
           editName,
           editColor,
+          editStatus,
           editProductId,
         }
       )
@@ -188,6 +194,49 @@ const Table = () => {
     } finally {
       fetchData()
       setIsLoading(false)
+    }
+  }
+
+  const handleStatus = async () => {
+    try {
+      const response = await axios.post(
+        ` https://craaft.onrender.com/v1/api/update?store_name_id=${store_name_id}&user_id=${user_id}`,
+        {
+          withCredentials: true,
+          editStatus,
+        }
+      )
+
+      const { error } = response.data
+
+      if (error) {
+        toast.error(error.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
+      } else {
+        toast.success('Update Successful!', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
+        handleCloseDialog()
+      }
+    } catch (error) {
+       console.error('Error updating data:', error.message)
     }
   }
 
@@ -484,19 +533,28 @@ const Table = () => {
             alignItems: 'center',
             gap: '10px',
           }}>
-          <p className='text-xl uppercase font-semibold text-indigo-700'>
+          <p className='text-2xl uppercase font-semibold text-indigo-700'>
             {selectedRowData?.name}
           </p>
+
           <button className='text-gray-700' onClick={handleCloseDialog}>
             <CloseOutlinedIcon />
           </button>
         </DialogTitle>
-        <span
+        <p className='text-sm flex items-center px-6 uppercase font-semibold text-green-600'>
+          {selectedRowData?.status === 'Published' ? (
+            <ThumbUpAltRoundedIcon />
+          ) : (
+            <UnpublishedRoundedIcon />
+          )}
+          {selectedRowData?.status}
+        </p>
+        <div
           className={`${
             !isEditing ? 'hidden' : ''
           }  text-indigo-600 text-base px-7 font-semibold`}>
           Editing Product
-        </span>{' '}
+        </div>
         <span className='overflow-x-hidden p-7'>
           {selectedRowData && (
             <>
@@ -684,7 +742,7 @@ const Table = () => {
             }>
             {isLoading ? 'Deleting...' : 'Delete'}
           </button>
-
+          
           <button
             className='text-xl font-semibold text-indigo-600'
             onClick={() =>
@@ -699,6 +757,7 @@ const Table = () => {
             }>
             {isEditing ? 'Cancel' : 'Edit'}
           </button>
+
           {isEditing && (
             <button
               className='text-xl font-semibold text-green-600'
