@@ -177,7 +177,7 @@ const HorizontalNav = () => {
               />
             ) : (
               <p className='text-base font-mono font-semibold'>
-                {lastName} .{firstLetterOfFirstName}
+                {lastName} .{firstName}
               </p>
             )}
           </span>

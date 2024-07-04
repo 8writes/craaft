@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 export default function UserLayout({ children }) {
   const session = useDataContext()
 
-  useEffect(() => {
+ useEffect(() => {
     const session = localStorage.getItem('auth-token')
 
     if (!session) {

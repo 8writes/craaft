@@ -37,11 +37,6 @@ const VerticalNav = () => {
       path: '/orders',
     },
     {
-      icon: <StoreRoundedIcon />,
-      title: 'Manage Store',
-      path: '#',
-    },
-    {
       sectionTitle: 'Account',
     },
     {
@@ -55,11 +50,6 @@ const VerticalNav = () => {
       path: '/settings',
     },
     {
-      title: 'Subscription',
-      icon: <AddBusinessRoundedIcon />,
-      path: '#',
-    },
-    {
       sectionTitle: 'Customer Care',
     },
     {
@@ -67,11 +57,7 @@ const VerticalNav = () => {
       icon: <SupportAgentRoundedIcon />,
       path: '#',
     },
-    {
-      title: 'How To?',
-      icon: <QuizRoundedIcon />,
-      path: '#',
-    },
+   
     {
       title: 'About',
       icon: <InfoRoundedIcon />,

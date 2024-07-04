@@ -23,7 +23,8 @@ export const UserProvider = ({ children }) => {
             const sessionData = JSON.parse(session)
             const userSessionData = sessionData || null
             const response = await axios.get(
-              `https://craaft.onrender.com/v1/api/fetchuser?id=${userSessionData?.id}`
+              `https://craaft.onrender.com/v1/api/fetchuser?id=${userSessionData?.id}`,
+              { withCredentials: true }
             )
             const { error, data } = response.data
 

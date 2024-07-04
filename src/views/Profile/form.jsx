@@ -151,7 +151,7 @@ const UserProfileForm = () => {
               </>
             )}
           </div>
-          <label className='grid md:flex'>
+       {/**  <label className='grid md:flex'>
             <p className='md:flex-1 text-xl'>Subscription</p>
             {!session ? (
               <Skeleton
@@ -178,9 +178,9 @@ const UserProfileForm = () => {
             ) : (
               <p className='md:flex-1 text-gray-700'>{validity} days</p>
             )}
-          </label>
+          </label>*/}  
         </form>
-        <div className='flex justify-end'>
+       {/** <div className='flex justify-end'>
           {!session ? (
             <Skeleton width={160} height={60} animation='wave' />
           ) : (
@@ -188,7 +188,7 @@ const UserProfileForm = () => {
               <DeleteOutlineIcon /> Delete Account
             </button>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   )
